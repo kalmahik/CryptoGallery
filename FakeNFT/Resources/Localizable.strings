@@ -1,9 +1,74 @@
-"Tab.profile" = "Профиль";
-"Tab.catalog" = "Каталог";
-"Tab.basket" = "Корзина";
-"Tab.statistics" = "Статистика";
-"Catalog.openNft" = "Открыть Nft";
+// Error
 "Error.network" = "Произошла ошибка сети";
 "Error.unknown" = "Произошла неизвестная ошибка";
 "Error.repeat" = "Повторить";
 "Error.title" = "Ошибка";
+
+// Tab
+"Tab.profile" = "Профиль";
+"Tab.catalog" = "Каталог";
+"Tab.basket" = "Корзина";
+"Tab.statistics" = "Статистика";
+
+// Catalog
+"Catalog.openNft" = "Открыть Nft";
+"Catalog.sort.title" = "Сортировка";
+"Catalog.sort.close.button" = "Закрыть";
+"Catalog.sort.byName" = "По названию";
+"Catalog.sort.byQuantity" = "По количеству NFT";
+"Catalog.author" = "Автор коллекции";
+"Catalog.price" = "Цена";
+"Catalog.addBasket.button" = "Добавить в корзину";
+"Catalog.sellers.button" = "Перейти на сайт продавца";
+
+// Basket
+"Basket.price" = "Цена";
+"Basket.forPay.button" = "К оплате";
+"Basket.delete.object.allert" = "Вы уверены, что хотите\n удалить объект из корзины?";
+"Basket.delete.button.allert" = "Удалить";
+"Basket.back.button.allert" = "Вернуться";
+"Basket.title" = "Выберите способ оплаты";
+"Basket.agree.description" = "Совершая покупку, вы соглашаетесь с условиями";
+"Basket.user.agree" = "Пользовательского соглашения";
+"Basket.pay.button" = "Оплатить";
+"Basket.sort.title" = "Сортировка";
+"Basket.sort.byPrice" = "По цене";
+"Basket.sort.byRating" = "По рейтингу";
+"Basket.sort.byName" = "По названию";
+"Basket.sort.close.button" = "Закрыть";
+"Basket.success.placeholder" = "Успех! Оплата прошла,\n поздравляем с покупкой!";
+"Basket.back.button" = "Вернуться в каталог";
+"Basket.payError.alert" = "Не удалось произвести оплату";
+"Basket.cancel.button.allert" = "Отмена";
+"Basket.repeat.button.allert" = "Повторить";
+"Basket.empty.placeholder" = "Корзина пуста";
+
+// Profile
+"Profile.myNft" = "Мои NFT";
+"Profile.selectedNft" = "Избранные NFT";
+"Profile.aboutDev" = "О разработчике";
+"Profile.change.image" = "Сменить фото";
+"Profile.download.image" = "Загрузить изображение";
+"Profile.edit.name" = "Имя";
+"Profile.edit.description" = "Описание";
+"Profile.edit.website" = "Сайт";
+"Profile.fromAuthor" = "ОТ";
+"Profile.price" = "Цена";
+"Profile.sort.title" = "Сортировка";
+"Profile.sort.byPrice" = "По цене";
+"Profile.sort.byRating" = "По рейтингу";
+"Profile.sort.byName" = "По названию";
+"Profile.sort.close.button" = "Закрыть";
+"Profile.empty.myNft.placeholder" = "У вас еще нет NFT";
+"Profile.empty.selectedNft.placeholder" = "У вас еще нет избранных NFT";
+
+// Statistics
+"Stat.sort.title" = "Сортировка";
+"Stat.sort.close.button" = "Закрыть";
+"Stat.sort.byName" = "По названию";
+"Stat.sort.byRating" = "По рейтингу";
+"Stat.user.button" = "Перейти на сайт пользователя";
+"Stat.collectionNft" = "Коллекция NFT";
+"Stat.emptyData.alert" = "Не удалось получить данные";
+"Stat.cancel.button.allert" = "Отмена";
+"Stat.repeat.button.allert" = "Повторить";
