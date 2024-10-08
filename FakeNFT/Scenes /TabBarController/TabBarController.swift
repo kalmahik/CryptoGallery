@@ -5,25 +5,25 @@ final class TabBarController: UITabBarController {
     var servicesAssembly: ServicesAssembly!
 
     private let  profileTabBarItem = UITabBarItem(
-        title: NSLocalizedString("Tab.profile", comment: ""),
+        title: LocalizationKey.tabProfile.localized(),
         image: UIImage(systemName: "person.crop.circle.fill"),
         tag: 0
     )
     
     private let catalogTabBarItem = UITabBarItem(
-        title: NSLocalizedString("Tab.catalog", comment: ""),
+        title: LocalizationKey.tabCatalog.localized(),
         image: UIImage(systemName: "rectangle.stack.fill"),
         tag: 1
     )
     
     private let basketTabBarItem = UITabBarItem(
-        title: NSLocalizedString("Tab.basket", comment: ""), // TODO: change to correct icon
+        title: LocalizationKey.tabBasket.localized(), // TODO: change to correct icon
         image: UIImage(systemName: "trash"),
         tag: 2
     )
     
     private let statisticsTabBarItem = UITabBarItem(
-        title: NSLocalizedString("Tab.statistics", comment: ""),
+        title: LocalizationKey.tabStatistics.localized(),
         image: UIImage(systemName: "flag.2.crossed.fill"),
         tag: 3
     )
