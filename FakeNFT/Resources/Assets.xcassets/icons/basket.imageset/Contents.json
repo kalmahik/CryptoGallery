@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "No Active.svg",
+      "filename" : "basketDay.svg",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "No Active 1.svg",
+      "filename" : "basketNight.svg",
       "idiom" : "universal"
     }
   ],

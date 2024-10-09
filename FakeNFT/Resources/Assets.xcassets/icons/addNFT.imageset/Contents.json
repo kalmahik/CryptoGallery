@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Frame.svg",
+      "filename" : "addNFTday.svg",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "night.svg",
+      "filename" : "addNFTnight.svg",
       "idiom" : "universal"
     }
   ],
