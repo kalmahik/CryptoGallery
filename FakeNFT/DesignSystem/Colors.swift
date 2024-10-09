@@ -25,43 +25,49 @@ extension UIColor {
         )
     }
 
-    // Ниже приведены примеры цветов, настоящие цвета надо взять из фигмы
-
-    // Primary Colors
-    static let primary = UIColor(red: 0 / 255, green: 122 / 255, blue: 255 / 255, alpha: 1.0)
-
-    // Secondary Colors
-    static let secondary = UIColor(red: 255 / 255, green: 193 / 255, blue: 7 / 255, alpha: 1.0)
-
     // Background Colors
-    static let background = UIColor.white
+    static let background = UIColor { traits in
+        return traits.userInterfaceStyle == .dark ? .yaBlackUniversal : .yaWhileUniversal
+    }
 
     // Text Colors
-    static let textPrimary = UIColor.black
-    static let textSecondary = UIColor.gray
-    static let textOnPrimary = UIColor.white
-    static let textOnSecondary = UIColor.black
+    static let textPrimary: UIColor = .ypBlack
+    static let textSecondary: UIColor = .yaGreenUniversal
+    
+    // Base Colors
+    static let yaGrayUniversal = UIColor(hexString: "625C5C")
+    static let yaRedUniversal = UIColor(hexString: "F56B6C")
+    static let yaBackgroundUniversal = UIColor(hexString: "1A1B22")
+    static let yaGreenUniversal = UIColor(hexString: "1C9F00")
+    static let yaBlueUniversal = UIColor(hexString: "0A84FF")
+    static let yaBlackUniversal = UIColor(hexString: "1A1B22")
+    static let yaWhileUniversal = UIColor(hexString: "FFFFFF")
+    static let yaYellowUniversal = UIColor(hexString: "FEEF0D")
+    
+    private static let yaLightGreyDay = UIColor(hexString: "F7F7F8")
+    private static let yaLightGreyNight = UIColor(hexString: "2C2C2E")
 
-    private static let yaBlackLight = UIColor(hexString: "1A1B22")
-    private static let yaBlackDark = UIColor.white
-    private static let yaLightGrayLight = UIColor(hexString: "#F7F7F8")
-    private static let yaLightGrayDark = UIColor(hexString: "#2C2C2E")
-
+    static let ypWhite = UIColor { traits in
+        return traits.userInterfaceStyle == .dark ? .yaBlackUniversal : .yaWhileUniversal
+    }
+    
+    static let ypBlack = UIColor { traits in
+        return traits.userInterfaceStyle == .dark ? .yaWhileUniversal : .yaBlackUniversal
+    }
+    
+    static let yplightGrey = UIColor { traits in
+        return traits.userInterfaceStyle == .dark ? .yaLightGreyDay : .yaLightGreyNight
+    }
+    
     static let segmentActive = UIColor { traits in
-        return traits.userInterfaceStyle == .dark
-        ? .yaBlackDark
-        : .yaBlackLight
+        return traits.userInterfaceStyle == .dark ? .yaBlackUniversal : .yaWhileUniversal
     }
 
     static let segmentInactive = UIColor { traits in
-        return traits.userInterfaceStyle == .dark
-        ? .yaLightGrayDark
-        : .yaLightGrayLight
+        return traits.userInterfaceStyle == .dark ? .yaLightGreyDay : .yaLightGreyNight
     }
 
     static let closeButton = UIColor { traits in
-        return traits.userInterfaceStyle == .dark
-        ? .yaBlackDark
-        : .yaBlackLight
+        return traits.userInterfaceStyle == .dark ? .yaBlackUniversal : .yaWhileUniversal
     }
 }
