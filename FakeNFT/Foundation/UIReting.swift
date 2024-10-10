@@ -30,6 +30,7 @@ final class UIRating: UIView {
         return stackView
     }()
     
+    @available(*, unavailable)
     init(rating: Int) {
         super.init(frame: .zero)
         self.rating = rating
