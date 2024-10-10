@@ -17,8 +17,8 @@ final class TabBarController: UITabBarController {
     )
     
     private let basketTabBarItem = UITabBarItem(
-        title: LocalizationKey.tabBasket.localized(), // TODO: change to correct icon
-        image: UIImage(systemName: "trash"),
+        title: LocalizationKey.tabBasket.localized(),
+        image: UIImage(named: "basket"),
         tag: 2
     )
     
