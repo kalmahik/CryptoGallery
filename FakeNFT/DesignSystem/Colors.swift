@@ -33,19 +33,19 @@ extension UIColor {
     static let textSecondary: UIColor = .ypGreenUniversal
     
     // MARK: - Base Colors
-    static let ypGrayUniversal = UIColor(hexString: "625C5C")
-    static let ypRedUniversal = UIColor(hexString: "F56B6C")
-    static let ypBackgroundUniversal = UIColor(hexString: "1A1B22")
-    static let ypGreenUniversal = UIColor(hexString: "1C9F00")
-    static let ypBlueUniversal = UIColor(hexString: "0A84FF")
-    static let ypBlackUniversal = UIColor(hexString: "1A1B22")
-    static let ypWhiteUniversal = UIColor(hexString: "FFFFFF")
-    static let ypYellowUniversal = UIColor(hexString: "FEEF0D")
+    static let ypGrayUniversal = UIColor(hexString: "#625C5C")
+    static let ypRedUniversal = UIColor(hexString: "#F56B6C")
+    static let ypBackgroundUniversal = UIColor(hexString: "#1A1B22")
+    static let ypGreenUniversal = UIColor(hexString: "#1C9F00")
+    static let ypBlueUniversal = UIColor(hexString: "#0A84FF")
+    static let ypBlackUniversal = UIColor(hexString: "#1A1B22")
+    static let ypWhiteUniversal = UIColor(hexString: "#FFFFFF")
+    static let ypYellowUniversal = UIColor(hexString: "#FEEF0D")
     
     // MARK: - Base Colors Day/Night
     
-    private static let ypLightGreyDay = UIColor(hexString: "F7F7F8")
-    private static let ypLightGreyNight = UIColor(hexString: "2C2C2E")
+    private static let ypLightGreyDay = UIColor(hexString: "#F7F7F8")
+    private static let ypLightGreyNight = UIColor(hexString: "#2C2C2E")
 
     static let ypWhite = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhiteUniversal }
     
