@@ -21,7 +21,7 @@ final class UIRating: UIView {
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
             let image = UIImage(systemName: "star.fill")
-            imageView.tintColor = n <= rating ? .ypRedUniversal : .yplightGrey
+            imageView.tintColor = n <= rating ? .ypYellowUniversal : .yplightGrey
             imageView.image = image
             imageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
