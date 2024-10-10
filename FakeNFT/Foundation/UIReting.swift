@@ -30,7 +30,6 @@ final class UIRating: UIView {
         return stackView
     }()
     
-    @available(*, unavailable)
     init(rating: Int) {
         super.init(frame: .zero)
         self.rating = rating
@@ -38,6 +37,7 @@ final class UIRating: UIView {
         setupLayout()
     }
     
+    @available(*, unavailable)
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
