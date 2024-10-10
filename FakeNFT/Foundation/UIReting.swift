@@ -1,0 +1,56 @@
+//
+//  UIReting.swift
+//  FakeNFT
+//
+//  Created by Глеб Хамин on 10.10.2024.
+//
+
+import UIKit
+
+final class UIReting: UIView {
+    
+    private var rating: Int = 0
+    
+    private lazy var retingStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 2
+        
+        for n in 1...5 {
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            let image = UIImage(systemName: "star.fill")
+            imageView.tintColor = n <= rating ? .ypRedUniversal : .yplightGrey
+            imageView.image = image
+            imageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+            stackView.addArrangedSubview(imageView)
+        }
+        return stackView
+    }()
+    
+    init(rating: Int) {
+        super.init(frame: .zero)
+        self.rating = rating
+        translatesAutoresizingMaskIntoConstraints = false
+        setupLayout()
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupLayout() {
+        addSubview(retingStack)
+        
+        NSLayoutConstraint.activate([
+            retingStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+            retingStack.topAnchor.constraint(equalTo: topAnchor),
+            retingStack.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            heightAnchor.constraint(equalToConstant: 12),
+        ])
+    }
+
+}
