@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class UIReting: UIView {
+final class UIRating: UIView {
     
     private var rating: Int = 0
     
-    private lazy var retingStack: UIStackView = {
+    private lazy var ratingStack: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -42,12 +42,12 @@ final class UIReting: UIView {
     }
     
     private func setupLayout() {
-        addSubview(retingStack)
+        addSubview(ratingStack)
         
         NSLayoutConstraint.activate([
-            retingStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            retingStack.topAnchor.constraint(equalTo: topAnchor),
-            retingStack.bottomAnchor.constraint(equalTo: bottomAnchor),
+            ratingStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+            ratingStack.topAnchor.constraint(equalTo: topAnchor),
+            ratingStack.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             heightAnchor.constraint(equalToConstant: 12),
         ])
