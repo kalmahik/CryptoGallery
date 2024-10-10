@@ -1,5 +1,5 @@
 //
-//  UIReting.swift
+//  UIRating.swift
 //  FakeNFT
 //
 //  Created by Глеб Хамин on 10.10.2024.
