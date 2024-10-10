@@ -53,9 +53,9 @@ extension UIColor {
     
     static let yplightGrey = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyDay : .ypLightGreyNight }
     
-    static let ypsegmentActive = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhileUniversal }
+    static let ypSegmentActive = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhileUniversal }
 
-    static let ypsegmentInactive = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyDay : .ypLightGreyNight }
+    static let ypSegmentInactive = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyDay : .ypLightGreyNight }
 
-    static let ypcloseButton = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhileUniversal }
+    static let ypCloseButton = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhileUniversal }
 }
