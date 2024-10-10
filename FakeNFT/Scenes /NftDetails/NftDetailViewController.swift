@@ -1,5 +1,5 @@
-import UIKit
 import Kingfisher
+import UIKit
 
 protocol NftDetailView: AnyObject, ErrorView, LoadingView {
     func displayCells(_ cellModels: [NftDetailCellModel])
