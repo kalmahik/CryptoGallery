@@ -9,18 +9,9 @@ import UIKit
 
 final class UIRating: UIView {
 
-    private var rating: Int = 0
+    // MARK: - Private Properties
 
-    private func starImageConfigure(active: Bool) -> UIImageView {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        let image = UIImage(systemName: "star.fill")
-        imageView.image = image
-        imageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
-        imageView.tintColor = active ? .ypYellowUniversal : .yplightGrey
-        return imageView
-    }
+    private var rating: Int = 0
 
     private lazy var ratingStack: UIStackView = {
         let stackView = UIStackView()
@@ -35,6 +26,8 @@ final class UIRating: UIView {
         return stackView
     }()
 
+    // MARK: - Initializers
+
     init(rating: Int) {
         super.init(frame: .zero)
         self.rating = rating
@@ -46,6 +39,8 @@ final class UIRating: UIView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Private Methods
 
     private func setupLayout() {
         addSubview(ratingStack)
@@ -59,4 +54,14 @@ final class UIRating: UIView {
         ])
     }
 
+    private func starImageConfigure(active: Bool) -> UIImageView {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(systemName: "star.fill")
+        imageView.image = image
+        imageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        imageView.tintColor = active ? .ypYellowUniversal : .yplightGrey
+        return imageView
+    }
 }
