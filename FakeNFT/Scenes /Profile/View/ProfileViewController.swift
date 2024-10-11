@@ -30,6 +30,8 @@ final class ProfileViewController: UIViewController {
 
     private var presenter: ProfilePresenterProtocol?
     private let servicesAssembly: ServicesAssembly
+    private var websiteURL = ""
+    private let cellIdentifier = "CategoryCell"
 
     private lazy var editButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
@@ -52,9 +54,68 @@ final class ProfileViewController: UIViewController {
 
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.bold22
+        label.font = .bold22
         label.textColor = .ypBlack
         return label
+    }()
+
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .regular13
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        label.textAlignment = .left
+        label.textColor = .ypBlack
+        return label
+    }()
+
+    private lazy var websiteLabel: UILabel = {
+        let label = UILabel()
+        label.font = .regular15
+        label.textColor = .ypBlueUniversal
+        let action = UITapGestureRecognizer(
+            target: self,
+            action: #selector(tapToWebsite)
+        )
+        label.addGestureRecognizer(action)
+        label.isUserInteractionEnabled = true
+        return label
+    }()
+
+    private lazy var profileUserDataStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [profileUserImage, nameLabel])
+        stack.backgroundColor = .ypWhite
+        stack.axis = .horizontal
+        stack.spacing = 16
+        return stack
+    }()
+
+    private lazy var globalStack: UIStackView = {
+        let stack = UIStackView(
+            arrangedSubviews: [
+                profileUserDataStack,
+                descriptionLabel,
+                websiteLabel,
+                tableView
+            ]
+        )
+        stack.backgroundColor = .ypWhite
+        stack.axis = .vertical
+        stack.distribution = .fillProportionally
+        stack.spacing = 20
+        return stack
+    }()
+
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        tableView.allowsMultipleSelection = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
     }()
 
     init(servicesAssembly: ServicesAssembly) {
@@ -72,12 +133,38 @@ final class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .systemBackground
+        setupUI()
+    }
+
+    private func setupUI() {
+        view.addSubview(globalStack)
+        globalStack.constraintEdges(to: view)
     }
 
     @objc
-    private func tapEditButton() {
+    private func tapEditButton() {}
 
+    @objc
+    private func tapToWebsite() {
+        presenter?.didTapWebsite(url: websiteURL)
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension ProfileViewController: UITableViewDelegate {
+
+}
+
+// MARK: - UITableViewDataSource
+extension ProfileViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return CategoryCell.allCases.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as UITableViewCell
+        return cell
     }
 }
 
