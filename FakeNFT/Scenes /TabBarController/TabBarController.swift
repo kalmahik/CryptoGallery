@@ -9,19 +9,19 @@ final class TabBarController: UITabBarController {
         image: UIImage(systemName: "person.crop.circle.fill"),
         tag: 0
     )
-    
+
     private let catalogTabBarItem = UITabBarItem(
         title: LocalizationKey.tabCatalog.localized(),
         image: UIImage(systemName: "rectangle.stack.fill"),
         tag: 1
     )
-    
+
     private let basketTabBarItem = UITabBarItem(
         title: LocalizationKey.tabBasket.localized(),
         image: UIImage(named: "basket"),
         tag: 2
     )
-    
+
     private let statisticsTabBarItem = UITabBarItem(
         title: LocalizationKey.tabStatistics.localized(),
         image: UIImage(systemName: "flag.2.crossed.fill"),
