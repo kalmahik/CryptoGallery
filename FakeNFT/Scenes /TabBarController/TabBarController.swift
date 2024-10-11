@@ -41,6 +41,6 @@ final class TabBarController: UITabBarController {
         statisticsController.tabBarItem = statisticsTabBarItem
         viewControllers = [profileController, catalogController, basketController, statisticsController]
         view.backgroundColor = .systemBackground
-        tabBar.unselectedItemTintColor = .black // TODO: change to correct color
+        tabBar.unselectedItemTintColor = .ypBlack
     }
 }
