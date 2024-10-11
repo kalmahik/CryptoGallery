@@ -11,15 +11,16 @@ final class UIRating: UIView {
     
     private var rating: Int = 0
     
-    private lazy var starImage: UIImageView = {
+    private func starImageConfigure(active: Bool) -> UIImageView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         let image = UIImage(systemName: "star.fill")
         imageView.image = image
         imageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        imageView.tintColor = active ? .ypYellowUniversal : .yplightGrey
         return imageView
-    }()
+    }
     
     private lazy var ratingStack: UIStackView = {
         let stackView = UIStackView()
@@ -28,8 +29,7 @@ final class UIRating: UIView {
         stackView.spacing = 2
         
         for n in 1...5 {
-            let star = starImage
-            star.tintColor = n <= rating ? .ypYellowUniversal : .yplightGrey
+            let star = starImageConfigure(active: n <= rating)
             stackView.addArrangedSubview(star)
         }
         return stackView
