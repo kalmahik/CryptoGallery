@@ -21,7 +21,7 @@ final class BacketViewController: UIViewController {
 
     private lazy var customView: UIView = {
         let view = UIView()
-        view.backgroundColor = .yplightGrey
+        view.backgroundColor = .ypLightGrey
         view.layer.cornerRadius = 16
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return view
