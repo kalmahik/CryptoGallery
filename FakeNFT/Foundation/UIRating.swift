@@ -40,7 +40,7 @@ final class UIRating: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Private Methods
+    // MARK: - Setup
 
     private func setupLayout() {
         addSubview(ratingStack)
@@ -53,6 +53,8 @@ final class UIRating: UIView {
             heightAnchor.constraint(equalToConstant: 12)
         ])
     }
+
+    // MARK: - Private Methods
 
     private func starImageConfigure(active: Bool) -> UIImageView {
         let imageView = UIImageView()
