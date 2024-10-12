@@ -54,6 +54,8 @@
 		8406DDD02CBE48A00014BCE4 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDCF2CBE48A00014BCE4 /* UIViewController+Extension.swift */; };
 		DD4C4B902CB93BBF004D379F /* Mikheev.md in Resources */ = {isa = PBXBuildFile; fileRef = DD4C4B8F2CB93BBF004D379F /* Mikheev.md */; };
 		DD5360E42CBA7C1F00C60FEE /* BacketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */; };
+		DD5360E62CBABB3200C60FEE /* ExtensionBacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */; };
+		DD5360E82CBABBE900C60FEE /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E72CBABBE900C60FEE /* BasketTableViewCell.swift */; };
 		E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */; };
 		E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */; };
 		E1CD40DC2A96BECC00BE7FE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1CD40DB2A96BECC00BE7FE8 /* Localizable.strings */; };
@@ -128,6 +130,8 @@
 		8406DDCF2CBE48A00014BCE4 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DD4C4B8F2CB93BBF004D379F /* Mikheev.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Mikheev.md; sourceTree = "<group>"; };
 		DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BacketViewController.swift; sourceTree = "<group>"; };
+		DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionBacket.swift; sourceTree = "<group>"; };
+		DD5360E72CBABBE900C60FEE /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
 		E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E1CD40D82A96BE7D00BE7FE8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -383,8 +387,18 @@
 			isa = PBXGroup;
 			children = (
 				DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */,
+				DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */,
+				DD5360EB2CBAE4D800C60FEE /* BasketCell */,
 			);
 			path = Basket;
+			sourceTree = "<group>";
+		};
+		DD5360EB2CBAE4D800C60FEE /* BasketCell */ = {
+			isa = PBXGroup;
+			children = (
+				DD5360E72CBABBE900C60FEE /* BasketTableViewCell.swift */,
+			);
+			path = BasketCell;
 			sourceTree = "<group>";
 		};
 		E19CD5A92A98B55900CA39A5 /* Cell */ = {
@@ -587,6 +601,7 @@
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */,
 				0C79EE662A76DDFF00EE90EA /* NftDetailViewController.swift in Sources */,
+				DD5360E62CBABB3200C60FEE /* ExtensionBacket.swift in Sources */,
 				E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				0C79EE6A2A76DE1000EE90EA /* NftDetailAssembly.swift in Sources */,
@@ -597,7 +612,11 @@
 				F7B8703F2CB7E51700A8EB0E /* UIRating.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				0CFCB7402A78002A0009A829 /* ExamplePutService.swift in Sources */,
+<<<<<<< HEAD
 				8406DDD02CBE48A00014BCE4 /* UIViewController+Extension.swift in Sources */,
+=======
+				DD5360E82CBABBE900C60FEE /* BasketTableViewCell.swift in Sources */,
+>>>>>>> 317a77c (feat (basket 1-3) CGB-55 Creation of a table for ordered NFTs)
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				0CF2C2DB2A783C1B00FDC837 /* LoadingView.swift in Sources */,
 				24CD87CD2CBD875500886559 /* UIConstants.swift in Sources */,
