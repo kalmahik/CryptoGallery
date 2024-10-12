@@ -29,9 +29,7 @@ final class BacketViewController: UIViewController {
 
     private lazy var payButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(NSLocalizedString(
-            "Basket.forPay.button",
-            comment: "Кнопка для оплаты в корзине"), for: .normal)
+        button.setTitle(LocalizationKey.basketForPayButton.localized(), for: .normal)
         button.backgroundColor = .ypBlack
         button.setTitleColor(.ypWhite, for: .normal)
         button.titleLabel?.font = .bold17
