@@ -61,7 +61,7 @@ final class UIRating: UIView {
         imageView.image = image
         imageView.heightAnchor.constraint(equalToConstant: 12).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
-        imageView.tintColor = active ? .ypYellowUniversal : .yplightGrey
+        imageView.tintColor = active ? .ypYellowUniversal : .ypLightGrey
         return imageView
     }
 }

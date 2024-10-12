@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "addNftDay.svg",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "addNftNight.svg",
+      "filename" : "addNft.svg",
       "idiom" : "universal"
     }
   ],

@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "basketDay.svg",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "basketNight.svg",
+      "filename" : "basket.svg",
       "idiom" : "universal"
     }
   ],
