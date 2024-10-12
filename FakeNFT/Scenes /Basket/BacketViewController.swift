@@ -11,6 +11,8 @@ final class BacketViewController: UIViewController {
 
     // MARK: - Private Properties
 
+    private let payButtonTitle = LocalizationKey.basketForPayButton.localized()
+
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .system)
         let image = UIImage(named: "light")
@@ -23,18 +25,29 @@ final class BacketViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .ypLightGrey
         view.layer.cornerRadius = 16
+        view.heightAnchor.constraint(equalToConstant: 76).isActive = true
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return view
     }()
 
     private lazy var payButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(LocalizationKey.basketForPayButton.localized(), for: .normal)
+        button.setTitle(payButtonTitle, for: .normal)
         button.backgroundColor = .ypBlack
         button.setTitleColor(.ypWhite, for: .normal)
         button.titleLabel?.font = .bold17
         button.layer.cornerRadius = 16
+        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
         return button
+    }()
+
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [payButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 16
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
     }()
 
     // MARK: - Lifecycle
@@ -54,7 +67,7 @@ final class BacketViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        [payButton].forEach {
+        [stackView].forEach {
             customView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -65,15 +78,13 @@ final class BacketViewController: UIViewController {
             filterButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
             filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),
 
-            customView.heightAnchor.constraint(equalToConstant: 76),
             customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             customView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            payButton.heightAnchor.constraint(equalToConstant: 44),
-            payButton.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 16),
-            payButton.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -16),
-            payButton.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
+            stackView.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -16),
+            stackView.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
         ])
     }
 }
