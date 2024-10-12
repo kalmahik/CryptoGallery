@@ -9,6 +9,10 @@ import UIKit
 
 final class BacketViewController: UIViewController {
 
+    // MARK: - Identifier
+
+    static let cellIdentifier = "NFTCell"
+
     // MARK: - Private Properties
 
     private let payButtonTitle = LocalizationKey.basketForPayButton.localized()
@@ -19,6 +23,14 @@ final class BacketViewController: UIViewController {
         button.setImage(image, for: .normal)
         button.tintColor = .ypBlack
         return button
+    }()
+
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(NFTTableViewCell.self, forCellReuseIdentifier: BacketViewController.cellIdentifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
     }()
 
     private lazy var customView: UIView = {
@@ -88,7 +100,7 @@ final class BacketViewController: UIViewController {
     // MARK: - Setup
 
     private func setupUI() {
-        [customView, filterButton].forEach {
+        [filterButton, tableView, customView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -103,6 +115,11 @@ final class BacketViewController: UIViewController {
         NSLayoutConstraint.activate([
             filterButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
             filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),
+
+            tableView.topAnchor.constraint(equalTo: filterButton.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: customView.topAnchor),
 
             customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
