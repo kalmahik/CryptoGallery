@@ -32,7 +32,7 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
 
         let profileController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
-        let catalogController = TestCatalogViewController(servicesAssembly: servicesAssembly)
+        let catalogController = CatalogViewController(servicesAssembly: servicesAssembly)
         let basketController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
         let statisticsController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
         profileController.tabBarItem = profileTabBarItem
