@@ -11,6 +11,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
 
     // MARK: - Private Properties
 
+    private let priceTitle = LocalizationKey.price.localized()
     private var presenter: NFTCellPresenter?
 
     private lazy var nftImageView: UIImageView = {
@@ -36,7 +37,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
 
     private lazy var priceTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Цена"
+        label.text = priceTitle
         label.font = .regular13
         label.textColor = .ypBlack
         label.heightAnchor.constraint(equalToConstant: 18).isActive = true
@@ -129,8 +130,8 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
         nameRatingStackView.addArrangedSubview(ratingView)
     }
 
-    func displayNFTPrice(_ price: String) {
-        priceLabel.text = price
+    func displayNFTPrice(_ price: Double) {
+        priceLabel.text = "\(price)"
     }
 
     func displayNFTImage(_ image: UIImage?) {

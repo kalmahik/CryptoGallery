@@ -7,15 +7,15 @@
 
 import UIKit
 
-final class BacketViewController: UIViewController {
+final class BacketViewController: UIViewController, BacketViewProtocol {
 
     // MARK: - Identifier
 
     static let cellIdentifier = "NFTCell"
 
-    // MARK: - MockData Properties
+    // MARK: - Public Properties
 
-    var nftItems: [NFT] = MockData.nftItems
+    var presenter: BacketPresenter?
 
     // MARK: - Private Properties
 
@@ -49,7 +49,6 @@ final class BacketViewController: UIViewController {
 
     private lazy var nftCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "3 NFT"
         label.font = .regular15
         label.textColor = .ypBlack
         label.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -58,7 +57,6 @@ final class BacketViewController: UIViewController {
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "5,34 ETH"
         label.font = .bold17
         label.textColor = .ypGreenUniversal
         label.heightAnchor.constraint(equalToConstant: 22).isActive = true
@@ -100,6 +98,8 @@ final class BacketViewController: UIViewController {
         view.backgroundColor = .ypWhite
         setupUI()
         setupConstraints()
+        presenter = BacketPresenter(view: self)
+        presenter?.loadNFTData()
     }
 
     // MARK: - Setup
@@ -134,5 +134,13 @@ final class BacketViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -16),
             stackView.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
         ])
+    }
+
+    func updateNFTCountLabel(with count: Int) {
+        nftCountLabel.text = "\(count) NFT"
+    }
+
+    func updateTotalPriceLabel(with totalPrice: Double) {
+        priceLabel.text = String(format: "%.2f ETH", totalPrice)
     }
 }

@@ -14,7 +14,7 @@ extension BacketViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return nftItems.count
+        return presenter?.getNFTItemsCount() ?? 0
     }
 
     func tableView(
@@ -26,8 +26,9 @@ extension BacketViewController: UITableViewDataSource {
             for: indexPath) as? NFTTableViewCell else {
             return UITableViewCell()
         }
-        let nftItem = nftItems[indexPath.row]
-        cell.configure(with: nftItem)
+        if let nftItem = presenter?.getNFTItem(at: indexPath.row) {
+            cell.configure(with: nftItem)
+        }
         return cell
     }
 }

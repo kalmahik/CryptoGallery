@@ -9,8 +9,7 @@ import Foundation
 
 struct MockData {
     static let nftItems: [NFT] = [
-        NFT(name: "April", rating: 1, price: "1.78 ETH", imageName: "mock1"),
-        NFT(name: "Greena", rating: 3, price: "1.78 ETH", imageName: "mock2"),
-        NFT(name: "Spring", rating: 5, price: "1.78 ETH", imageName: "mock3")
-    ]
+        NFT(name: "April", rating: 1, price: 1.78, imageName: "mock1"),
+        NFT(name: "Greena", rating: 3, price: 1.78, imageName: "mock2"),
+        NFT(name: "Spring", rating: 5, price: 1.78, imageName: "mock3")]
 }

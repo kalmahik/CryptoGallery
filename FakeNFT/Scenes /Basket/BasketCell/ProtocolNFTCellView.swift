@@ -10,6 +10,6 @@ import UIKit
 protocol NFTCellView: AnyObject {
     func displayNFTName(_ name: String)
     func displayNFTRating(_ rating: Int)
-    func displayNFTPrice(_ price: String)
+    func displayNFTPrice(_ price: Double)
     func displayNFTImage(_ image: UIImage?)
 }
