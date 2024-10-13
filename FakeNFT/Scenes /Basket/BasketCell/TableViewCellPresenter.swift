@@ -9,13 +9,19 @@ import UIKit
 
 final class NFTCellPresenter {
 
+    // MARK: - Private Properties
+
     private weak var view: NFTCellView?
     private var nft: NFT
+
+    // MARK: - Initializers
 
     init(view: NFTCellView, nft: NFT) {
         self.view = view
         self.nft = nft
     }
+
+    // MARK: - Public Methods
 
     func loadNFTData() {
         view?.displayNFTName(nft.name)
