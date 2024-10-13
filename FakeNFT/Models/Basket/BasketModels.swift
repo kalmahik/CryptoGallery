@@ -10,6 +10,6 @@ import Foundation
 struct NFT {
     let name: String
     let rating: Int
-    let price: String
+    let price: Double
     let imageName: String
 }
