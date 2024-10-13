@@ -49,13 +49,20 @@
 		8406DDBB2CB64A580014BCE4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDBA2CB64A570014BCE4 /* Logger.swift */; };
 		8406DDC12CB7A5D10014BCE4 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8406DDC02CB7A5D00014BCE4 /* .swiftlint.yml */; };
 		8406DDC42CB866D00014BCE4 /* Azimov.md in Resources */ = {isa = PBXBuildFile; fileRef = 8406DDC32CB866D00014BCE4 /* Azimov.md */; };
+<<<<<<< HEAD
 		8406DDCC2CB8EA890014BCE4 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDCB2CB8EA890014BCE4 /* UIView+Extension.swift */; };
 		8406DDCE2CB8EAE40014BCE4 /* Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDCD2CB8EAE40014BCE4 /* Margins.swift */; };
 		8406DDD02CBE48A00014BCE4 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDCF2CBE48A00014BCE4 /* UIViewController+Extension.swift */; };
+=======
+		DD0FBBB32CBBAC3700538774 /* BasketModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBB22CBBAC3700538774 /* BasketModels.swift */; };
+		DD0FBBB62CBBAC8C00538774 /* ProtocolNFTCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBB52CBBAC8C00538774 /* ProtocolNFTCellView.swift */; };
+		DD0FBBB82CBBAD3D00538774 /* TableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBB72CBBAD3D00538774 /* TableViewCellPresenter.swift */; };
+		DD0FBBBC2CBBB3E300538774 /* BasketMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBBB2CBBB3E300538774 /* BasketMockData.swift */; };
+>>>>>>> 90b9528 (fix (basket 1-3) CGB-55 Rewrote the code according to the MVP architecture)
 		DD4C4B902CB93BBF004D379F /* Mikheev.md in Resources */ = {isa = PBXBuildFile; fileRef = DD4C4B8F2CB93BBF004D379F /* Mikheev.md */; };
 		DD5360E42CBA7C1F00C60FEE /* BacketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */; };
 		DD5360E62CBABB3200C60FEE /* ExtensionBacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */; };
-		DD5360E82CBABBE900C60FEE /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E72CBABBE900C60FEE /* BasketTableViewCell.swift */; };
+		DD5360E82CBABBE900C60FEE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E72CBABBE900C60FEE /* TableViewCell.swift */; };
 		E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */; };
 		E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */; };
 		E1CD40DC2A96BECC00BE7FE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1CD40DB2A96BECC00BE7FE8 /* Localizable.strings */; };
@@ -125,13 +132,20 @@
 		8406DDBA2CB64A570014BCE4 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		8406DDC02CB7A5D00014BCE4 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8406DDC32CB866D00014BCE4 /* Azimov.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Azimov.md; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		8406DDCB2CB8EA890014BCE4 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		8406DDCD2CB8EAE40014BCE4 /* Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margins.swift; sourceTree = "<group>"; };
 		8406DDCF2CBE48A00014BCE4 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+=======
+		DD0FBBB22CBBAC3700538774 /* BasketModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketModels.swift; sourceTree = "<group>"; };
+		DD0FBBB52CBBAC8C00538774 /* ProtocolNFTCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolNFTCellView.swift; sourceTree = "<group>"; };
+		DD0FBBB72CBBAD3D00538774 /* TableViewCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellPresenter.swift; sourceTree = "<group>"; };
+		DD0FBBBB2CBBB3E300538774 /* BasketMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketMockData.swift; sourceTree = "<group>"; };
+>>>>>>> 90b9528 (fix (basket 1-3) CGB-55 Rewrote the code according to the MVP architecture)
 		DD4C4B8F2CB93BBF004D379F /* Mikheev.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Mikheev.md; sourceTree = "<group>"; };
 		DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BacketViewController.swift; sourceTree = "<group>"; };
 		DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionBacket.swift; sourceTree = "<group>"; };
-		DD5360E72CBABBE900C60FEE /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
+		DD5360E72CBABBE900C60FEE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E1CD40D82A96BE7D00BE7FE8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -325,6 +339,7 @@
 		3F6806C929CBBCAF00B4F915 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DD0FBBB12CBBAC0F00538774 /* Basket */,
 				3F6806D829CC979D00B4F915 /* Network */,
 			);
 			path = Models;
@@ -383,6 +398,15 @@
 			path = Docs;
 			sourceTree = "<group>";
 		};
+		DD0FBBB12CBBAC0F00538774 /* Basket */ = {
+			isa = PBXGroup;
+			children = (
+				DD0FBBB22CBBAC3700538774 /* BasketModels.swift */,
+				DD0FBBBB2CBBB3E300538774 /* BasketMockData.swift */,
+			);
+			path = Basket;
+			sourceTree = "<group>";
+		};
 		DD5360E22CBA7C0400C60FEE /* Basket */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,7 +420,9 @@
 		DD5360EB2CBAE4D800C60FEE /* BasketCell */ = {
 			isa = PBXGroup;
 			children = (
-				DD5360E72CBABBE900C60FEE /* BasketTableViewCell.swift */,
+				DD5360E72CBABBE900C60FEE /* TableViewCell.swift */,
+				DD0FBBB72CBBAD3D00538774 /* TableViewCellPresenter.swift */,
+				DD0FBBB52CBBAC8C00538774 /* ProtocolNFTCellView.swift */,
 			);
 			path = BasketCell;
 			sourceTree = "<group>";
@@ -604,6 +630,7 @@
 				DD5360E62CBABB3200C60FEE /* ExtensionBacket.swift in Sources */,
 				E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
+				DD0FBBB62CBBAC8C00538774 /* ProtocolNFTCellView.swift in Sources */,
 				0C79EE6A2A76DE1000EE90EA /* NftDetailAssembly.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
 				0CFCB7422A78013E0009A829 /* Nft.swift in Sources */,
@@ -613,10 +640,14 @@
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				0CFCB7402A78002A0009A829 /* ExamplePutService.swift in Sources */,
 <<<<<<< HEAD
+<<<<<<< HEAD
 				8406DDD02CBE48A00014BCE4 /* UIViewController+Extension.swift in Sources */,
 =======
 				DD5360E82CBABBE900C60FEE /* BasketTableViewCell.swift in Sources */,
 >>>>>>> 317a77c (feat (basket 1-3) CGB-55 Creation of a table for ordered NFTs)
+=======
+				DD5360E82CBABBE900C60FEE /* TableViewCell.swift in Sources */,
+>>>>>>> 90b9528 (fix (basket 1-3) CGB-55 Rewrote the code according to the MVP architecture)
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				0CF2C2DB2A783C1B00FDC837 /* LoadingView.swift in Sources */,
 				24CD87CD2CBD875500886559 /* UIConstants.swift in Sources */,
@@ -625,16 +656,19 @@
 				8406DDCE2CB8EAE40014BCE4 /* Margins.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				0C79EE6C2A76DE2E00EE90EA /* ServicesAssemly.swift in Sources */,
+				DD0FBBB32CBBAC3700538774 /* BasketModels.swift in Sources */,
 				0CFCB74E2A7817DC0009A829 /* NftStorage.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExamplePutRequest.swift in Sources */,
 				0CFCB7462A78064B0009A829 /* NftDetailCellModel.swift in Sources */,
 				0CFCB74B2A780EA80009A829 /* UIView+Constraints.swift in Sources */,
+				DD0FBBBC2CBBB3E300538774 /* BasketMockData.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				0C79EE612A76DCD600EE90EA /* NftByIdRequest.swift in Sources */,
 				E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */,
 				0CF2C2E12A784C7000FDC837 /* LinePageControl.swift in Sources */,
 				8406DDCC2CB8EA890014BCE4 /* UIView+Extension.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
+				DD0FBBB82CBBAD3D00538774 /* TableViewCellPresenter.swift in Sources */,
 				DD5360E42CBA7C1F00C60FEE /* BacketViewController.swift in Sources */,
 				0CFCB7492A7808900009A829 /* TestCatalogController.swift in Sources */,
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,

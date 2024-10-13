@@ -1,5 +1,5 @@
 //
-//  BasketTableViewCell.swift
+//  TableViewCell.swift
 //  FakeNFT
 //
 //  Created by Вадим on 12.10.2024.
@@ -7,13 +7,14 @@
 
 import UIKit
 
-final class NFTTableViewCell: UITableViewCell {
+final class NFTTableViewCell: UITableViewCell, NFTCellView {
 
     // MARK: - Private Properties
 
+    private var presenter: NFTCellPresenter?
+
     private lazy var nftImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "mock")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 16
         imageView.clipsToBounds = true
@@ -22,7 +23,6 @@ final class NFTTableViewCell: UITableViewCell {
 
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "April"
         label.font = .bold17
         label.heightAnchor.constraint(equalToConstant: 22).isActive = true
         return label
@@ -45,7 +45,6 @@ final class NFTTableViewCell: UITableViewCell {
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "1,78 ETH"
         label.font = .bold17
         label.heightAnchor.constraint(equalToConstant: 22).isActive = true
         return label
@@ -56,8 +55,7 @@ final class NFTTableViewCell: UITableViewCell {
         let removeNftImage = UIImage(named: "removeNft")
         button.setImage(removeNftImage, for: .normal)
         button.tintColor = .ypBlack
-        button.widthAnchor.constraint(equalToConstant: 44).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -116,11 +114,27 @@ final class NFTTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configure(withRating rating: Int) {
+    func configure(with nft: NFT) {
+        presenter = NFTCellPresenter(view: self, nft: nft)
+        presenter?.loadNFTData()
+    }
+
+    func displayNFTName(_ name: String) {
+        nameLabel.text = name
+    }
+
+    func displayNFTRating(_ rating: Int) {
         ratingView.removeFromSuperview()
         ratingView = UIRating(rating: rating)
         nameRatingStackView.addArrangedSubview(ratingView)
-        setupConstraints()
+    }
+
+    func displayNFTPrice(_ price: String) {
+        priceLabel.text = price
+    }
+
+    func displayNFTImage(_ image: UIImage?) {
+        nftImageView.image = image
     }
 
     // MARK: - Setup
@@ -145,5 +159,11 @@ final class NFTTableViewCell: UITableViewCell {
             deleteButton.widthAnchor.constraint(equalToConstant: 44),
             deleteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
+    }
+
+    // MARK: - Actions
+
+    @objc private func deleteButtonTapped() {
+        presenter?.deleteNFT()
     }
 }
