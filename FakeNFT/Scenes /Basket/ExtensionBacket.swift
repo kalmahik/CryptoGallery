@@ -14,7 +14,7 @@ extension BacketViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return 1
+        return nftItems.count
     }
 
     func tableView(
@@ -26,8 +26,8 @@ extension BacketViewController: UITableViewDataSource {
             for: indexPath) as? NFTTableViewCell else {
             return UITableViewCell()
         }
-        let randomRating = Int.random(in: 1...5)
-        cell.configure(withRating: randomRating)
+        let nftItem = nftItems[indexPath.row]
+        cell.configure(with: nftItem)
         return cell
     }
 }

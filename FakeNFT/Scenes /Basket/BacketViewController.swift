@@ -13,6 +13,10 @@ final class BacketViewController: UIViewController {
 
     static let cellIdentifier = "NFTCell"
 
+    // MARK: - MockData Properties
+
+    var nftItems: [NFT] = MockData.nftItems
+
     // MARK: - Private Properties
 
     private let payButtonTitle = LocalizationKey.basketForPayButton.localized()
@@ -30,6 +34,7 @@ final class BacketViewController: UIViewController {
         tableView.register(NFTTableViewCell.self, forCellReuseIdentifier: BacketViewController.cellIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         return tableView
     }()
 
