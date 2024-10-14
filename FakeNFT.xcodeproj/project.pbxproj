@@ -33,6 +33,7 @@
 		24CD87C52CBD35B100886559 /* UserPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 24CD87C42CBD35B100886559 /* UserPic.png */; };
 		24CD87C72CBD47CB00886559 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87C62CBD47CB00886559 /* ProfileCell.swift */; };
 		24CD87C92CBD4AA800886559 /* ConfigureTableViewCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87C82CBD4AA800886559 /* ConfigureTableViewCellHelper.swift */; };
+		24CD87D32CBDA25900886559 /* UserProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87D22CBDA25900886559 /* UserProfileImageView.swift */; };
 		3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ECE29DB474E00F6D39E /* Colors.swift */; };
 		3F478ED129DB476500F6D39E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F478ED029DB476500F6D39E /* Fonts.swift */; };
 		3F603CCD29DB4A53000C43D7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 3F603CCC29DB4A53000C43D7 /* ProgressHUD */; };
@@ -105,6 +106,7 @@
 		24CD87C42CBD35B100886559 /* UserPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserPic.png; sourceTree = "<group>"; };
 		24CD87C62CBD47CB00886559 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		24CD87C82CBD4AA800886559 /* ConfigureTableViewCellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureTableViewCellHelper.swift; sourceTree = "<group>"; };
+		24CD87D22CBDA25900886559 /* UserProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileImageView.swift; sourceTree = "<group>"; };
 		3F478ECE29DB474E00F6D39E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3F478ED029DB476500F6D39E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3F68069329CBBAF100B4F915 /* FakeNFT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakeNFT.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -386,6 +388,7 @@
 				3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */,
 				0CFCB74A2A780EA80009A829 /* UIView+Constraints.swift */,
 				2499527A2CB513C000CB36F8 /* LocalizationKey.swift */,
+				24CD87D22CBDA25900886559 /* UserProfileImageView.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */,
 				0C79EE662A76DDFF00EE90EA /* NftDetailViewController.swift in Sources */,
+				24CD87D32CBDA25900886559 /* UserProfileImageView.swift in Sources */,
 				E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				0C79EE6A2A76DE1000EE90EA /* NftDetailAssembly.swift in Sources */,
