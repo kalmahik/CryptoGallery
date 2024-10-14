@@ -7,7 +7,6 @@
 
 import UIKit
 
-<<<<<<< HEAD
 final class BacketViewController: UIViewController, BacketViewProtocol {
 
     // MARK: - Identifier
@@ -17,9 +16,6 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     // MARK: - Public Properties
 
     var presenter: BacketPresenter?
-=======
-final class BacketViewController: UIViewController {
->>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
 
     // MARK: - Private Properties
 
@@ -33,7 +29,7 @@ final class BacketViewController: UIViewController {
         return button
     }()
 
-<<<<<<< HEAD
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(NFTTableViewCell.self, forCellReuseIdentifier: BacketViewController.cellIdentifier)
@@ -43,8 +39,6 @@ final class BacketViewController: UIViewController {
         return tableView
     }()
 
-=======
->>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
     private lazy var customView: UIView = {
         let view = UIView()
         view.backgroundColor = .ypLightGrey
@@ -54,9 +48,10 @@ final class BacketViewController: UIViewController {
         return view
     }()
 
-<<<<<<< HEAD
+
     private lazy var nftCountLabel: UILabel = {
         let label = UILabel()
+        label.text = "3 NFT"
         label.font = .regular15
         label.textColor = .ypBlack
         label.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -64,15 +59,13 @@ final class BacketViewController: UIViewController {
     }()
 
     private lazy var priceLabel: UILabel = {
-        let label = UILabel()
+        label.text = "5,34 ETH"
         label.font = .bold17
         label.textColor = .ypGreenUniversal
         label.heightAnchor.constraint(equalToConstant: 22).isActive = true
         return label
     }()
 
-=======
->>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
     private lazy var payButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(payButtonTitle, for: .normal)
@@ -84,7 +77,6 @@ final class BacketViewController: UIViewController {
         return button
     }()
 
-<<<<<<< HEAD
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nftCountLabel, priceLabel])
         stackView.axis = .vertical
@@ -97,12 +89,11 @@ final class BacketViewController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [labelsStackView, payButton])
         stackView.axis = .horizontal
         stackView.spacing = 24
-=======
+	    
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [payButton])
         stackView.axis = .horizontal
         stackView.spacing = 16
->>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
         stackView.alignment = .center
         stackView.distribution = .fill
         return stackView
@@ -115,21 +106,14 @@ final class BacketViewController: UIViewController {
         view.backgroundColor = .ypWhite
         setupUI()
         setupConstraints()
-<<<<<<< HEAD
         presenter = BacketPresenter(view: self)
         presenter?.loadNFTData()
-=======
->>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
     }
 
     // MARK: - Setup
 
     private func setupUI() {
-<<<<<<< HEAD
-        [filterButton, tableView, customView].forEach {
-=======
         [customView, filterButton].forEach {
->>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -145,14 +129,11 @@ final class BacketViewController: UIViewController {
             filterButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
             filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),
 
-<<<<<<< HEAD
             tableView.topAnchor.constraint(equalTo: filterButton.bottomAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: customView.topAnchor),
 
-=======
->>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
             customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             customView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -162,7 +143,6 @@ final class BacketViewController: UIViewController {
             stackView.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
         ])
     }
-<<<<<<< HEAD
 
     func updateNFTCountLabel(with count: Int) {
         nftCountLabel.text = "\(count) NFT"
@@ -171,6 +151,4 @@ final class BacketViewController: UIViewController {
     func updateTotalPriceLabel(with totalPrice: Double) {
         priceLabel.text = String(format: "%.2f ETH", totalPrice)
     }
-=======
->>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
 }
