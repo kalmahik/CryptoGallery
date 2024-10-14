@@ -30,6 +30,7 @@ final class BacketViewController: UIViewController {
         return view
     }()
 
+<<<<<<< HEAD
     private lazy var nftCountLabel: UILabel = {
         let label = UILabel()
         label.text = "3 NFT"
@@ -48,6 +49,8 @@ final class BacketViewController: UIViewController {
         return label
     }()
 
+=======
+>>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
     private lazy var payButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(payButtonTitle, for: .normal)
@@ -59,6 +62,7 @@ final class BacketViewController: UIViewController {
         return button
     }()
 
+<<<<<<< HEAD
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nftCountLabel, priceLabel])
         stackView.axis = .vertical
@@ -71,6 +75,12 @@ final class BacketViewController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [labelsStackView, payButton])
         stackView.axis = .horizontal
         stackView.spacing = 24
+=======
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [payButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 16
+>>>>>>> a65737ff5e1103856d28624b412cf159fdadd760
         stackView.alignment = .center
         stackView.distribution = .fill
         return stackView
