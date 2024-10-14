@@ -56,7 +56,11 @@ extension UIColor {
 
     static let ypBlack = UIColor { $0.userInterfaceStyle == .dark ? .ypWhiteUniversal : .ypBlackUniversal }
 
+<<<<<<< HEAD
     static let yplightGrey = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyNight : .ypLightGreyDay }
+=======
+    static let ypLightGrey = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyNight : .ypLightGreyDay }
+>>>>>>> 5b0b67a1150ff86ea39ce54da77935b1328e6811
 
     static let ypSegmentActive = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhiteUniversal }
 

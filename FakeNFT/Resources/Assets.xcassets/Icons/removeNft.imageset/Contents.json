@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+<<<<<<< HEAD
       "filename" : "removeNftDay.svg",
       "idiom" : "universal"
     },
@@ -12,6 +13,9 @@
         }
       ],
       "filename" : "removeNftNight.svg",
+=======
+      "filename" : "removeNft.svg",
+>>>>>>> 5b0b67a1150ff86ea39ce54da77935b1328e6811
       "idiom" : "universal"
     }
   ],
