@@ -1,0 +1,90 @@
+//
+//  BacketViewController.swift
+//  FakeNFT
+//
+//  Created by Вадим on 12.10.2024.
+//
+
+import UIKit
+
+final class BacketViewController: UIViewController {
+
+    // MARK: - Private Properties
+
+    private let payButtonTitle = LocalizationKey.basketForPayButton.localized()
+
+    private lazy var filterButton: UIButton = {
+        let button = UIButton(type: .system)
+        let image = UIImage(named: "light")
+        button.setImage(image, for: .normal)
+        button.tintColor = .ypBlack
+        return button
+    }()
+
+    private lazy var customView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .ypLightGrey
+        view.layer.cornerRadius = 16
+        view.heightAnchor.constraint(equalToConstant: 76).isActive = true
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        return view
+    }()
+
+    private lazy var payButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(payButtonTitle, for: .normal)
+        button.backgroundColor = .ypBlack
+        button.setTitleColor(.ypWhite, for: .normal)
+        button.titleLabel?.font = .bold17
+        button.layer.cornerRadius = 16
+        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        return button
+    }()
+
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [payButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 16
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
+    }()
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .ypWhite
+        setupUI()
+        setupConstraints()
+    }
+
+    // MARK: - Setup
+
+    private func setupUI() {
+        [customView, filterButton].forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        [stackView].forEach {
+            customView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            filterButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
+            filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),
+
+            customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            stackView.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -16),
+            stackView.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
+        ])
+    }
+}
