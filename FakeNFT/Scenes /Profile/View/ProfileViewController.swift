@@ -50,7 +50,7 @@ final class ProfileViewController: UIViewController {
     }()
 
     private lazy var userProfileImage: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle.fill"))
         imageView.layer.cornerRadius = 35
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -95,25 +95,33 @@ final class ProfileViewController: UIViewController {
         return stack
     }()
 
-    private lazy var globalStack: UIStackView = {
+    private lazy var globalProfileStack: UIStackView = {
         let stack = UIStackView(
             arrangedSubviews: [
                 profileUserDataStack,
                 descriptionLabel,
                 websiteLabel,
+                customSpacerView,
                 tableView
             ]
         )
         stack.backgroundColor = .ypWhite
         stack.axis = .vertical
-        stack.distribution = .fillProportionally
+        stack.distribution = .fill
         stack.spacing = 20
         return stack
     }()
 
+    private lazy var customSpacerView: UIView = {
+        let spacer = UIView()
+        spacer.translatesAutoresizingMaskIntoConstraints = false
+        spacer.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        return spacer
+    }()
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(ProfileCell.self)
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
@@ -123,6 +131,7 @@ final class ProfileViewController: UIViewController {
         return tableView
     }()
 
+    // MARK: - Initializers
     init(servicesAssembly: ServicesAssembly) {
         self.servicesAssembly = servicesAssembly
         super.init(nibName: nil, bundle: nil)
@@ -136,10 +145,13 @@ final class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        presenter?.viewDidLoad()
         setupUI()
+        setupNavigation()
     }
 }
 
@@ -147,12 +159,28 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController {
 
     private func setupUI() {
-        view.addSubview(globalStack)
-        globalStack.constraintEdges(to: view)
+        view.addSubview(globalProfileStack)
+        [userProfileImage, globalProfileStack, profileUserDataStack, tableView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
 
         NSLayoutConstraint.activate([
-            userProfileImage.widthAnchor.constraint(equalToConstant: 70)
+            userProfileImage.widthAnchor.constraint(equalToConstant: 70),
+
+            globalProfileStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            globalProfileStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            globalProfileStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            globalProfileStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            profileUserDataStack.topAnchor.constraint(equalTo: globalProfileStack.topAnchor),
+            profileUserDataStack.leadingAnchor.constraint(equalTo: globalProfileStack.leadingAnchor),
+            profileUserDataStack.trailingAnchor.constraint(equalTo: globalProfileStack.trailingAnchor),
+            profileUserDataStack.heightAnchor.constraint(equalToConstant: 70)
         ])
+    }
+
+    private func setupNavigation() {
+        navigationItem.rightBarButtonItem = editButton
     }
 }
 
@@ -169,7 +197,11 @@ extension ProfileViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension ProfileViewController: UITableViewDelegate {}
+extension ProfileViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 54
+    }
+}
 
 // MARK: - UITableViewDataSource
 extension ProfileViewController: UITableViewDataSource {
@@ -179,21 +211,15 @@ extension ProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView
-            .dequeueReusableCell(
-                withIdentifier: cellIdentifier,
-                for: indexPath
-            ) as UITableViewCell
+        let cell: ProfileCell = tableView.dequeueReusableCell()
         guard let presenter, let title = presenter.cellsItems[indexPath.row].title else { return UITableViewCell() }
-        ConfigureTableViewCellHelper.configureTableViewCell(cell, at: indexPath)
-        ConfigureTableViewCellHelper.configureTitleCell(
+        ConfigureTableViewCellHelper.configureTableViewCell(
             cell,
             title: title,
             at: indexPath,
             myNFTValue: myNftValueCount,
             selectedNFTValue: selectedNftValueCount
         )
-
         return cell
     }
 }
@@ -217,7 +243,7 @@ extension ProfileViewController: ProfileViewControllerProtocol {
             userProfileImage.image = UIImage()
         }
     }
-    
+
     func updateUserProfile(image: UIImage) {
         userProfileImage.image = image
     }
