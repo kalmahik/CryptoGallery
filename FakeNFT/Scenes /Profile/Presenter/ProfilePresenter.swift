@@ -5,10 +5,12 @@
 //  Created by Konstantin Lyashenko on 11.10.2024.
 //
 
-import Foundation
+import UIKit
+import Kingfisher
 
 protocol ProfilePresenterProtocol: AnyObject {
     var view: ProfileViewControllerProtocol? { get set }
+    var cellsItems: [CategoryCell] { get }
 
     func viewDidLoad()
     func getCellsTitle(for items: Int) -> String?
@@ -16,20 +18,21 @@ protocol ProfilePresenterProtocol: AnyObject {
     func didTapMyNft()
     func didTapSelectedNft()
     func didTapWebsite(url: String)
-    func updateUserProfile(_ profile: Profile)
+    func updateUserProfile(_ profile: Profile?)
+    func updateUserProfileImage(url: String)
 }
 
 final class ProfilePresenter {
 
     weak var view: ProfileViewControllerProtocol?
-
-    private let router: ProfileRouterProtocol
-    private var profile: Profile?
-    private(set) var cellsItems: [CategoryCell] = [
+    var cellsItems: [CategoryCell] = [
         .myNft,
         .selectedNft,
         .aboutDev
     ]
+
+    private let router: ProfileRouterProtocol
+    private var profile: Profile?
 
     init(view: ProfileViewControllerProtocol, router: ProfileRouterProtocol) {
         self.view = view
@@ -53,5 +56,6 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     func didTapMyNft() {}
     func didTapSelectedNft() {}
     func didTapWebsite(url: String) {}
-    func updateUserProfile(_ profile: Profile) {}
+    func updateUserProfile(_ profile: Profile?) {}
+    func updateUserProfileImage(url: String) {}
 }

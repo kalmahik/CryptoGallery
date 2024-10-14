@@ -7,7 +7,10 @@
 
 import UIKit
 
-protocol ProfileViewControllerProtocol: AnyObject {}
+protocol ProfileViewControllerProtocol: AnyObject {
+    func updateProfileDetails(profile: Profile?)
+    func updateUserProfile(image: UIImage)
+}
 
 enum CategoryCell: CaseIterable {
     case myNft
@@ -31,6 +34,8 @@ final class ProfileViewController: UIViewController {
     private var presenter: ProfilePresenterProtocol?
     private let servicesAssembly: ServicesAssembly
     private var websiteURL = ""
+    private var myNftValueCount = 0
+    private var selectedNftValueCount = 0
     private let cellIdentifier = "CategoryCell"
 
     private lazy var editButton: UIBarButtonItem = {
@@ -44,7 +49,7 @@ final class ProfileViewController: UIViewController {
         return button
     }()
 
-    private lazy var profileUserImage: UIImageView = {
+    private lazy var userProfileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 35
         imageView.clipsToBounds = true
@@ -83,7 +88,7 @@ final class ProfileViewController: UIViewController {
     }()
 
     private lazy var profileUserDataStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [profileUserImage, nameLabel])
+        let stack = UIStackView(arrangedSubviews: [userProfileImage, nameLabel])
         stack.backgroundColor = .ypWhite
         stack.axis = .horizontal
         stack.spacing = 16
@@ -136,11 +141,23 @@ final class ProfileViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupUI()
     }
+}
+
+// MARK: - Layout
+extension ProfileViewController {
 
     private func setupUI() {
         view.addSubview(globalStack)
         globalStack.constraintEdges(to: view)
+
+        NSLayoutConstraint.activate([
+            userProfileImage.widthAnchor.constraint(equalToConstant: 70)
+        ])
     }
+}
+
+// MARK: - Actions
+extension ProfileViewController {
 
     @objc
     private func tapEditButton() {}
@@ -152,21 +169,56 @@ final class ProfileViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension ProfileViewController: UITableViewDelegate {
-
-}
+extension ProfileViewController: UITableViewDelegate {}
 
 // MARK: - UITableViewDataSource
 extension ProfileViewController: UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CategoryCell.allCases.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as UITableViewCell
+        let cell: UITableViewCell = tableView
+            .dequeueReusableCell(
+                withIdentifier: cellIdentifier,
+                for: indexPath
+            ) as UITableViewCell
+        guard let presenter, let title = presenter.cellsItems[indexPath.row].title else { return UITableViewCell() }
+        ConfigureTableViewCellHelper.configureTableViewCell(cell, at: indexPath)
+        ConfigureTableViewCellHelper.configureTitleCell(
+            cell,
+            title: title,
+            at: indexPath,
+            myNFTValue: myNftValueCount,
+            selectedNFTValue: selectedNftValueCount
+        )
+
         return cell
     }
 }
 
 // MARK: - ProfileViewControllerProtocol
-extension ProfileViewController: ProfileViewControllerProtocol {}
+extension ProfileViewController: ProfileViewControllerProtocol {
+
+    func updateProfileDetails(profile: Profile?) {
+        if let profile {
+            nameLabel.text = profile.name
+            descriptionLabel.text = profile.description
+            websiteLabel.text = profile.website
+            myNftValueCount = profile.nfts.count
+            selectedNftValueCount = profile.likes.count
+            websiteURL = profile.website
+            tableView.reloadData()
+        } else {
+            nameLabel.text = ""
+            descriptionLabel.text = ""
+            websiteLabel.text = ""
+            userProfileImage.image = UIImage()
+        }
+    }
+    
+    func updateUserProfile(image: UIImage) {
+        userProfileImage.image = image
+    }
+}
