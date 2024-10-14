@@ -18,19 +18,10 @@ protocol ProfilePresenterProtocol: AnyObject {
     func didTapSelectedNft()
     func didTapWebsite(url: String)
     func updateUserProfile(_ profile: Profile?)
-    func updateUserProfileImage(url: URL)
+    func updateUserProfileImage()
 }
 
 final class ProfilePresenter {
-
-    let mockProfile = Profile( // TODO: - Mock data
-        name: "Joaquin Phoenix",
-        avatar: "",
-        description: "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и еще больше — на моём сайте. Открыт к коллаборациям.",
-        website: "Joaquin Phoenix.com",
-        nfts: ["One", "Two", "Three"],
-        likes: ["One", "Two", "Three"],
-        id: "1122")
 
     weak var view: ProfileViewControllerProtocol?
     var cellsItems: [CategoryCell] = [
@@ -46,18 +37,31 @@ final class ProfilePresenter {
         self.view = view
         self.router = router
     }
+
+    private func mockProfile() -> Profile {
+        var avatar = ""
+        if let url = Bundle.main.url(forResource: "UserPic", withExtension: "png") { // TODO: - Mock data
+            avatar = url.absoluteString
+        } else {
+            Logger.shared.info("No user picture")
+        }
+
+        let mockProfile = Profile( // TODO: - Mock data
+            name: "Joaquin Phoenix",
+            avatar: "",
+            description: "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и еще больше — на моём сайте. Открыт к коллаборациям.",
+            website: "Joaquin Phoenix.com",
+            nfts: ["One", "Two", "Three"],
+            likes: ["One", "Two", "Three"],
+            id: "1122")
+        return mockProfile
+    }
 }
 
 // MARK: - ProfilePresenterProtocol
 extension ProfilePresenter: ProfilePresenterProtocol {
     func viewDidLoad() {
         updateUserProfile(profile)
-
-        if let url = Bundle.main.url(forResource: "UserPic", withExtension: "png") { // TODO: - Mock data
-            updateUserProfileImage(url: url)
-        } else {
-            print("no pic")
-        }
     }
 
     func getCellsTitle(for items: Int) -> String? {
@@ -74,22 +78,10 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     func didTapSelectedNft() {}
     func didTapWebsite(url: String) {}
     func updateUserProfile(_ profile: Profile?) {
-        view?.updateProfileDetails(profile: mockProfile) // TODO: - Mock data
+        view?.updateProfileDetails(profile: mockProfile()) // TODO: - Mock data
     }
 
-    func updateUserProfileImage(url: URL) {
-        let imageView = UIImageView()
-        imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: url,
-                              placeholder: UIImage(systemName: "person.crop.circle.fill"),
-                              options: [.transition(.fade(0.2))]) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let value):
-                self.view?.updateUserProfile(image: value.image)
-            case .failure(let error):
-                Logger.shared.error(error.errorDescription ?? error.localizedDescription)
-            }
-        }
+    func updateUserProfileImage() {
+        view?.updateUserProfileImageView(profile: mockProfile(), mode: .view) // TODO: - Mock data
     }
 }
