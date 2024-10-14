@@ -48,6 +48,7 @@
 		8406DDBB2CB64A580014BCE4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDBA2CB64A570014BCE4 /* Logger.swift */; };
 		8406DDC12CB7A5D10014BCE4 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8406DDC02CB7A5D00014BCE4 /* .swiftlint.yml */; };
 		8406DDC42CB866D00014BCE4 /* Azimov.md in Resources */ = {isa = PBXBuildFile; fileRef = 8406DDC32CB866D00014BCE4 /* Azimov.md */; };
+		DD07093C2CBCF72D00AFF2CE /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD07093B2CBCF72D00AFF2CE /* PaymentMethodViewController.swift */; };
 		DD0FBBB32CBBAC3700538774 /* BasketModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBB22CBBAC3700538774 /* BasketModels.swift */; };
 		DD0FBBB62CBBAC8C00538774 /* ProtocolNFTCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBB52CBBAC8C00538774 /* ProtocolNFTCellView.swift */; };
 		DD0FBBB82CBBAD3D00538774 /* TableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBB72CBBAD3D00538774 /* TableViewCellPresenter.swift */; };
@@ -126,6 +127,7 @@
 		8406DDBA2CB64A570014BCE4 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		8406DDC02CB7A5D00014BCE4 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8406DDC32CB866D00014BCE4 /* Azimov.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Azimov.md; sourceTree = "<group>"; };
+		DD07093B2CBCF72D00AFF2CE /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
 		DD0FBBB22CBBAC3700538774 /* BasketModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketModels.swift; sourceTree = "<group>"; };
 		DD0FBBB52CBBAC8C00538774 /* ProtocolNFTCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolNFTCellView.swift; sourceTree = "<group>"; };
 		DD0FBBB72CBBAD3D00538774 /* TableViewCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellPresenter.swift; sourceTree = "<group>"; };
@@ -383,6 +385,25 @@
 			path = Docs;
 			sourceTree = "<group>";
 		};
+		DD07093D2CBCF77D00AFF2CE /* Cart */ = {
+			isa = PBXGroup;
+			children = (
+				DD2837A02CBC094300589C71 /* ProtocolBacket.swift */,
+				DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */,
+				DD2837A22CBC09A800589C71 /* BacketPresenter.swift */,
+				DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */,
+			);
+			path = Cart;
+			sourceTree = "<group>";
+		};
+		DD07093E2CBCF79700AFF2CE /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				DD07093B2CBCF72D00AFF2CE /* PaymentMethodViewController.swift */,
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
 		DD0FBBB12CBBAC0F00538774 /* Basket */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,10 +416,8 @@
 		DD5360E22CBA7C0400C60FEE /* Basket */ = {
 			isa = PBXGroup;
 			children = (
-				DD2837A02CBC094300589C71 /* ProtocolBacket.swift */,
-				DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */,
-				DD2837A22CBC09A800589C71 /* BacketPresenter.swift */,
-				DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */,
+				DD07093D2CBCF77D00AFF2CE /* Cart */,
+				DD07093E2CBCF79700AFF2CE /* Payment */,
 				DD5360EB2CBAE4D800C60FEE /* BasketCell */,
 			);
 			path = Basket;
@@ -615,6 +634,7 @@
 				DD2837A12CBC094300589C71 /* ProtocolBacket.swift in Sources */,
 				2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */,
 				0C79EE662A76DDFF00EE90EA /* NftDetailViewController.swift in Sources */,
+				DD07093C2CBCF72D00AFF2CE /* PaymentMethodViewController.swift in Sources */,
 				DD5360E62CBABB3200C60FEE /* ExtensionBacket.swift in Sources */,
 				E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,

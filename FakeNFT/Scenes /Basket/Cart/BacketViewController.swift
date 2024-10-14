@@ -13,10 +13,13 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     static let cellIdentifier = "NFTCell"
 
+    // MARK: - Public Properties
+
+    var presenter: BacketPresenter?
+
     // MARK: - Private Properties
 
     private let payButtonTitle = LocalizationKey.basketForPayButton.localized()
-    private var presenter: BacketPresenter?
 
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .system)
@@ -46,7 +49,6 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     private lazy var nftCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0 NFT"
         label.font = .regular15
         label.textColor = .ypBlack
         label.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -55,7 +57,6 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "0 ETH"
         label.font = .bold17
         label.textColor = .ypGreenUniversal
         label.heightAnchor.constraint(equalToConstant: 22).isActive = true
@@ -70,6 +71,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         button.titleLabel?.font = .bold17
         button.layer.cornerRadius = 16
         button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        button.addTarget(self, action: #selector(payButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -97,14 +99,31 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         view.backgroundColor = .ypWhite
         setupUI()
         setupConstraints()
+        setupNavigationBar()
         presenter = BacketPresenter(view: self)
         presenter?.loadNFTData()
+    }
+
+    // MARK: - Public Methods
+
+    func updateNFTCountLabel(with count: Int) {
+        nftCountLabel.text = "\(count) NFT"
+    }
+
+    func updateTotalPriceLabel(with totalPrice: Double) {
+        priceLabel.text = String(format: "%.2f ETH", totalPrice)
+    }
+
+    // MARK: - Actions
+
+    @objc func payButtonTapped() {
+        presenter?.payButtonTapped()
     }
 
     // MARK: - Setup
 
     private func setupUI() {
-        [filterButton, tableView, customView].forEach {
+        [tableView, customView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -117,10 +136,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            filterButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
-            filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),
-
-            tableView.topAnchor.constraint(equalTo: filterButton.bottomAnchor, constant: 20),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: customView.topAnchor),
@@ -135,11 +151,8 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         ])
     }
 
-    func updateNFTCountLabel(with count: Int) {
-        nftCountLabel.text = "\(count) NFT"
-    }
-
-    func updateTotalPriceLabel(with totalPrice: Double) {
-        priceLabel.text = String(format: "%.2f ETH", totalPrice)
+    private func setupNavigationBar() {
+        let filterBarButtonItem = UIBarButtonItem(customView: filterButton)
+        navigationItem.rightBarButtonItem = filterBarButtonItem
     }
 }
