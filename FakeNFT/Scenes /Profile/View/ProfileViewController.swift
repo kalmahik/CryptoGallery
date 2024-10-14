@@ -9,7 +9,7 @@ import UIKit
 
 protocol ProfileViewControllerProtocol: AnyObject {
     func updateProfileDetails(profile: Profile?)
-    func updateUserProfile(image: UIImage)
+    func updateUserProfileImageView(profile: Profile?, mode: ProfileImageMode)
 }
 
 enum CategoryCell: CaseIterable {
@@ -49,11 +49,8 @@ final class ProfileViewController: UIViewController {
         return button
     }()
 
-    private lazy var userProfileImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle.fill"))
-        imageView.layer.cornerRadius = 35
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
+    private lazy var userProfileImage: UserProfileImageView = {
+        let imageView = UserProfileImageView(frame: .zero)
         return imageView
     }()
 
@@ -188,7 +185,9 @@ extension ProfileViewController {
 extension ProfileViewController {
 
     @objc
-    private func tapEditButton() {}
+    private func tapEditButton() {
+        presenter?.updateUserProfileImage()
+    }
 
     @objc
     private func tapToWebsite() {
@@ -235,16 +234,18 @@ extension ProfileViewController: ProfileViewControllerProtocol {
             myNftValueCount = profile.nfts.count
             selectedNftValueCount = profile.likes.count
             websiteURL = profile.website
+
+            userProfileImage.setProfile(profile, mode: .edit)
             tableView.reloadData()
         } else {
             nameLabel.text = ""
             descriptionLabel.text = ""
             websiteLabel.text = ""
-            userProfileImage.image = UIImage()
+            userProfileImage.setProfile(nil, mode: .edit)
         }
     }
 
-    func updateUserProfile(image: UIImage) {
-        userProfileImage.image = image
+    func updateUserProfileImageView(profile: Profile?, mode: ProfileImageMode) {
+        userProfileImage.setProfile(profile, mode: mode)
     }
 }
