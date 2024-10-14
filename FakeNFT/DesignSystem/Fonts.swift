@@ -1,19 +1,14 @@
 import UIKit
 
 extension UIFont {
-    // Ниже приведены примеры шрифтов, настоящие шрифты надо взять из фигмы
+    static var medium10 = UIFont.systemFont(ofSize: 10, weight: .medium)
 
-    // Headline Fonts
-    static var headline1 = UIFont.systemFont(ofSize: 34, weight: .bold)
-    static var headline2 = UIFont.systemFont(ofSize: 28, weight: .bold)
-    static var headline3 = UIFont.systemFont(ofSize: 22, weight: .bold)
-    static var headline4 = UIFont.systemFont(ofSize: 20, weight: .bold)
+    static var regular13 = UIFont.systemFont(ofSize: 13, weight: .regular)
+    static var regular15 = UIFont.systemFont(ofSize: 15, weight: .regular)
+    static var regular17 = UIFont.systemFont(ofSize: 17, weight: .regular)
 
-    // Body Fonts
-    static var bodyRegular = UIFont.systemFont(ofSize: 17, weight: .regular)
-    static var bodyBold = UIFont.systemFont(ofSize: 17, weight: .bold)
-
-    // Caption Fonts
-    static var caption1 = UIFont.systemFont(ofSize: 15, weight: .regular)
-    static var caption2 = UIFont.systemFont(ofSize: 13, weight: .regular)
+    static var bold17 = UIFont.systemFont(ofSize: 17, weight: .bold)
+    static var bold22 = UIFont.systemFont(ofSize: 22, weight: .bold)
+    static var bold32 = UIFont.systemFont(ofSize: 32, weight: .bold)
+    static var bold34 = UIFont.systemFont(ofSize: 34, weight: .bold)
 }
