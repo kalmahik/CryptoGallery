@@ -13,11 +13,10 @@ final class TableViewHeaderAndFooterHelper {
         title: String
     ) -> UIView {
         let headerView = UIView()
-        headerView.backgroundColor = .clear
 
         let headerLabel = UILabel()
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        headerLabel.font = .bold22
         headerLabel.text = title
 
         headerView.addSubview(headerLabel)
@@ -34,11 +33,10 @@ final class TableViewHeaderAndFooterHelper {
 
     static func configureFooterView() -> UIView {
         let footerView = UIView()
-        footerView.backgroundColor = .clear
 
         let footerLabel = UILabel()
         footerLabel.text = LocalizationKey.profDownloadImage.localized()
-        footerLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        footerLabel.font = .regular17
         footerLabel.textAlignment = .center
         footerLabel.translatesAutoresizingMaskIntoConstraints = false
         footerView.addSubview(footerLabel)
@@ -51,4 +49,3 @@ final class TableViewHeaderAndFooterHelper {
         return footerView
     }
 }
-

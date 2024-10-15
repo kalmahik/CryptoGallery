@@ -7,26 +7,41 @@
 
 import Foundation
 
-protocol EditProfileView: AnyObject {
-    func updateSections()
-    func reloadSection(_ section: Int)
-    func dismissView()
+protocol EditProfilePresenterProtocol: AnyObject {
+    var view: EditProfileViewControllerProtocol? { get set }
+    var sections: [SectionHeader] { get }
+    var profile: Profile? { get set }
+
+    func viewDidLoad()
+    func tapCloseButton()
+    func getSectionTitle(for section: Int) -> String?
+    func openImagePicker()
+    func getTextForSection(_ section: Int) -> String?
+    func shouldShowFooter(for section: Int) -> Bool
 }
 
 final class EditProfilePresenter {
-    // MARK: - Private Properties
-    private var isImageChanged = false
-    private weak var view: EditProfileView?
-    private(set) var sections: [SectionHeader] = [
+
+    weak var view: EditProfileViewControllerProtocol?
+    var profile: Profile?
+    var sections: [SectionHeader] = [
         .userPic,
         .name,
         .description,
         .webSite
     ]
+
+    // MARK: - Private Properties
+    private var isImageChanged = false
+
     // MARK: - Initializers
-    init(view: EditProfileView) {
+    init(view: EditProfileViewControllerProtocol, profile: Profile?) {
         self.view = view
+        self.profile = profile
     }
+}
+
+extension EditProfilePresenter: EditProfilePresenterProtocol {
     // MARK: - Public Methods
     func viewDidLoad() {
         view?.updateSections()

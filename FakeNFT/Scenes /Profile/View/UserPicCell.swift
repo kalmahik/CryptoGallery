@@ -10,13 +10,19 @@ import UIKit
 final class UserPicCell: UITableViewCell, ReuseIdentifying {
 
     // MARK: - Private Properties
-    private lazy var userImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 35
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(systemName: "person.circle.fill")
-        imageView.tintColor = .gray
+//    private lazy var userImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.layer.cornerRadius = 35
+//        imageView.clipsToBounds = true
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.image = UIImage(systemName: "person.circle.fill")
+//        imageView.tintColor = .gray
+//        return imageView
+//    }()
+
+    private lazy var userImageView: UserProfileImageView = {
+        let imageView = UserProfileImageView(frame: .zero)
+
         return imageView
     }()
 
@@ -32,6 +38,7 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
         button.titleLabel?.textAlignment = .center
         return button
     }()
+
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -44,13 +51,16 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
         fatalError("init(coder:) has not been implemented")
     }
     // MARK: - Public methods
-    func setUserImage(_ image: UIImage?) {
-        if let image = image {
-            userImageView.image = image
-            userImageView.tintColor = nil
-        } else {
-            userImageView.image = UIImage(systemName: "person.circle.fill")
-            userImageView.tintColor = .gray
+    func setUserImage(_ profile: Profile?) {
+//        if let image {
+//            userImageView.image = image
+//            userImageView.tintColor = nil
+//        } else {
+//            userImageView.image = UIImage(systemName: "person.circle.fill")
+//            userImageView.tintColor = .gray
+//        }
+        if let profile {
+            userImageView.setProfile(profile, mode: .edit)
         }
     }
 
