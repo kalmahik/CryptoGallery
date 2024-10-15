@@ -10,26 +10,15 @@ import UIKit
 final class UserPicCell: UITableViewCell, ReuseIdentifying {
 
     // MARK: - Private Properties
-//    private lazy var userImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.layer.cornerRadius = 35
-//        imageView.clipsToBounds = true
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.image = UIImage(systemName: "person.circle.fill")
-//        imageView.tintColor = .gray
-//        return imageView
-//    }()
-
     private lazy var userImageView: UserProfileImageView = {
         let imageView = UserProfileImageView(frame: .zero)
-
         return imageView
     }()
 
     private lazy var changePhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(LocalizationKey.profChangeImage.localized(), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        button.titleLabel?.font = .medium10
         button.layer.cornerRadius = 35
         button.clipsToBounds = true
         button.backgroundColor = .black.withAlphaComponent(0.6)
@@ -52,13 +41,6 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
     }
     // MARK: - Public methods
     func setUserImage(_ profile: Profile?) {
-//        if let image {
-//            userImageView.image = image
-//            userImageView.tintColor = nil
-//        } else {
-//            userImageView.image = UIImage(systemName: "person.circle.fill")
-//            userImageView.tintColor = .gray
-//        }
         if let profile {
             userImageView.setProfile(profile, mode: .edit)
         }

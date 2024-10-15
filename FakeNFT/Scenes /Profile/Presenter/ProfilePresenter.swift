@@ -46,22 +46,23 @@ final class ProfilePresenter {
             Logger.shared.info("No user picture")
         }
 
-        let mockProfile = Profile( // TODO: - Mock data
+        let profile = profile ?? Profile(
             name: "Joaquin Phoenix",
-            avatar: "",
-            description: "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и еще больше — на моём сайте. Открыт к коллаборациям.",
+            avatar: avatar,
+            description: "Дизайнер из Казани, люблю цифровое искусство и бейглы.",
             website: "JoaquinPhoenix.com",
-            nfts: ["One", "Two", "Three"],
-            likes: ["One", "Two", "Three"],
-            id: "1122")
-        return mockProfile
+            nfts: ["NFT1", "NFT2"],
+            likes: ["Like1", "Like2"],
+            id: "1122"
+        )
+        return profile
     }
 }
 
 // MARK: - ProfilePresenterProtocol
 extension ProfilePresenter: ProfilePresenterProtocol {
     func viewDidLoad() {
-        updateUserProfile(profile)
+        updateUserProfile(mockProfile()) // TODO: - Mock data
     }
 
     func getCellsTitle(for items: Int) -> String? {
@@ -69,8 +70,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     }
 
     func didTapEditProfile() {
-        router.navigateToEditProfile(profile)
-
+        router.navigateToEditProfile(mockProfile()) // TODO: - Mock data
     }
 
     func didTapMyNft() {}
@@ -83,6 +83,9 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     }
 
     func updateUserProfile(_ profile: Profile?) {
+        if let profile = profile {
+            self.profile = profile
+        }
         view?.updateProfileDetails(profile: mockProfile()) // TODO: - Mock data
     }
 

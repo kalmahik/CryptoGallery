@@ -27,11 +27,9 @@ final class ProfileRouter {
 }
 
 extension ProfileRouter: ProfileRouterProtocol {
-    func navigateToMyNFT() {
-    }
+    func navigateToMyNFT() {}
 
-    func navigateToSelectedNFT() {
-    }
+    func navigateToSelectedNFT() {}
 
     func navigateToEditProfile(_ profile: Profile?) {
         guard let viewController else { return }
@@ -46,12 +44,20 @@ extension ProfileRouter: ProfileRouterProtocol {
         }
     }
 
-    func navigateToAboutTheDeveloper() {
-    }
+    func navigateToAboutTheDeveloper() {}
 
     func navigateToWebsite(websiteURL: String) {
-        guard let viewController, let websiteURL = URL(string: websiteURL) else { return }
-        let websiteViewController = SFSafariViewController(url: websiteURL)
+        var urlString = websiteURL
+        if !websiteURL.lowercased().hasPrefix("http://") && !websiteURL.lowercased().hasPrefix("https://") {
+            urlString = "https://\(websiteURL)"
+        }
+
+        guard let viewController = viewController, let url = URL(string: urlString), ["http", "https"].contains(url.scheme?.lowercased()) else {
+            Logger.shared.error("Неверный или неподдерживаемый URL: \(urlString)")
+            return
+        }
+
+        let websiteViewController = SFSafariViewController(url: url)
         websiteViewController.hidesBottomBarWhenPushed = true
         viewController.navigationController?.present(websiteViewController, animated: true)
     }

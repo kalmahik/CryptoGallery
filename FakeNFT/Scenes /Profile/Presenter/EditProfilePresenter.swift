@@ -61,16 +61,19 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
     }
 
     func getTextForSection(_ section: Int) -> String? {
-        switch sections[section] {
-        case .userPic:
-            return nil
-        case .name:
-            return "Joaquin Phoenix"
-        case .description:
-            return "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и ещё больше — на моём сайте. Открыт к коллаборациям."
-        case .webSite:
-            return "JoaquinPhoenix.com"
+        if let profile {
+            switch sections[section] {
+            case .userPic:
+                return nil
+            case .name:
+                return profile.name
+            case .description:
+                return profile.description
+            case .webSite:
+                return profile.website
+            }
         }
+        return nil
     }
 
     func shouldShowFooter(for section: Int) -> Bool {

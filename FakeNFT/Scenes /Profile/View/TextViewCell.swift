@@ -53,6 +53,7 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     // MARK: - Public methods
     func getText() -> UITextView {
         return textView
@@ -61,6 +62,7 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
     func changeText(_ text: String) {
         textView.text = text
     }
+
     // MARK: - Private Methods
     private func setupUI() {
         [textView, clearButton].forEach {
