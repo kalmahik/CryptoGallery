@@ -3,7 +3,6 @@ import UIKit
 extension UIColor {
 
     // MARK: - Creates color from a hex string
-
     convenience init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt64()
@@ -28,16 +27,13 @@ extension UIColor {
     }
 
     // MARK: - Background Colors
-
     static let background = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhiteUniversal }
 
     // MARK: - Text Colors
-
     static let textPrimary: UIColor = .ypBlack
     static let textSecondary: UIColor = .ypGreenUniversal
     
     // MARK: - Base Colors
-
     static let ypGrayUniversal = UIColor(hexString: "#625C5C")
     static let ypRedUniversal = UIColor(hexString: "#F56B6C")
     static let ypBackgroundUniversal = UIColor(hexString: "#1A1B22")
@@ -48,7 +44,6 @@ extension UIColor {
     static let ypYellowUniversal = UIColor(hexString: "#FEEF0D")
     
     // MARK: - Base Colors Day/Night
-    
     private static let ypLightGreyDay = UIColor(hexString: "#F7F7F8")
     private static let ypLightGreyNight = UIColor(hexString: "#2C2C2E")
 
