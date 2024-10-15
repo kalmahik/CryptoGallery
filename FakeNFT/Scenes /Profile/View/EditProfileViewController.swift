@@ -79,7 +79,6 @@ final class EditProfileViewController: UIViewController {
         setupUI()
         setupKeyboardNotification()
         dismissKeyboard(view: view)
-        
         presenter?.viewDidLoad()
     }
 
