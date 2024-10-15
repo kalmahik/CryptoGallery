@@ -11,7 +11,7 @@ import UIKit
 protocol ProfileRouterProtocol: AnyObject {
     func navigateToMyNFT()
     func navigateToSelectedNFT()
-    func navigateToEditProfile()
+    func navigateToEditProfile(_ profile: Profile?)
     func navigateToAboutTheDeveloper()
     func navigateToWebsite(websiteURL: String)
 }
@@ -33,11 +33,13 @@ extension ProfileRouter: ProfileRouterProtocol {
     func navigateToSelectedNFT() {
     }
 
-    func navigateToEditProfile() {
+    func navigateToEditProfile(_ profile: Profile?) {
         guard let viewController else { return }
 
         let editProfileViewController = EditProfileViewController()
-        editProfileViewController.modalPresentationStyle = .pageSheet
+        let presenter = EditProfilePresenter(view: editProfileViewController, profile: profile)
+        editProfileViewController.presenter = presenter
+        editProfileViewController.modalPresentationStyle = .formSheet
 
         DispatchQueue.main.async {
             viewController.present(editProfileViewController, animated: true)
