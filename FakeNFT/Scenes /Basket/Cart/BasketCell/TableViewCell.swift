@@ -143,6 +143,10 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     // MARK: - Actions
 
     @objc private func deleteButtonTapped() {
-        presenter?.deleteNFT()
-    }
+         guard
+            let presenter = presenter,
+            let parentVC = self.parentViewController,
+            let indexPath = (parentVC as? BacketViewController)?.tableView.indexPath(for: self) else { return }
+         presenter.deleteNFT(from: parentVC, at: indexPath.row)
+     }
 }

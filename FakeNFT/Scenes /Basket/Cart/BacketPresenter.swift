@@ -42,4 +42,12 @@ final class BacketPresenter {
         let paymentVC = PaymentMethodViewController()
         viewController.navigationController?.pushViewController(paymentVC, animated: true)
     }
+
+    func deleteNFT(at index: Int) {
+        guard index < nftItems.count else { return }
+        nftItems.remove(at: index)
+        view?.updateNFTCountLabel(with: nftItems.count)
+        let totalPrice = nftItems.reduce(0) { $0 + $1.price }
+        view?.updateTotalPriceLabel(with: totalPrice)
+    }
 }
