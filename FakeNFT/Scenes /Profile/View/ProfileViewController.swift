@@ -88,6 +88,8 @@ final class ProfileViewController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [userProfileImage, nameLabel])
         stack.backgroundColor = .ypWhite
         stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .fill
         stack.spacing = 16
         return stack
     }()
@@ -162,16 +164,11 @@ extension ProfileViewController {
         }
 
         NSLayoutConstraint.activate([
-            userProfileImage.widthAnchor.constraint(equalToConstant: 70),
-
             globalProfileStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             globalProfileStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             globalProfileStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             globalProfileStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            profileUserDataStack.topAnchor.constraint(equalTo: globalProfileStack.topAnchor),
-            profileUserDataStack.leadingAnchor.constraint(equalTo: globalProfileStack.leadingAnchor),
-            profileUserDataStack.trailingAnchor.constraint(equalTo: globalProfileStack.trailingAnchor),
+            userProfileImage.widthAnchor.constraint(equalToConstant: 70),
             profileUserDataStack.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
@@ -186,11 +183,12 @@ extension ProfileViewController {
 
     @objc
     private func tapEditButton() {
-        presenter?.updateUserProfileImage()
+        presenter?.didTapEditProfile()
     }
 
     @objc
     private func tapToWebsite() {
+        print("did tap website")
         presenter?.didTapWebsite(url: websiteURL)
     }
 }

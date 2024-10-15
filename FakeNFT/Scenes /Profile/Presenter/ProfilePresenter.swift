@@ -50,7 +50,7 @@ final class ProfilePresenter {
             name: "Joaquin Phoenix",
             avatar: "",
             description: "Дизайнер из Казани, люблю цифровое искусство и бейглы. В моей коллекции уже 100+ NFT, и еще больше — на моём сайте. Открыт к коллаборациям.",
-            website: "Joaquin Phoenix.com",
+            website: "JoaquinPhoenix.com",
             nfts: ["One", "Two", "Three"],
             likes: ["One", "Two", "Three"],
             id: "1122")
@@ -69,14 +69,19 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     }
 
     func didTapEditProfile() {
-        if let profile {
-            router.navigateToEditProfile(profile: profile)
-        }
+        router.navigateToEditProfile()
+
     }
 
     func didTapMyNft() {}
     func didTapSelectedNft() {}
-    func didTapWebsite(url: String) {}
+
+    func didTapWebsite(url: String) {
+        if let profile {
+            router.navigateToWebsite(websiteURL: profile.website)
+        }
+    }
+
     func updateUserProfile(_ profile: Profile?) {
         view?.updateProfileDetails(profile: mockProfile()) // TODO: - Mock data
     }

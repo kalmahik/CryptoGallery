@@ -29,6 +29,7 @@ final class UserProfileImageView: UIView {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .ypGrayUniversal
+        imageView.backgroundColor = .red
         return imageView
     }()
 
@@ -38,7 +39,7 @@ final class UserProfileImageView: UIView {
         button.titleLabel?.font = .medium10
         button.layer.cornerRadius = 35 // TODO: - Change
         button.clipsToBounds = true
-        button.backgroundColor = .black.withAlphaComponent(0.6)
+        button.backgroundColor = .green //.black.withAlphaComponent(0.6)
         button.tintColor = .white
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.textAlignment = .center
@@ -48,7 +49,6 @@ final class UserProfileImageView: UIView {
 
     private var mode: ProfileImageMode = .view {
         didSet {
-            print("Switched to mode: \(mode)")
             updatePlaceholder()
             changePhotoButton.isHidden = mode == .view
         }
@@ -67,7 +67,6 @@ final class UserProfileImageView: UIView {
 
     // MARK: - Public Methods
     func setProfile(_ profile: Profile?, mode: ProfileImageMode) {
-        print("Received mode: \(mode)")
         self.mode = mode
         if let profile = profile, let avatarURLString = profile.avatar, let avatarURL = URL(string: avatarURLString) {
             updateUserProfileImage(with: avatarURL) { [weak self] image in
@@ -116,13 +115,11 @@ final class UserProfileImageView: UIView {
         }
 
         changePhotoButton.constraintCenters(to: userImageView)
+        userImageView.constraintCenters(to: self)
 
         NSLayoutConstraint.activate([
-            userImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            userImageView.topAnchor.constraint(equalTo: self.topAnchor),
             userImageView.widthAnchor.constraint(equalToConstant: 70),
             userImageView.heightAnchor.constraint(equalToConstant: 70),
-            userImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
 
             changePhotoButton.widthAnchor.constraint(equalToConstant: 70),
             changePhotoButton.heightAnchor.constraint(equalToConstant: 70)
