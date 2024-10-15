@@ -69,7 +69,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     }
 
     func didTapEditProfile() {
-        router.navigateToEditProfile()
+        router.navigateToEditProfile(profile)
 
     }
 

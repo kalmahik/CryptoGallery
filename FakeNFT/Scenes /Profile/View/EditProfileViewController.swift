@@ -7,6 +7,13 @@
 
 import UIKit
 
+protocol EditProfileViewControllerProtocol: AnyObject {
+    var presenter: EditProfilePresenterProtocol? { get set }
+    func updateSections()
+    func reloadSection(_ section: Int)
+    func dismissView()
+}
+
 enum SectionHeader: CaseIterable {
     case userPic
     case name
@@ -29,7 +36,7 @@ enum SectionHeader: CaseIterable {
 
 final class EditProfileViewController: UIViewController {
     // MARK: - Private Properties
-    private var presenter: EditProfilePresenter?
+    var presenter: EditProfilePresenterProtocol?
 
     private lazy var closeButton: UIButton = {
         let button = UIButton()
@@ -52,6 +59,15 @@ final class EditProfileViewController: UIViewController {
     }()
 
     // MARK: - Initializers
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     deinit {
         removeKeyboardNotification()
     }
@@ -60,10 +76,11 @@ final class EditProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .ypWhite
-        presenter = EditProfilePresenter(view: self)
         setupUI()
         setupKeyboardNotification()
         dismissKeyboard(view: view)
+        
+        presenter?.viewDidLoad()
     }
 
     // MARK: - Private Methods
@@ -155,7 +172,7 @@ extension EditProfileViewController: UITableViewDataSource {
 
         if indexPath.section == 0 {
             let cell: UserPicCell = tableView.dequeueReusableCell()
-            cell.setUserImage(UIImage(named: "UserPic"))
+            cell.setUserImage(presenter.profile)
             cell.addChangePhotoButtonTarget(self, action: #selector(openImagePicker))
             cell.selectionStyle = .none
             return cell
@@ -233,7 +250,7 @@ extension EditProfileViewController {
 }
 
 // MARK: - EditProfileView
-extension EditProfileViewController: EditProfileView {
+extension EditProfileViewController: EditProfileViewControllerProtocol {
     func updateSections() {
         tableView.reloadData()
     }
