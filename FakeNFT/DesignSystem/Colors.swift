@@ -1,6 +1,7 @@
 import UIKit
 
 extension UIColor {
+
     // MARK: - Creates color from a hex string
     convenience init(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
@@ -43,7 +44,6 @@ extension UIColor {
     static let ypYellowUniversal = UIColor(hexString: "#FEEF0D")
     
     // MARK: - Base Colors Day/Night
-    
     private static let ypLightGreyDay = UIColor(hexString: "#F7F7F8")
     private static let ypLightGreyNight = UIColor(hexString: "#2C2C2E")
 
@@ -51,8 +51,8 @@ extension UIColor {
     
     static let ypBlack = UIColor { $0.userInterfaceStyle == .dark ? .ypWhiteUniversal : .ypBlackUniversal }
     
-    static let yplightGrey = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyDay : .ypLightGreyNight }
-    
+    static let yplightGrey = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyNight : .ypLightGreyDay }
+
     static let ypSegmentActive = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhiteUniversal }
 
     static let ypSegmentInactive = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyDay : .ypLightGreyNight }
