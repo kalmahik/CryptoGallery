@@ -22,7 +22,7 @@ protocol ProfilePresenterProtocol: AnyObject {
 }
 
 final class ProfilePresenter {
-
+    // MARK: - Public Properties
     weak var view: ProfileViewControllerProtocol?
     var cellsItems: [CategoryCell] = [
         .myNft,
@@ -30,32 +30,14 @@ final class ProfilePresenter {
         .aboutDev
     ]
 
+    // MARK: - Private Properties
     private let router: ProfileRouterProtocol
     private var profile: Profile?
 
+    // MARK: - Lifecycle
     init(view: ProfileViewControllerProtocol, router: ProfileRouterProtocol) {
         self.view = view
         self.router = router
-    }
-
-    private func mockProfile() -> Profile {
-        var avatar = ""
-        if let url = Bundle.main.url(forResource: "UserPic", withExtension: "png") { // TODO: - Mock data
-            avatar = url.absoluteString
-        } else {
-            Logger.shared.info("No user picture")
-        }
-
-        let profile = profile ?? Profile(
-            name: "Joaquin Phoenix",
-            avatar: avatar,
-            description: "Дизайнер из Казани, люблю цифровое искусство и бейглы.",
-            website: "JoaquinPhoenix.com",
-            nfts: ["NFT1", "NFT2"],
-            likes: ["Like1", "Like2"],
-            id: "1122"
-        )
-        return profile
     }
 }
 
@@ -91,5 +73,29 @@ extension ProfilePresenter: ProfilePresenterProtocol {
 
     func updateUserProfileImage() {
         view?.updateUserProfileImageView(profile: mockProfile(), mode: .view) // TODO: - Mock data
+    }
+}
+
+// MARK: - Mock data
+extension ProfilePresenter {
+    
+    private func mockProfile() -> Profile {
+        var avatar = ""
+        if let url = Bundle.main.url(forResource: "UserPic", withExtension: "png") { // TODO: - Mock data
+            avatar = url.absoluteString
+        } else {
+            Logger.shared.info("No user picture")
+        }
+
+        let profile = profile ?? Profile(
+            name: "Joaquin Phoenix",
+            avatar: avatar,
+            description: "Дизайнер из Казани, люблю цифровое искусство и бейглы.",
+            website: "JoaquinPhoenix.com",
+            nfts: ["NFT1", "NFT2"],
+            likes: ["Like1", "Like2"],
+            id: "1122"
+        )
+        return profile
     }
 }

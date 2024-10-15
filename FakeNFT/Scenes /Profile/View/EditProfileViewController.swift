@@ -35,9 +35,10 @@ enum SectionHeader: CaseIterable {
 }
 
 final class EditProfileViewController: UIViewController {
-    // MARK: - Private Properties
+    // MARK: - Public Properties
     var presenter: EditProfilePresenterProtocol?
 
+    // MARK: - Private Properties
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "close"), for: .normal)
@@ -68,11 +69,7 @@ final class EditProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    deinit {
-        removeKeyboardNotification()
-    }
-
-    // MARK: - View Life Cycles
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .ypWhite
@@ -82,6 +79,13 @@ final class EditProfileViewController: UIViewController {
         presenter?.viewDidLoad()
     }
 
+    deinit {
+        removeKeyboardNotification()
+    }
+}
+
+// MARK: - Layout
+extension EditProfileViewController {
     // MARK: - Private Methods
     private func setupUI() {
         [tableView, closeButton].forEach {
@@ -95,7 +99,11 @@ final class EditProfileViewController: UIViewController {
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ])
     }
+}
 
+// MARK: - Keyboard Notification
+extension EditProfileViewController {
+    // MARK: - Private Methods
     private func setupKeyboardNotification() {
         NotificationCenter.default.addObserver(
             self,
@@ -121,7 +129,10 @@ final class EditProfileViewController: UIViewController {
             object: nil
         )
     }
+}
 
+// MARK: - Action
+extension EditProfileViewController {
     @objc private func openImagePicker() {
         presenter?.openImagePicker()
     }

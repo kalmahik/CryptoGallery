@@ -39,7 +39,10 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    // MARK: - Public methods
+}
+
+// MARK: - Configure cell
+extension UserPicCell {
     func setUserImage(_ profile: Profile?) {
         if let profile {
             userImageView.setProfile(profile, mode: .edit)
@@ -49,6 +52,10 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
     func addChangePhotoButtonTarget(_ target: Any?, action: Selector) {
         changePhotoButton.addTarget(target, action: action, for: .touchUpInside)
     }
+}
+
+// MARK: - Layout
+extension UserPicCell {
     // MARK: - Private Methods
     private func setupUI() {
         [userImageView, changePhotoButton].forEach {

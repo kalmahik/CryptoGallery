@@ -30,7 +30,7 @@ enum CategoryCell: CaseIterable {
 }
 
 final class ProfileViewController: UIViewController {
-
+    // MARK: - Private Properties
     private var presenter: ProfilePresenterProtocol?
     private let servicesAssembly: ServicesAssembly
     private var websiteURL = ""
