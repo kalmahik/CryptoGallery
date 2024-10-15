@@ -29,7 +29,6 @@ final class UserProfileImageView: UIView {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .ypGrayUniversal
-        imageView.backgroundColor = .red
         return imageView
     }()
 
@@ -39,7 +38,7 @@ final class UserProfileImageView: UIView {
         button.titleLabel?.font = .medium10
         button.layer.cornerRadius = 35 // TODO: - Change
         button.clipsToBounds = true
-        button.backgroundColor = .green //.black.withAlphaComponent(0.6)
+        button.backgroundColor = .black.withAlphaComponent(0.2)
         button.tintColor = .white
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.textAlignment = .center

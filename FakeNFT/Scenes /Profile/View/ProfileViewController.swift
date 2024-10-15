@@ -188,7 +188,6 @@ extension ProfileViewController {
 
     @objc
     private func tapToWebsite() {
-        print("did tap website")
         presenter?.didTapWebsite(url: websiteURL)
     }
 }
@@ -233,13 +232,13 @@ extension ProfileViewController: ProfileViewControllerProtocol {
             selectedNftValueCount = profile.likes.count
             websiteURL = profile.website
 
-            userProfileImage.setProfile(profile, mode: .edit)
+            userProfileImage.setProfile(profile, mode: .view)
             tableView.reloadData()
         } else {
             nameLabel.text = ""
             descriptionLabel.text = ""
             websiteLabel.text = ""
-            userProfileImage.setProfile(nil, mode: .edit)
+            userProfileImage.setProfile(nil, mode: .view)
         }
     }
 
