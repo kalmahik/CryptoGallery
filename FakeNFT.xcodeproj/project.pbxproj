@@ -60,6 +60,7 @@
 		DD5360E42CBA7C1F00C60FEE /* BacketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */; };
 		DD5360E62CBABB3200C60FEE /* ExtensionBacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */; };
 		DD5360E82CBABBE900C60FEE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E72CBABBE900C60FEE /* TableViewCell.swift */; };
+		DD80897D2CBF133700F3B4FD /* SortManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD80897C2CBF133700F3B4FD /* SortManager.swift */; };
 		DD837F152CBF1096001988C1 /* DeleteConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD837F142CBF1096001988C1 /* DeleteConfirmationViewController.swift */; };
 		DD837F172CBF10B6001988C1 /* ExtensionDeleteConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD837F162CBF10B6001988C1 /* ExtensionDeleteConfirmation.swift */; };
 		DDE73E212CBD85E50034C2E9 /* ExtensionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE73E202CBD85E50034C2E9 /* ExtensionTableView.swift */; };
@@ -143,6 +144,7 @@
 		DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BacketViewController.swift; sourceTree = "<group>"; };
 		DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionBacket.swift; sourceTree = "<group>"; };
 		DD5360E72CBABBE900C60FEE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		DD80897C2CBF133700F3B4FD /* SortManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortManager.swift; sourceTree = "<group>"; };
 		DD837F142CBF1096001988C1 /* DeleteConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmationViewController.swift; sourceTree = "<group>"; };
 		DD837F162CBF10B6001988C1 /* ExtensionDeleteConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDeleteConfirmation.swift; sourceTree = "<group>"; };
 		DDE73E202CBD85E50034C2E9 /* ExtensionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTableView.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				DD2837A22CBC09A800589C71 /* BacketPresenter.swift */,
 				DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */,
 				DD5360EB2CBAE4D800C60FEE /* BasketCell */,
+				DD80897B2CBF132000F3B4FD /* SortNFT */,
 				DD837F132CBF1059001988C1 /* DeleteNFT 2 */,
 			);
 			path = Cart;
@@ -442,6 +445,14 @@
 				DDE73E202CBD85E50034C2E9 /* ExtensionTableView.swift */,
 			);
 			path = BasketCell;
+			sourceTree = "<group>";
+		};
+		DD80897B2CBF132000F3B4FD /* SortNFT */ = {
+			isa = PBXGroup;
+			children = (
+				DD80897C2CBF133700F3B4FD /* SortManager.swift */,
+			);
+			path = SortNFT;
 			sourceTree = "<group>";
 		};
 		DD837F132CBF1059001988C1 /* DeleteNFT 2 */ = {
@@ -665,6 +676,7 @@
 				0CF2C2DD2A783CE600FDC837 /* ErrorView.swift in Sources */,
 				0C79EE682A76DE0900EE90EA /* NftDetailPresenter.swift in Sources */,
 				F7B8703F2CB7E51700A8EB0E /* UIRating.swift in Sources */,
+				DD80897D2CBF133700F3B4FD /* SortManager.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				0CFCB7402A78002A0009A829 /* ExamplePutService.swift in Sources */,
 				DD5360E82CBABBE900C60FEE /* TableViewCell.swift in Sources */,

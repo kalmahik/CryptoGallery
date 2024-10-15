@@ -13,6 +13,7 @@ final class BacketPresenter {
 
     private weak var view: BacketViewProtocol?
     private var nftItems: [NFT] = []
+    private var sortManager = SortManager()
 
     // MARK: - Initialization
 
@@ -24,6 +25,26 @@ final class BacketPresenter {
     // MARK: - Public Methods
 
     func loadNFTData() {
+        view?.updateNFTCountLabel(with: nftItems.count)
+        let totalPrice = nftItems.reduce(0) { $0 + $1.price }
+        view?.updateTotalPriceLabel(with: totalPrice)
+        let selectedSortOption = sortManager.loadSortOption()
+        sortNFTItems(by: selectedSortOption)
+    }
+
+    func saveSortOption(_ option: SortOption) {
+        sortManager.saveSortOption(option)
+    }
+
+    func sortNFTItems(by option: SortOption) {
+        switch option {
+        case .price:
+            nftItems.sort { $0.price < $1.price }
+        case .rating:
+            nftItems.sort { $0.rating > $1.rating }
+        case .name:
+            nftItems.sort { $0.name < $1.name }
+        }
         view?.updateNFTCountLabel(with: nftItems.count)
         let totalPrice = nftItems.reduce(0) { $0 + $1.price }
         view?.updateTotalPriceLabel(with: totalPrice)

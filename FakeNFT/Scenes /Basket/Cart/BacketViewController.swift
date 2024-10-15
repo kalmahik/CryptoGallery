@@ -22,6 +22,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         let image = UIImage(named: "light")
         button.setImage(image, for: .normal)
         button.tintColor = .ypBlack
+        button.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
         return button
     }()
 
@@ -55,6 +56,11 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     // MARK: - Private Properties
 
     private let payButtonTitle = LocalizationKey.basketForPayButton.localized()
+    private let sortLabelTitle = LocalizationKey.sortTitle.localized()
+    private let sortPriceTitle = LocalizationKey.sortByPrice.localized()
+    private let sortRatingTitle = LocalizationKey.sortByRating.localized()
+    private let sortNameTitle = LocalizationKey.sortByName.localized()
+    private let sortCloseTitle = LocalizationKey.close.localized()
 
     private lazy var nftCountLabel: UILabel = {
         let label = UILabel()
@@ -115,6 +121,27 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     }
 
     // MARK: - Actions
+
+    @objc func didTapFilterButton() {
+        let alert = UIAlertController(title: sortLabelTitle, message: nil, preferredStyle: .actionSheet)
+        let priceAction = UIAlertAction(title: sortPriceTitle, style: .default) { _ in
+            self.presenter?.saveSortOption(.price)
+            self.presenter?.sortNFTItems(by: .price)
+            self.tableView.reloadData() }
+        let ratingAction = UIAlertAction(title: sortRatingTitle, style: .default) { _ in
+            self.presenter?.saveSortOption(.rating)
+            self.presenter?.sortNFTItems(by: .rating)
+            self.tableView.reloadData() }
+        let titleAction = UIAlertAction(title: sortNameTitle, style: .default) { _ in
+            self.presenter?.saveSortOption(.name)
+            self.presenter?.sortNFTItems(by: .name)
+            self.tableView.reloadData() }
+        alert.addAction(priceAction)
+        alert.addAction(ratingAction)
+        alert.addAction(titleAction)
+        alert.addAction(UIAlertAction(title: sortCloseTitle, style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 
     @objc func payButtonTapped() {
         presenter?.payButtonTapped()
