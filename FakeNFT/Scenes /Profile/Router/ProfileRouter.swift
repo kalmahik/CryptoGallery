@@ -17,7 +17,7 @@ protocol ProfileRouterProtocol: AnyObject {
 }
 
 final class ProfileRouter {
-    // MARK: - Properties
+    // MARK: - Public Properties
     weak var viewController: UIViewController?
 
     // MARK: - Init
@@ -26,6 +26,7 @@ final class ProfileRouter {
     }
 }
 
+// MARK: - ProfileRouterProtocol
 extension ProfileRouter: ProfileRouterProtocol {
     func navigateToMyNFT() {}
 

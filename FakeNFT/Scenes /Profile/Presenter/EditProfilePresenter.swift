@@ -21,7 +21,7 @@ protocol EditProfilePresenterProtocol: AnyObject {
 }
 
 final class EditProfilePresenter {
-
+    // MARK: - Public Properties
     weak var view: EditProfileViewControllerProtocol?
     var profile: Profile?
     var sections: [SectionHeader] = [
@@ -41,6 +41,7 @@ final class EditProfilePresenter {
     }
 }
 
+// MARK: - EditProfilePresenterProtocol
 extension EditProfilePresenter: EditProfilePresenterProtocol {
     // MARK: - Public Methods
     func viewDidLoad() {
