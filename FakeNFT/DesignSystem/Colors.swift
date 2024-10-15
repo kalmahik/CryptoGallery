@@ -46,17 +46,17 @@ extension UIColor {
     static let ypBlackUniversal = UIColor(hexString: "#1A1B22")
     static let ypWhiteUniversal = UIColor(hexString: "#FFFFFF")
     static let ypYellowUniversal = UIColor(hexString: "#FEEF0D")
-
+    
     // MARK: - Base Colors Day/Night
-
+    
     private static let ypLightGreyDay = UIColor(hexString: "#F7F7F8")
     private static let ypLightGreyNight = UIColor(hexString: "#2C2C2E")
 
     static let ypWhite = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhiteUniversal }
-
+    
     static let ypBlack = UIColor { $0.userInterfaceStyle == .dark ? .ypWhiteUniversal : .ypBlackUniversal }
-
-    static let ypLightGrey = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyNight : .ypLightGreyDay }
+    
+    static let yplightGrey = UIColor { $0.userInterfaceStyle == .dark ? .ypLightGreyNight : .ypLightGreyDay }
 
     static let ypSegmentActive = UIColor { $0.userInterfaceStyle == .dark ? .ypBlackUniversal : .ypWhiteUniversal }
 
