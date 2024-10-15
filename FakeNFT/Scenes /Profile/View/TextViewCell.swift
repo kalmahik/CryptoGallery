@@ -8,7 +8,6 @@
 import UIKit
 
 final class TextViewCell: UITableViewCell, ReuseIdentifying {
-
     // MARK: - Private Properties
     private lazy var textView: UITextView = {
         let textView = UITextView()
@@ -53,8 +52,10 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
-    // MARK: - Public methods
+// MARK: - Configure cell
+extension TextViewCell {
     func getText() -> UITextView {
         return textView
     }
@@ -62,7 +63,10 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
     func changeText(_ text: String) {
         textView.text = text
     }
+}
 
+// MARK: - Layout
+extension TextViewCell {
     // MARK: - Private Methods
     private func setupUI() {
         [textView, clearButton].forEach {
@@ -82,7 +86,10 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
             clearButton.heightAnchor.constraint(equalToConstant: 17)
         ])
     }
+}
 
+// MARK: - Action
+extension TextViewCell {
     @objc private func clearText() {
         textView.text = ""
         clearButton.isHidden = true

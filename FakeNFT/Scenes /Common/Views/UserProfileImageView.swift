@@ -63,7 +63,10 @@ final class UserProfileImageView: UIView {
         super.init(coder: coder)
         setupUI()
     }
+}
 
+// MARK: - Configure view
+extension UserProfileImageView {
     // MARK: - Public Methods
     func setProfile(_ profile: Profile?, mode: ProfileImageMode) {
         self.mode = mode
@@ -83,8 +86,10 @@ final class UserProfileImageView: UIView {
     func addChangePhotoButtonTarget(_ target: Any?, action: Selector) {
         changePhotoButton.addTarget(target, action: action, for: .touchUpInside)
     }
+}
 
-    // MARK: - Private Methods
+// MARK: - Private Methods
+extension UserProfileImageView {
     private func updateUserProfileImage(with url: URL, completion: @escaping (UIImage?) -> Void) {
         userImageView.kf.indicatorType = .activity
         userImageView.kf.setImage(
@@ -106,7 +111,10 @@ final class UserProfileImageView: UIView {
         userImageView.image = mode.placeholder
         userImageView.tintColor = .ypGrayUniversal
     }
+}
 
+// MARK: - Layout
+extension UserProfileImageView {
     private func setupUI() {
         [userImageView, changePhotoButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
