@@ -5,13 +5,13 @@
 //  Created by Konstantin Lyashenko on 11.10.2024.
 //
 
-import UIKit
 import SafariServices
+import UIKit
 
 protocol ProfileRouterProtocol: AnyObject {
     func navigateToMyNFT()
     func navigateToSelectedNFT()
-    func navigateToEditProfile(profile: Profile)
+    func navigateToEditProfile()
     func navigateToAboutTheDeveloper()
     func navigateToWebsite(websiteURL: String)
 }
@@ -33,7 +33,15 @@ extension ProfileRouter: ProfileRouterProtocol {
     func navigateToSelectedNFT() {
     }
 
-    func navigateToEditProfile(profile: Profile) {
+    func navigateToEditProfile() {
+        guard let viewController else { return }
+
+        let editProfileViewController = EditProfileViewController()
+        editProfileViewController.modalPresentationStyle = .pageSheet
+
+        DispatchQueue.main.async {
+            viewController.present(editProfileViewController, animated: true)
+        }
     }
 
     func navigateToAboutTheDeveloper() {
