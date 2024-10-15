@@ -60,6 +60,8 @@
 		DD5360E42CBA7C1F00C60FEE /* BacketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */; };
 		DD5360E62CBABB3200C60FEE /* ExtensionBacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */; };
 		DD5360E82CBABBE900C60FEE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5360E72CBABBE900C60FEE /* TableViewCell.swift */; };
+		DD837F152CBF1096001988C1 /* DeleteConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD837F142CBF1096001988C1 /* DeleteConfirmationViewController.swift */; };
+		DD837F172CBF10B6001988C1 /* ExtensionDeleteConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD837F162CBF10B6001988C1 /* ExtensionDeleteConfirmation.swift */; };
 		DDE73E212CBD85E50034C2E9 /* ExtensionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE73E202CBD85E50034C2E9 /* ExtensionTableView.swift */; };
 		E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */; };
 		E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */; };
@@ -141,6 +143,8 @@
 		DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BacketViewController.swift; sourceTree = "<group>"; };
 		DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionBacket.swift; sourceTree = "<group>"; };
 		DD5360E72CBABBE900C60FEE /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		DD837F142CBF1096001988C1 /* DeleteConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmationViewController.swift; sourceTree = "<group>"; };
+		DD837F162CBF10B6001988C1 /* ExtensionDeleteConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDeleteConfirmation.swift; sourceTree = "<group>"; };
 		DDE73E202CBD85E50034C2E9 /* ExtensionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTableView.swift; sourceTree = "<group>"; };
 		E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -397,6 +401,8 @@
 				DD5360E32CBA7C1F00C60FEE /* BacketViewController.swift */,
 				DD2837A22CBC09A800589C71 /* BacketPresenter.swift */,
 				DD5360E52CBABB3200C60FEE /* ExtensionBacket.swift */,
+				DD5360EB2CBAE4D800C60FEE /* BasketCell */,
+				DD837F132CBF1059001988C1 /* DeleteNFT 2 */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -423,7 +429,6 @@
 			children = (
 				DD07093D2CBCF77D00AFF2CE /* Cart */,
 				DD07093E2CBCF79700AFF2CE /* Payment */,
-				DD5360EB2CBAE4D800C60FEE /* BasketCell */,
 			);
 			path = Basket;
 			sourceTree = "<group>";
@@ -437,6 +442,15 @@
 				DDE73E202CBD85E50034C2E9 /* ExtensionTableView.swift */,
 			);
 			path = BasketCell;
+			sourceTree = "<group>";
+		};
+		DD837F132CBF1059001988C1 /* DeleteNFT 2 */ = {
+			isa = PBXGroup;
+			children = (
+				DD837F142CBF1096001988C1 /* DeleteConfirmationViewController.swift */,
+				DD837F162CBF10B6001988C1 /* ExtensionDeleteConfirmation.swift */,
+			);
+			path = "DeleteNFT 2";
 			sourceTree = "<group>";
 		};
 		E19CD5A92A98B55900CA39A5 /* Cell */ = {
@@ -679,7 +693,9 @@
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				0CFCB7442A7802440009A829 /* NftDetailInput.swift in Sources */,
 				DDE73E212CBD85E50034C2E9 /* ExtensionTableView.swift in Sources */,
+				DD837F152CBF1096001988C1 /* DeleteConfirmationViewController.swift in Sources */,
 				0C79EE632A76DD1900EE90EA /* RequestConstants.swift in Sources */,
+				DD837F172CBF10B6001988C1 /* ExtensionDeleteConfirmation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
