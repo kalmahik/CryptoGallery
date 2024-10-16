@@ -42,7 +42,7 @@ final class TabBarController: UITabBarController {
 
         let basketNavController = UINavigationController(rootViewController: basketController)
 
-        viewControllers = [profileController, catalogController, basketNavController, statisticsController]
+        viewControllers = [profileController, catalogController, basketNavController, statisticController]
         view.backgroundColor = .systemBackground
         tabBar.unselectedItemTintColor = .ypBlack
     }
