@@ -43,7 +43,7 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .clear
+        contentView.backgroundColor = .background
         textView.delegate = self
         setupUI()
     }

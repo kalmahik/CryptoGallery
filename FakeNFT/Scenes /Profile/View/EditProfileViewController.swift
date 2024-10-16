@@ -42,7 +42,6 @@ final class EditProfileViewController: UIViewController {
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "close"), for: .normal)
-        button.tintColor = .ypBlack
         button.addTarget(self, action: #selector(tapCloseButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
