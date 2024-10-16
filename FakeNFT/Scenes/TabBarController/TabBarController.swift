@@ -34,7 +34,7 @@ final class TabBarController: UITabBarController {
         let profileController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
         let catalogController = TestCatalogViewController(servicesAssembly: servicesAssembly)
         let basketController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
-        let statisticController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
+        let statisticController = StatisticViewController(servicesAssembly: servicesAssembly).wrapWithNavigationController()
         profileController.tabBarItem = profileTabBarItem
         catalogController.tabBarItem = catalogTabBarItem
         basketController.tabBarItem = basketTabBarItem
