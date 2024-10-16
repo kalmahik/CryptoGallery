@@ -8,7 +8,7 @@
 "Tab.profile" = "Профиль";
 "Tab.catalog" = "Каталог";
 "Tab.basket" = "Корзина";
-"Tab.statistics" = "Статистика";
+"Tab.statistic" = "Статистика";
 
 // Sort
 "Sort.title" = "Сортировка";
@@ -56,7 +56,7 @@
 "Profile.myNft.placeholder" = "У вас еще нет NFT";
 "Profile.selectedNft.placeholder" = "У вас еще нет избранных NFT";
 
-// Statistics
+// Statistic
 "Stat.user.button" = "Перейти на сайт пользователя";
 "Stat.collectionNft" = "Коллекция NFT";
 "Stat.emptyData.alert" = "Не удалось получить данные";

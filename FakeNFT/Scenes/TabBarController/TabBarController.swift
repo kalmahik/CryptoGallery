@@ -6,13 +6,13 @@ final class TabBarController: UITabBarController {
 
     private let  profileTabBarItem = UITabBarItem(
         title: LocalizationKey.tabProfile.localized(),
-        image: UIImage(systemName: "person.crop.circle.fill"),
+        image: UIImage(named: "profile"),
         tag: 0
     )
 
     private let catalogTabBarItem = UITabBarItem(
         title: LocalizationKey.tabCatalog.localized(),
-        image: UIImage(systemName: "rectangle.stack.fill"),
+        image: UIImage(named: "catalog"),
         tag: 1
     )
 
@@ -22,9 +22,9 @@ final class TabBarController: UITabBarController {
         tag: 2
     )
 
-    private let statisticsTabBarItem = UITabBarItem(
-        title: LocalizationKey.tabStatistics.localized(),
-        image: UIImage(systemName: "flag.2.crossed.fill"),
+    private let statisticTabBarItem = UITabBarItem(
+        title: LocalizationKey.tabStatistic.localized(),
+        image: UIImage(named: "statistic"),
         tag: 3
     )
 
@@ -34,12 +34,12 @@ final class TabBarController: UITabBarController {
         let profileController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
         let catalogController = TestCatalogViewController(servicesAssembly: servicesAssembly)
         let basketController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
-        let statisticsController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
+        let statisticController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
         profileController.tabBarItem = profileTabBarItem
         catalogController.tabBarItem = catalogTabBarItem
         basketController.tabBarItem = basketTabBarItem
-        statisticsController.tabBarItem = statisticsTabBarItem
-        viewControllers = [profileController, catalogController, basketController, statisticsController]
+        statisticController.tabBarItem = statisticTabBarItem
+        viewControllers = [profileController, catalogController, basketController, statisticController]
         view.backgroundColor = .systemBackground
         tabBar.unselectedItemTintColor = .ypBlack
     }
