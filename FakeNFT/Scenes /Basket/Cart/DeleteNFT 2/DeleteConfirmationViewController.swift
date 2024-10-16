@@ -46,7 +46,7 @@ final class DeleteConfirmationViewController: UIViewController {
         let imageView = UIImageView(image: nftImage)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 12
+        imageView.layer.cornerRadius = UIConstants.CornerRadius.small12
         imageView.widthAnchor.constraint(equalToConstant: 108).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 108).isActive = true
         return imageView
@@ -67,7 +67,7 @@ final class DeleteConfirmationViewController: UIViewController {
         button.setTitle(deleteButtonTitle, for: .normal)
         button.setTitleColor(.ypRedUniversal, for: .normal)
         button.backgroundColor = .ypBlack
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = UIConstants.CornerRadius.small12
         button.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
         return button
     }()
@@ -77,7 +77,7 @@ final class DeleteConfirmationViewController: UIViewController {
         button.setTitle(cancelButtonTitle, for: .normal)
         button.setTitleColor(.ypWhite, for: .normal)
         button.backgroundColor = .ypBlack
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = UIConstants.CornerRadius.small12
         button.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
         return button
     }()

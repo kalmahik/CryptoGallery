@@ -38,7 +38,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     lazy var customView: UIView = {
         let view = UIView()
         view.backgroundColor = .ypLightGrey
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = UIConstants.CornerRadius.medium16
         view.heightAnchor.constraint(equalToConstant: 76).isActive = true
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return view
@@ -84,7 +84,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         button.backgroundColor = .ypBlack
         button.setTitleColor(.ypWhite, for: .normal)
         button.titleLabel?.font = .bold17
-        button.layer.cornerRadius = 16
+        button.layer.cornerRadius = UIConstants.CornerRadius.medium16
         button.heightAnchor.constraint(equalToConstant: 44).isActive = true
         button.addTarget(self, action: #selector(payButtonTapped), for: .touchUpInside)
         return button

@@ -14,7 +14,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     lazy var nftImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 16
+        imageView.layer.cornerRadius = UIConstants.CornerRadius.medium16
         imageView.clipsToBounds = true
         return imageView
     }()
