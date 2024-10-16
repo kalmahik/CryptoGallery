@@ -18,7 +18,7 @@ enum LocalizationKey: String {
     case tabProfile = "Tab.profile"
     case tabCatalog = "Tab.catalog"
     case tabBasket = "Tab.basket"
-    case tabStatistics = "Tab.statistics"
+    case tabStatistic = "Tab.statistic"
 
     // Sort
     case sortTitle = "Sort.title"
@@ -66,7 +66,7 @@ enum LocalizationKey: String {
     case profMyNftPlaceholder = "Profile.myNft.placeholder"
     case profSelectedNftPlaceholder = "Profile.selectedNft.placeholder"
 
-    // Statistics
+    // Statistic
     case statUserButton = "Stat.user.button"
     case statCollectionNft = "Stat.collectionNft"
     case statEmptyDataAlert = "Stat.emptyData.alert"
