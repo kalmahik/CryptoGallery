@@ -90,7 +90,7 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
 
 // MARK: - Saving Profile Data to Network
 extension EditProfilePresenter {
-    func saveProfileChanges() {
+    private func saveProfileChanges() {
         guard let profile else { return }
 
         profileService.updateProfile(
@@ -100,14 +100,13 @@ extension EditProfilePresenter {
             website: profile.website,
             likes: profile.likes
         ) { [weak self] result in
-            guard let self else { return }
+            guard let self = self else { return }
             switch result {
             case .success(let updatedProfile):
                 self.profile = updatedProfile
                 self.view?.dismissView()
             case .failure(let error):
                 self.handleError(error)
-                Logger.shared.error("Error save profile data: \(error)")
             }
         }
     }
@@ -116,13 +115,13 @@ extension EditProfilePresenter {
 // MARK: - Show Error
 extension EditProfilePresenter {
     private func handleError(_ error: Error) {
-        let errorMessage = "Не удалось обновить профиль. Попробуйте снова." // TODO: - Change Localization
+        let errorMessage = (error as? CustomError)?.localizedDescription ?? LocalizationKey.errorUnknown.localized()
 
         let errorModel = ErrorModel(
             message: errorMessage,
-            actionText: "Повторить", // TODO: - Change Localization
+            actionText: LocalizationKey.errorRepeat.localized(),
             action: { [weak self] in
-                guard let self else { return }
+                guard let self = self else { return }
                 self.saveProfileChanges()
             }
         )

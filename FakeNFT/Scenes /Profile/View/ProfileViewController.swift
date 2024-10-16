@@ -30,6 +30,14 @@ enum CategoryCell: CaseIterable {
 }
 
 final class ProfileViewController: UIViewController {
+    // MARK: - Public Properties
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
     // MARK: - Private Properties
     private var presenter: ProfilePresenterProtocol?
     private let servicesAssembly: ServicesAssembly
@@ -47,6 +55,30 @@ final class ProfileViewController: UIViewController {
         )
         button.tintColor = .ypBlack
         return button
+    }()
+
+    private lazy var shimmerUserProfileImage: ShimmerView = {
+        let shimmerView = ShimmerView()
+        shimmerView.translatesAutoresizingMaskIntoConstraints = false
+        return shimmerView
+    }()
+
+    private lazy var shimmerNameLabel: ShimmerView = {
+        let shimmerView = ShimmerView()
+        shimmerView.translatesAutoresizingMaskIntoConstraints = false
+        return shimmerView
+    }()
+
+    private lazy var shimmerDescriptionLabel: ShimmerView = {
+        let shimmerView = ShimmerView()
+        shimmerView.translatesAutoresizingMaskIntoConstraints = false
+        return shimmerView
+    }()
+
+    private lazy var shimmerWebsiteLabel: ShimmerView = {
+        let shimmerView = ShimmerView()
+        shimmerView.translatesAutoresizingMaskIntoConstraints = false
+        return shimmerView
     }()
 
     private lazy var userProfileImage: UserProfileImageView = {
@@ -152,9 +184,11 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        presenter?.viewDidLoad()
         setupUI()
         setupNavigation()
+        showShimmerViews()
+        showLoading()
+        presenter?.viewDidLoad()
     }
 }
 
@@ -162,7 +196,10 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController {
 
     private func setupUI() {
-        view.addSubview(globalProfileStack)
+        [globalProfileStack, activityIndicator].forEach {
+            view.addSubview($0)
+        }
+
         [userProfileImage, globalProfileStack, profileUserDataStack, tableView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -173,7 +210,10 @@ extension ProfileViewController {
             globalProfileStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             globalProfileStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             userProfileImage.widthAnchor.constraint(equalToConstant: 70),
-            profileUserDataStack.heightAnchor.constraint(equalToConstant: 70)
+            profileUserDataStack.heightAnchor.constraint(equalToConstant: 70),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 
@@ -194,6 +234,27 @@ extension ProfileViewController {
     private func tapToWebsite() {
         presenter?.didTapWebsite(url: websiteURL)
     }
+}
+
+// MARK: - Shimmer
+extension ProfileViewController {
+    private func showShimmerViews() {
+        [shimmerUserProfileImage, shimmerNameLabel, shimmerDescriptionLabel, shimmerWebsiteLabel].forEach {
+            $0.startShimmer()
+        }
+    }
+
+    private func hideShimmerViews() {
+        [shimmerUserProfileImage, shimmerNameLabel, shimmerDescriptionLabel, shimmerWebsiteLabel].forEach {
+            $0.stopShimmer()
+            $0.isHidden = true
+        }
+    }
+}
+
+// MARK: - LoadingView
+extension ProfileViewController: LoadingView {
+    // TODO: - Activity Indicator
 }
 
 // MARK: - UITableViewDelegate
@@ -228,6 +289,10 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: ProfileViewControllerProtocol {
 
     func updateProfileDetails(profile: Profile?) {
+        hideLoading()
+        hideShimmerViews()
+        activityIndicator.stopAnimating()
+
         if let profile {
             nameLabel.text = profile.name
             descriptionLabel.text = profile.description
@@ -235,14 +300,8 @@ extension ProfileViewController: ProfileViewControllerProtocol {
             myNftValueCount = profile.nfts.count
             selectedNftValueCount = profile.likes.count
             websiteURL = profile.website
-
             userProfileImage.setProfile(profile, mode: .view)
             tableView.reloadData()
-        } else {
-            nameLabel.text = ""
-            descriptionLabel.text = ""
-            websiteLabel.text = ""
-            userProfileImage.setProfile(nil, mode: .view)
         }
     }
 

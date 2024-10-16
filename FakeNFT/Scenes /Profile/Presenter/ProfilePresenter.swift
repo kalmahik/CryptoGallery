@@ -90,7 +90,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
 extension ProfilePresenter {
     private func fetchUserProfile() {
         profileService.getProfile { [weak self] result in
-            guard let self else { return }
+            guard let self = self else { return }
             switch result {
             case .success(let profile):
                 self.updateUserProfile(profile)
@@ -105,14 +105,13 @@ extension ProfilePresenter {
 // MARK: - Show Error
 extension ProfilePresenter {
     private func handleError(_ error: Error) {
-        let errorMessage = "Не удалось загрузить профиль. Попробуйте снова." // TODO: - Change Localization
+        let errorMessage = (error as? CustomError)?.localizedDescription ?? LocalizationKey.errorUnknown.localized()
 
         let errorModel = ErrorModel(
             message: errorMessage,
-            actionText: "Повторить", // TODO: - Change Localization
+            actionText: LocalizationKey.errorRepeat.localized(),
             action: { [weak self] in
-                guard let self else { return }
-                self.fetchUserProfile()
+                self?.fetchUserProfile()
             }
         )
 

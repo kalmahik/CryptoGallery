@@ -32,6 +32,7 @@
 		2499092B2CBFAB4200F4F5DE /* ProfileRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499092A2CBFAB4200F4F5DE /* ProfileRequests.swift */; };
 		2499092D2CBFAED200F4F5DE /* UpdateProfileDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499092C2CBFAED200F4F5DE /* UpdateProfileDto.swift */; };
 		249909322CBFB30C00F4F5DE /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249909312CBFB30C00F4F5DE /* ProfileService.swift */; };
+		2499093A2CBFEEB700F4F5DE /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249909392CBFEEB700F4F5DE /* ShimmerView.swift */; };
 		2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499527A2CB513C000CB36F8 /* LocalizationKey.swift */; };
 		24CD87C52CBD35B100886559 /* UserPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 24CD87C42CBD35B100886559 /* UserPic.png */; };
 		24CD87C72CBD47CB00886559 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87C62CBD47CB00886559 /* ProfileCell.swift */; };
@@ -115,6 +116,7 @@
 		2499092A2CBFAB4200F4F5DE /* ProfileRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequests.swift; sourceTree = "<group>"; };
 		2499092C2CBFAED200F4F5DE /* UpdateProfileDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileDto.swift; sourceTree = "<group>"; };
 		249909312CBFB30C00F4F5DE /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		249909392CBFEEB700F4F5DE /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		249952792CB512DE00CB36F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2499527A2CB513C000CB36F8 /* LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKey.swift; sourceTree = "<group>"; };
 		24CD87C42CBD35B100886559 /* UserPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserPic.png; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			children = (
 				0CF2C2E02A784C7000FDC837 /* LinePageControl.swift */,
 				24CD87D22CBDA25900886559 /* UserProfileImageView.swift */,
+				249909392CBFEEB700F4F5DE /* ShimmerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				24CD87DF2CBEBBB000886559 /* NetworkConstants.swift in Sources */,
 				0CFCB74E2A7817DC0009A829 /* NftStorage.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExamplePutRequest.swift in Sources */,
+				2499093A2CBFEEB700F4F5DE /* ShimmerView.swift in Sources */,
 				0CFCB7462A78064B0009A829 /* NftDetailCellModel.swift in Sources */,
 				24CD87C92CBD4AA800886559 /* ConfigureTableViewCellHelper.swift in Sources */,
 				24CD87DD2CBE6AAC00886559 /* TableViewHeaderAndFooterHelper.swift in Sources */,
