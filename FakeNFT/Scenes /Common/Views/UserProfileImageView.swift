@@ -101,7 +101,7 @@ extension UserProfileImageView {
             case .success(let value):
                 completion(value.image)
             case .failure(let error):
-                Logger.shared.error(error.errorDescription ?? error.localizedDescription)
+                Logger.shared.error("Ошибка загрузки изображения: \(error.localizedDescription)")
                 completion(nil)
             }
         }

@@ -32,19 +32,25 @@ final class ProfilePresenter {
 
     // MARK: - Private Properties
     private let router: ProfileRouterProtocol
+    private let profileService: ProfileService
     private var profile: Profile?
 
     // MARK: - Lifecycle
-    init(view: ProfileViewControllerProtocol, router: ProfileRouterProtocol) {
+    init(
+        view: ProfileViewControllerProtocol,
+        router: ProfileRouterProtocol,
+        profileService: ProfileService
+    ) {
         self.view = view
         self.router = router
+        self.profileService = profileService
     }
 }
 
 // MARK: - ProfilePresenterProtocol
 extension ProfilePresenter: ProfilePresenterProtocol {
     func viewDidLoad() {
-        updateUserProfile(mockProfile()) // TODO: - Mock data
+        fetchUserProfile()
     }
 
     func getCellsTitle(for items: Int) -> String? {
@@ -52,7 +58,9 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     }
 
     func didTapEditProfile() {
-        router.navigateToEditProfile(mockProfile()) // TODO: - Mock data
+        if let profile {
+            router.navigateToEditProfile(profile)
+        }
     }
 
     func didTapMyNft() {}
@@ -65,37 +73,51 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     }
 
     func updateUserProfile(_ profile: Profile?) {
-        if let profile = profile {
+        if let profile {
             self.profile = profile
         }
-        view?.updateProfileDetails(profile: mockProfile()) // TODO: - Mock data
+        view?.updateProfileDetails(profile: profile)
     }
 
     func updateUserProfileImage() {
-        view?.updateUserProfileImageView(profile: mockProfile(), mode: .view) // TODO: - Mock data
+        if let profile {
+            view?.updateUserProfileImageView(profile: profile, mode: .view)
+        }
     }
 }
 
-// MARK: - Mock data
+// MARK: - Fetching Profile Data from Network
 extension ProfilePresenter {
-    
-    private func mockProfile() -> Profile {
-        var avatar = ""
-        if let url = Bundle.main.url(forResource: "UserPic", withExtension: "png") { // TODO: - Mock data
-            avatar = url.absoluteString
-        } else {
-            Logger.shared.info("No user picture")
+    private func fetchUserProfile() {
+        profileService.getProfile { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let profile):
+                self.updateUserProfile(profile)
+            case .failure(let error):
+                self.handleError(error)
+                Logger.shared.error("Error fetching profile: \(error)")
+            }
         }
+    }
+}
 
-        let profile = profile ?? Profile(
-            name: "Joaquin Phoenix",
-            avatar: avatar,
-            description: "Дизайнер из Казани, люблю цифровое искусство и бейглы.",
-            website: "JoaquinPhoenix.com",
-            nfts: ["NFT1", "NFT2"],
-            likes: ["Like1", "Like2"],
-            id: "1122"
+// MARK: - Show Error
+extension ProfilePresenter {
+    private func handleError(_ error: Error) {
+        let errorMessage = "Не удалось загрузить профиль. Попробуйте снова." // TODO: - Change Localization
+
+        let errorModel = ErrorModel(
+            message: errorMessage,
+            actionText: "Повторить", // TODO: - Change Localization
+            action: { [weak self] in
+                guard let self else { return }
+                self.fetchUserProfile()
+            }
         )
-        return profile
+
+        if let view = self.view as? ErrorView {
+            view.showError(errorModel)
+        }
     }
 }

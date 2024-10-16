@@ -20,9 +20,13 @@ final class ProfileRouter {
     // MARK: - Public Properties
     weak var viewController: UIViewController?
 
+    // MARK: - Private Properties
+    private let profileService: ProfileService
+
     // MARK: - Init
-    init(viewController: UIViewController) {
+    init(viewController: UIViewController, profileService: ProfileService) {
         self.viewController = viewController
+        self.profileService = profileService
     }
 }
 
@@ -36,7 +40,11 @@ extension ProfileRouter: ProfileRouterProtocol {
         guard let viewController else { return }
 
         let editProfileViewController = EditProfileViewController()
-        let presenter = EditProfilePresenter(view: editProfileViewController, profile: profile)
+        let presenter = EditProfilePresenter(
+            view: editProfileViewController,
+            profile: profile,
+            profileService: profileService
+        )
         editProfileViewController.presenter = presenter
         editProfileViewController.modalPresentationStyle = .formSheet
 

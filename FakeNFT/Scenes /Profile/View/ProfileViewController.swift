@@ -135,8 +135,12 @@ final class ProfileViewController: UIViewController {
         self.servicesAssembly = servicesAssembly
         super.init(nibName: nil, bundle: nil)
 
-        let router = ProfileRouter(viewController: self)
-        presenter = ProfilePresenter(view: self, router: router)
+        let router = ProfileRouter(viewController: self, profileService: servicesAssembly.profileService)
+        presenter = ProfilePresenter(
+            view: self,
+            router: router,
+            profileService: servicesAssembly.profileService
+        )
     }
 
     @available(*, unavailable)

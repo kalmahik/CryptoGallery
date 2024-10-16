@@ -33,11 +33,17 @@ final class EditProfilePresenter {
 
     // MARK: - Private Properties
     private var isImageChanged = false
+    private let profileService: ProfileService
 
     // MARK: - Initializers
-    init(view: EditProfileViewControllerProtocol, profile: Profile?) {
+    init(
+        view: EditProfileViewControllerProtocol,
+        profile: Profile?,
+        profileService: ProfileService
+    ) {
         self.view = view
         self.profile = profile
+        self.profileService = profileService
     }
 }
 
@@ -79,5 +85,50 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
 
     func shouldShowFooter(for section: Int) -> Bool {
         return section == 0 && isImageChanged
+    }
+}
+
+// MARK: - Saving Profile Data to Network
+extension EditProfilePresenter {
+    func saveProfileChanges() {
+        guard let profile else { return }
+
+        profileService.updateProfile(
+            name: profile.name,
+            avatar: profile.avatar,
+            description: profile.description,
+            website: profile.website,
+            likes: profile.likes
+        ) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let updatedProfile):
+                self.profile = updatedProfile
+                self.view?.dismissView()
+            case .failure(let error):
+                self.handleError(error)
+                Logger.shared.error("Error save profile data: \(error)")
+            }
+        }
+    }
+}
+
+// MARK: - Show Error
+extension EditProfilePresenter {
+    private func handleError(_ error: Error) {
+        let errorMessage = "Не удалось обновить профиль. Попробуйте снова." // TODO: - Change Localization
+
+        let errorModel = ErrorModel(
+            message: errorMessage,
+            actionText: "Повторить", // TODO: - Change Localization
+            action: { [weak self] in
+                guard let self else { return }
+                self.saveProfileChanges()
+            }
+        )
+
+        if let view = self.view as? ErrorView {
+            view.showError(errorModel)
+        }
     }
 }
