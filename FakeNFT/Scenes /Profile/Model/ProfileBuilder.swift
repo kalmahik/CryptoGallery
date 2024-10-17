@@ -8,7 +8,7 @@
 import Foundation
 
 final class ProfileBuilder {
-    
+    // MARK: - Public Properties
     var currentName: String {
         return name
     }
@@ -22,6 +22,7 @@ final class ProfileBuilder {
         return website
     }
 
+    // MARK: - Private Properties
     private var name: String
     private var avatar: String?
     private var description: String
@@ -29,8 +30,8 @@ final class ProfileBuilder {
     private var nfts: [String]
     private var likes: [String]
     private var id: String
-    
 
+    // MARK:- Init
     init(profile: Profile) {
         self.name = profile.name
         self.avatar = profile.avatar
@@ -41,6 +42,7 @@ final class ProfileBuilder {
         self.id = profile.id
     }
 
+    // MARK: - Public Methods
     func setName(_ name: String) -> ProfileBuilder {
         self.name = name
         return self

@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol UserPicCellDelegate: AnyObject {
+    func userPicCellDidTapChangePhotoButton(_ cell: UserPicCell)
+}
+
 final class UserPicCell: UITableViewCell, ReuseIdentifying {
+
+    // MARK: - Public Properties
+    weak var delegate: UserPicCellDelegate?
 
     // MARK: - Private Properties
     private lazy var userImageView: UserProfileImageView = {
@@ -25,6 +32,7 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
         button.tintColor = .white
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.textAlignment = .center
+        button.addTarget(self, action: #selector(changePhotoButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -75,5 +83,12 @@ extension UserPicCell {
             changePhotoButton.widthAnchor.constraint(equalToConstant: 70),
             changePhotoButton.heightAnchor.constraint(equalToConstant: 70)
         ])
+    }
+}
+
+// MARK: - Action
+extension UserPicCell {
+    @objc private func changePhotoButtonTapped() {
+        delegate?.userPicCellDidTapChangePhotoButton(self)
     }
 }

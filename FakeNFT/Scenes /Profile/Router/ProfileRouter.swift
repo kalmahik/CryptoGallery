@@ -11,7 +11,7 @@ import UIKit
 protocol ProfileRouterProtocol: AnyObject {
     func navigateToMyNFT()
     func navigateToSelectedNFT()
-    func navigateToEditProfile(_ profile: Profile?)
+    func navigateToEditProfile(_ profile: Profile?, delegate: EditProfilePresenterDelegate)
     func navigateToAboutTheDeveloper()
     func navigateToWebsite(websiteURL: String)
 }
@@ -36,7 +36,7 @@ extension ProfileRouter: ProfileRouterProtocol {
 
     func navigateToSelectedNFT() {}
 
-    func navigateToEditProfile(_ profile: Profile?) {
+    func navigateToEditProfile(_ profile: Profile?, delegate: EditProfilePresenterDelegate) {
         guard let viewController else { return }
 
         let editProfileViewController = EditProfileViewController()
@@ -45,6 +45,7 @@ extension ProfileRouter: ProfileRouterProtocol {
             profile: profile,
             profileService: profileService
         )
+        presenter.delegate = delegate
         editProfileViewController.presenter = presenter
         editProfileViewController.modalPresentationStyle = .formSheet
 
@@ -53,7 +54,20 @@ extension ProfileRouter: ProfileRouterProtocol {
         }
     }
 
-    func navigateToAboutTheDeveloper() {}
+    func navigateToAboutTheDeveloper() {
+        let urlString = NetworkConstants.urlDev
+
+        guard let viewController = viewController,
+                let url = URL(string: urlString),
+                ["http", "https"].contains(url.scheme?.lowercased()) else {
+            Logger.shared.error("Неверный или неподдерживаемый URL: \(urlString)")
+            return
+        }
+
+        let websiteViewController = SFSafariViewController(url: url)
+        websiteViewController.hidesBottomBarWhenPushed = true
+        viewController.navigationController?.present(websiteViewController, animated: true)
+    }
 
     func navigateToWebsite(websiteURL: String) {
         var urlString = websiteURL
@@ -61,7 +75,9 @@ extension ProfileRouter: ProfileRouterProtocol {
             urlString = "https://\(websiteURL)"
         }
 
-        guard let viewController = viewController, let url = URL(string: urlString), ["http", "https"].contains(url.scheme?.lowercased()) else {
+        guard let viewController = viewController,
+                let url = URL(string: urlString),
+                ["http", "https"].contains(url.scheme?.lowercased()) else {
             Logger.shared.error("Неверный или неподдерживаемый URL: \(urlString)")
             return
         }

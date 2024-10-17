@@ -126,7 +126,6 @@ final class CustomNetworkClient: NetworkClient {
             }
             urlRequest.httpBody = profileData.data(using: .utf8)
         }
-
         return urlRequest
     }
 

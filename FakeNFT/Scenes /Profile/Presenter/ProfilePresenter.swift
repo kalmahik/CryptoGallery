@@ -17,6 +17,7 @@ protocol ProfilePresenterProtocol: AnyObject {
     func didTapMyNft()
     func didTapSelectedNft()
     func didTapWebsite(url: String)
+    func didTapAboutDev()
     func updateUserProfile(_ profile: Profile?)
     func updateUserProfileImage()
 }
@@ -32,8 +33,8 @@ final class ProfilePresenter {
 
     // MARK: - Private Properties
     private let router: ProfileRouterProtocol
-    private let profileService: ProfileService
     private var profile: Profile?
+    private let profileService: ProfileService
 
     // MARK: - Lifecycle
     init(
@@ -59,7 +60,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
 
     func didTapEditProfile() {
         if let profile {
-            router.navigateToEditProfile(profile)
+            router.navigateToEditProfile(profile, delegate: self)
         }
     }
 
@@ -70,6 +71,10 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         if let profile {
             router.navigateToWebsite(websiteURL: profile.website)
         }
+    }
+
+    func didTapAboutDev() {
+        router.navigateToAboutTheDeveloper()
     }
 
     func updateUserProfile(_ profile: Profile?) {
@@ -118,5 +123,13 @@ extension ProfilePresenter {
         if let view = self.view as? ErrorView {
             view.showError(errorModel)
         }
+    }
+}
+
+// MARK: - EditProfilePresenterDelegate
+extension ProfilePresenter: EditProfilePresenterDelegate {
+    func didUpdateProfile(_ profile: Profile) {
+        self.profile = profile
+        view?.updateProfileDetails(profile: profile)
     }
 }

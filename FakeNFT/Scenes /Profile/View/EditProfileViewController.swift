@@ -68,6 +68,10 @@ final class EditProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        removeKeyboardNotification()
+    }
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,10 +80,6 @@ final class EditProfileViewController: UIViewController {
         setupKeyboardNotification()
         dismissKeyboard(view: view)
         presenter?.viewDidLoad()
-    }
-
-    deinit {
-        removeKeyboardNotification()
     }
 }
 
@@ -177,13 +177,15 @@ extension EditProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let presenter = presenter, indexPath.section >= 0 && indexPath.section < presenter.sections.count else {
+        guard let presenter, indexPath.section >= 0 && indexPath.section < presenter.sections.count else {
             return UITableViewCell()
         }
 
         if indexPath.section == 0 {
             let cell: UserPicCell = tableView.dequeueReusableCell()
-            cell.setUserImage(presenter.profile)
+            let updatedProfile = presenter.getUpdatedProfile()
+            cell.setUserImage(updatedProfile)
+            cell.delegate = self
             cell.addChangePhotoButtonTarget(self, action: #selector(openImagePicker))
             cell.selectionStyle = .none
             return cell
@@ -284,3 +286,21 @@ extension EditProfileViewController: TextViewCellDelegate {
     }
 }
 
+// MARK: - UserPicCellDelegate
+extension EditProfileViewController: UserPicCellDelegate {
+    func userPicCellDidTapChangePhotoButton(_ cell: UserPicCell) {
+        let alertController = UIAlertController(title: "Введите URL аватарки", message: nil, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "https://example.com/avatar.png"
+        }
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        let submitAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            guard let self, let urlText = alertController.textFields?.first?.text else { return }
+            self.presenter?.updateProfileData(text: urlText, for: 0)
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(submitAction)
+        present(alertController, animated: true)
+    }
+}
