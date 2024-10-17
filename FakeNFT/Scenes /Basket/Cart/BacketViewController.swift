@@ -17,15 +17,6 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     var presenter: BacketPresenter?
 
-    lazy var filterButton: UIButton = {
-        let button = UIButton(type: .system)
-        let image = UIImage(named: "light")
-        button.setImage(image, for: .normal)
-        button.tintColor = .ypBlack
-        button.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
-        return button
-    }()
-
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(NFTTableViewCell.self, forCellReuseIdentifier: BacketViewController.cellIdentifier)
@@ -33,24 +24,6 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         return tableView
-    }()
-
-    lazy var customView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .ypLightGrey
-        view.layer.cornerRadius = UIConstants.CornerRadius.medium16
-        view.heightAnchor.constraint(equalToConstant: 76).isActive = true
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        return view
-    }()
-
-    lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [labelsStackView, payButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 24
-        stackView.alignment = .center
-        stackView.distribution = .fill
-        return stackView
     }()
 
     // MARK: - Private Properties
@@ -61,6 +34,24 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     private let sortRatingTitle = LocalizationKey.sortByRating.localized()
     private let sortNameTitle = LocalizationKey.sortByName.localized()
     private let sortCloseTitle = LocalizationKey.close.localized()
+
+    private lazy var filterButton: UIButton = {
+        let button = UIButton(type: .system)
+        let image = UIImage(named: "light")
+        button.setImage(image, for: .normal)
+        button.tintColor = .ypBlack
+        button.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var customView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .ypLightGrey
+        view.layer.cornerRadius = UIConstants.CornerRadius.medium16
+        view.heightAnchor.constraint(equalToConstant: 76).isActive = true
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        return view
+    }()
 
     private lazy var nftCountLabel: UILabel = {
         let label = UILabel()
@@ -95,6 +86,15 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         stackView.axis = .vertical
         stackView.spacing = 2
         stackView.alignment = .fill
+        return stackView
+    }()
+
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [labelsStackView, payButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 24
+        stackView.alignment = .center
+        stackView.distribution = .fill
         return stackView
     }()
 
@@ -145,5 +145,80 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     @objc func payButtonTapped() {
         presenter?.payButtonTapped()
+    }
+}
+
+// MARK: - Setup
+
+extension BacketViewController {
+    func setupUI() {
+        [tableView, customView].forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        [stackView].forEach {
+            customView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: customView.topAnchor),
+
+            customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            stackView.leadingAnchor.constraint(equalTo: customView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: -16),
+            stackView.centerYAnchor.constraint(equalTo: customView.centerYAnchor)
+        ])
+    }
+
+    func setupNavigationBar() {
+        let filterBarButtonItem = UIBarButtonItem(customView: filterButton)
+        navigationItem.rightBarButtonItem = filterBarButtonItem
+    }
+}
+
+// MARK: - UITableViewDataSource
+
+extension BacketViewController: UITableViewDataSource {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        return presenter?.getNFTItemsCount() ?? 0
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: BacketViewController.cellIdentifier,
+            for: indexPath) as? NFTTableViewCell else {
+            return UITableViewCell()
+        }
+        if let nftItem = presenter?.getNFTItem(at: indexPath.row) {
+            cell.configure(with: nftItem)
+        }
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension BacketViewController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
+        return 140
     }
 }

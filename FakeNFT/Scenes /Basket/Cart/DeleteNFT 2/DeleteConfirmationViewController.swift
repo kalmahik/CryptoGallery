@@ -14,33 +14,17 @@ final class DeleteConfirmationViewController: UIViewController {
     var nftImage: UIImage?
     var onDeleteConfirmed: (() -> Void)?
 
-    lazy var backgroundBlurView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        return blurView
-    }()
-
-    lazy var buttonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [deleteButton, cancelButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        stackView.distribution = .fillEqually
-        return stackView
-    }()
-
-    lazy var mainStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [contentStackView, buttonStackView])
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        stackView.alignment = .fill
-        return stackView
-    }()
-
     // MARK: - Private Properties
 
     private let confirmationButtonTitle = LocalizationKey.basketAlert.localized()
     private let deleteButtonTitle = LocalizationKey.delete.localized()
     private let cancelButtonTitle = LocalizationKey.back.localized()
+
+    private lazy var backgroundBlurView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        return blurView
+    }()
 
     private lazy var nftImageView: UIImageView = {
         let imageView = UIImageView(image: nftImage)
@@ -90,6 +74,22 @@ final class DeleteConfirmationViewController: UIViewController {
         return stackView
     }()
 
+    private lazy var buttonStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [deleteButton, cancelButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+
+    private lazy var mainStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [contentStackView, buttonStackView])
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.alignment = .fill
+        return stackView
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -108,5 +108,47 @@ final class DeleteConfirmationViewController: UIViewController {
 
     @objc private func cancelTapped() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Setup
+
+extension DeleteConfirmationViewController {
+    func setupUI() {
+        [backgroundBlurView, mainStackView].forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            backgroundBlurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundBlurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundBlurView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundBlurView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 244),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 56),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -56),
+
+            buttonStackView.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+}
+
+// MARK: - UIView
+
+extension UIView {
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder?.next
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
     }
 }

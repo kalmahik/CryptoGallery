@@ -9,37 +9,18 @@ import UIKit
 
 final class NFTTableViewCell: UITableViewCell, NFTCellView {
 
-    // MARK: - Public Properties
+    // MARK: - Private Properties
 
-    lazy var nftImageView: UIImageView = {
+    private let priceTitle = LocalizationKey.price.localized()
+    private var presenter: NFTCellPresenter?
+
+    private lazy var nftImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = UIConstants.CornerRadius.medium16
         imageView.clipsToBounds = true
         return imageView
     }()
-
-    lazy var deleteButton: UIButton = {
-        let button = UIButton(type: .system)
-        let removeNftImage = UIImage(named: "removeNft")
-        button.setImage(removeNftImage, for: .normal)
-        button.tintColor = .ypBlack
-        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        return button
-    }()
-
-    lazy var mainContentStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [imageAndContentStackView, deleteButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 100
-        stackView.alignment = .center
-        return stackView
-    }()
-
-    // MARK: - Private Properties
-
-    private let priceTitle = LocalizationKey.price.localized()
-    private var presenter: NFTCellPresenter?
 
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -70,6 +51,15 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
         return label
     }()
 
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton(type: .system)
+        let removeNftImage = UIImage(named: "removeNft")
+        button.setImage(removeNftImage, for: .normal)
+        button.tintColor = .ypBlack
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        return button
+    }()
+
     private lazy var nameRatingStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nameLabel, ratingView])
         stackView.axis = .vertical
@@ -98,6 +88,14 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
         let stackView = UIStackView(arrangedSubviews: [nftImageView, contentStackView])
         stackView.axis = .horizontal
         stackView.spacing = 20
+        stackView.alignment = .center
+        return stackView
+    }()
+
+    private lazy var mainContentStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [imageAndContentStackView, deleteButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 100
         stackView.alignment = .center
         return stackView
     }()
@@ -143,10 +141,36 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     // MARK: - Actions
 
     @objc private func deleteButtonTapped() {
-         guard
+        guard
             let presenter = presenter,
             let parentVC = self.parentViewController,
             let indexPath = (parentVC as? BacketViewController)?.tableView.indexPath(for: self) else { return }
-         presenter.deleteNFT(from: parentVC, at: indexPath.row)
-     }
+        presenter.deleteNFT(from: parentVC, at: indexPath.row)
+    }
+}
+
+// MARK: - Setup
+
+extension NFTTableViewCell {
+    func setupUI() {
+        [mainContentStackView].forEach {
+            contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            nftImageView.widthAnchor.constraint(equalToConstant: 108),
+            nftImageView.heightAnchor.constraint(equalToConstant: 108),
+
+            mainContentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            mainContentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            mainContentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            mainContentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+
+            deleteButton.widthAnchor.constraint(equalToConstant: 44),
+            deleteButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
 }
