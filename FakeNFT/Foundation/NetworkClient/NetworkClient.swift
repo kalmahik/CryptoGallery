@@ -142,7 +142,20 @@ struct DefaultNetworkClient: NetworkClient {
         do {
             let response = try decoder.decode(T.self, from: data)
             onResponse(.success(response))
+        } catch let DecodingError.dataCorrupted(context) {
+            print("Data corrupted: \(context.debugDescription)")
+            onResponse(.failure(NetworkClientError.parsingError))
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found: \(context.debugDescription), codingPath: \(context.codingPath)")
+            onResponse(.failure(NetworkClientError.parsingError))
+        } catch let DecodingError.typeMismatch(type, context) {
+            print("Type mismatch for type '\(type)': \(context.debugDescription), codingPath: \(context.codingPath)")
+            onResponse(.failure(NetworkClientError.parsingError))
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found: \(context.debugDescription), codingPath: \(context.codingPath)")
+            onResponse(.failure(NetworkClientError.parsingError))
         } catch {
+            print("Unknown error: \(error.localizedDescription)")
             onResponse(.failure(NetworkClientError.parsingError))
         }
     }
