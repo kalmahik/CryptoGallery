@@ -12,3 +12,13 @@ protocol BacketViewProtocol: AnyObject {
     func updateTotalPriceLabel(with totalPrice: Double)
     func payButtonTapped()
 }
+
+protocol BacketPresenterProtocol {
+    func loadNFTData()
+    func saveSortOption(_ option: SortOption)
+    func sortNFTItems(by option: SortOption)
+    func getNFTItemsCount() -> Int
+    func getNFTItem(at index: Int) -> NFT
+    func payButtonTapped()
+    func deleteNFT(at index: Int)
+}

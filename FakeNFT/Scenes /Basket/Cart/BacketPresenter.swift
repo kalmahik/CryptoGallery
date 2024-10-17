@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class BacketPresenter {
+final class BacketPresenter: BacketPresenterProtocol {
 
     // MARK: - Private Properties
 
     private weak var view: BacketViewProtocol?
+
     private var nftItems: [NFT] = []
     private var sortManager = SortManager()
 

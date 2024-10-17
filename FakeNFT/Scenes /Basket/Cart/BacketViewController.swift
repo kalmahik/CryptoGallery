@@ -15,7 +15,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     // MARK: - Public Properties
 
-    var presenter: BacketPresenter?
+    var presenter: BacketPresenterProtocol?
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()

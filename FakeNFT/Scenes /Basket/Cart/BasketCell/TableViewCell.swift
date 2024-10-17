@@ -12,6 +12,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     // MARK: - Private Properties
 
     private let priceTitle = LocalizationKey.price.localized()
+
     private var presenter: NFTCellPresenter?
 
     private lazy var nftImageView: UIImageView = {
