@@ -14,11 +14,27 @@ enum LocalizationKey: String {
     case errorRepeat = "Error.repeat"
     case errorTitle = "Error.title"
 
+    // Error messages
+    case errorNetworkDescription = "Error.networkDescription"
+    case errorUnauthorized = "Error.unauthorized"
+    case errorBadRequest = "Error.badRequest"
+    case errorProfileNotFound = "Error.profileNotFound"
+    case errorServer = "Error.server"
+    case errorServiceUnavailable = "Error.serviceUnavailable"
+    case errorUpdateProfile = "Error.updateProfile"
+
+    // MARK: - Common Actions
+    case actionRetry = "Action.retry"
+    case actionEdit = "Action.edit"
+    case actionCancel = "Action.cancel"
+    case actionClose = "Action.close"
+    case actionSave = "Action.save"
+
     // Tab
     case tabProfile = "Tab.profile"
     case tabCatalog = "Tab.catalog"
     case tabBasket = "Tab.basket"
-    case tabStatistic = "Tab.statistic"
+    case tabStatistics = "Tab.statistics"
 
     // Sort
     case sortTitle = "Sort.title"
@@ -66,10 +82,13 @@ enum LocalizationKey: String {
     case profMyNftPlaceholder = "Profile.myNft.placeholder"
     case profSelectedNftPlaceholder = "Profile.selectedNft.placeholder"
 
-    // Statistic
+    // Statistics
     case statUserButton = "Stat.user.button"
     case statCollectionNft = "Stat.collectionNft"
     case statEmptyDataAlert = "Stat.emptyData.alert"
+
+    // Shimmer
+    case shimmerLoading = "Shimmer.loading"
 
     func localized() -> String {
         return NSLocalizedString(self.rawValue, comment: "")
