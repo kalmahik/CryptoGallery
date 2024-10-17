@@ -13,7 +13,7 @@ protocol NetworkRequest {
     var dto: Dto? { get }
 }
 
-protocol Dto {
+protocol Dto: Encodable {
     func asDictionary() -> [String: String]
 }
 

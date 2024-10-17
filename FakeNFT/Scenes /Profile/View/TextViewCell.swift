@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol TextViewCellDelegate: AnyObject {
+    func textViewCell(_ cell: TextViewCell, didUpdateText text: String, for section: Int)
+}
+
 final class TextViewCell: UITableViewCell, ReuseIdentifying {
+    // MARK: - Public Properties
+    weak var delegate: TextViewCellDelegate?
+    var section: Int?
+
     // MARK: - Private Properties
     private lazy var textView: UITextView = {
         let textView = UITextView()
@@ -107,9 +115,9 @@ extension TextViewCell: UITextViewDelegate {
             tableView.endUpdates()
             UIView.setAnimationsEnabled(true)
         }
-    }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
-        clearButton.isHidden = true
+        if let section = section {
+            delegate?.textViewCell(self, didUpdateText: textView.text, for: section)
+        }
     }
 }

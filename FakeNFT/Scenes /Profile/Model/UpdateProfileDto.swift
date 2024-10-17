@@ -16,16 +16,19 @@ struct UpdateProfileDto: Dto {
 
     func asDictionary() -> [String: String] {
         var dict: [String: String] = [:]
-
-        if let name,
-           let avatar,
-           let description,
-           let website,
-           let likes {
+        if let name {
             dict["name"] = name
+        }
+        if let avatar {
             dict["avatar"] = avatar
+        }
+        if let description {
             dict["description"] = description
+        }
+        if let website {
             dict["website"] = website
+        }
+        if let likes {
             dict["likes"] = likes.joined(separator: ",")
         }
         return dict

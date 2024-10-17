@@ -17,6 +17,7 @@ protocol EditProfilePresenterProtocol: AnyObject {
     func getSectionTitle(for section: Int) -> String?
     func openImagePicker()
     func getTextForSection(_ section: Int) -> String?
+    func updateProfileData(text: String, for section: Int)
     func shouldShowFooter(for section: Int) -> Bool
 }
 
@@ -34,6 +35,7 @@ final class EditProfilePresenter {
     // MARK: - Private Properties
     private var isImageChanged = false
     private let profileService: ProfileService
+    private var profileBuilder: ProfileBuilder
 
     // MARK: - Initializers
     init(
@@ -44,6 +46,11 @@ final class EditProfilePresenter {
         self.view = view
         self.profile = profile
         self.profileService = profileService
+        if let profile = profile {
+            self.profileBuilder = ProfileBuilder(profile: profile)
+        } else {
+            self.profileBuilder = ProfileBuilder(profile: Profile.emptyProfile())
+        }
     }
 }
 
@@ -55,6 +62,7 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
     }
 
     func tapCloseButton() {
+        saveProfileChanges()
         view?.dismissView()
     }
 
@@ -73,14 +81,27 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
             case .userPic:
                 return nil
             case .name:
-                return profile.name
+                return profileBuilder.currentName
             case .description:
-                return profile.description
+                return profileBuilder.currentDescription
             case .webSite:
-                return profile.website
+                return profileBuilder.currentWebsite
             }
         }
         return nil
+    }
+
+    func updateProfileData(text: String, for section: Int) {
+        switch sections[section] {
+        case .name:
+            profileBuilder = profileBuilder.setName(text)
+        case .description:
+            profileBuilder = profileBuilder.setDescription(text)
+        case .webSite:
+            profileBuilder = profileBuilder.setWebsite(text)
+        default:
+            break
+        }
     }
 
     func shouldShowFooter(for section: Int) -> Bool {

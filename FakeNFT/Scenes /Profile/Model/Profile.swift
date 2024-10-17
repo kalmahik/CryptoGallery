@@ -15,4 +15,16 @@ struct Profile: Codable {
     let nfts: [String]
     let likes: [String]
     let id: String
+
+    static func emptyProfile() -> Profile {
+        return Profile(
+            name: "",
+            avatar: nil,
+            description: "",
+            website: "",
+            nfts: [],
+            likes: [],
+            id: UUID().uuidString
+        )
+    }
 }

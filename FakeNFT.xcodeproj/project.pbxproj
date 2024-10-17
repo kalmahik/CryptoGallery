@@ -29,6 +29,8 @@
 		243FC8702CB94FB600A7C04D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243FC86F2CB94FB600A7C04D /* ProfileViewController.swift */; };
 		243FC8722CB94FF700A7C04D /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243FC8712CB94FF700A7C04D /* ProfilePresenter.swift */; };
 		243FC8742CB9505900A7C04D /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243FC8732CB9505900A7C04D /* ProfileRouter.swift */; };
+		2486E9B12CC122BB00E66548 /* CustomNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9B02CC122BB00E66548 /* CustomNetworkClient.swift */; };
+		2486E9B32CC1371500E66548 /* ProfileBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9B22CC1371500E66548 /* ProfileBuilder.swift */; };
 		2499092B2CBFAB4200F4F5DE /* ProfileRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499092A2CBFAB4200F4F5DE /* ProfileRequests.swift */; };
 		2499092D2CBFAED200F4F5DE /* UpdateProfileDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499092C2CBFAED200F4F5DE /* UpdateProfileDto.swift */; };
 		249909322CBFB30C00F4F5DE /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249909312CBFB30C00F4F5DE /* ProfileService.swift */; };
@@ -112,6 +114,8 @@
 		243FC86F2CB94FB600A7C04D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		243FC8712CB94FF700A7C04D /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		243FC8732CB9505900A7C04D /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		2486E9B02CC122BB00E66548 /* CustomNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNetworkClient.swift; sourceTree = "<group>"; };
+		2486E9B22CC1371500E66548 /* ProfileBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBuilder.swift; sourceTree = "<group>"; };
 		2499092A2CBFAB4200F4F5DE /* ProfileRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequests.swift; sourceTree = "<group>"; };
 		2499092C2CBFAED200F4F5DE /* UpdateProfileDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProfileDto.swift; sourceTree = "<group>"; };
 		249909312CBFB30C00F4F5DE /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -264,6 +268,7 @@
 			children = (
 				243FC86B2CB94F4F00A7C04D /* NFT.swift */,
 				243FC86D2CB94F7700A7C04D /* Profile.swift */,
+				2486E9B22CC1371500E66548 /* ProfileBuilder.swift */,
 				2499092C2CBFAED200F4F5DE /* UpdateProfileDto.swift */,
 			);
 			path = Model;
@@ -311,6 +316,7 @@
 			children = (
 				249909292CBFAB1500F4F5DE /* Requests */,
 				249909312CBFB30C00F4F5DE /* ProfileService.swift */,
+				2486E9B02CC122BB00E66548 /* CustomNetworkClient.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -687,6 +693,7 @@
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				0C79EE6A2A76DE1000EE90EA /* NftDetailAssembly.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,
+				2486E9B32CC1371500E66548 /* ProfileBuilder.swift in Sources */,
 				0CFCB7422A78013E0009A829 /* Nft.swift in Sources */,
 				0CF2C2DD2A783CE600FDC837 /* ErrorView.swift in Sources */,
 				0C79EE682A76DE0900EE90EA /* NftDetailPresenter.swift in Sources */,
@@ -716,6 +723,7 @@
 				24CD87D92CBE6A4D00886559 /* UserPicCell.swift in Sources */,
 				0C79EE612A76DCD600EE90EA /* NftByIdRequest.swift in Sources */,
 				E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */,
+				2486E9B12CC122BB00E66548 /* CustomNetworkClient.swift in Sources */,
 				249909322CBFB30C00F4F5DE /* ProfileService.swift in Sources */,
 				0CF2C2E12A784C7000FDC837 /* LinePageControl.swift in Sources */,
 				243FC8722CB94FF700A7C04D /* ProfilePresenter.swift in Sources */,

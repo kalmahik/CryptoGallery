@@ -75,7 +75,7 @@ final class ProfileServiceImpl: ProfileService {
                     case .success(let profile):
                         completion(.success(profile))
                     case .failure(let error):
-                        let customError = self.handleNetworkError(error)  // обработка ошибки
+                        let customError = self.handleNetworkError(error)
                         completion(.failure(customError))
                     }
                 }
@@ -108,7 +108,6 @@ final class ProfileServiceImpl: ProfileService {
     }
 }
 
-// Дополнительные ошибки
 enum CustomError: Error {
     case badRequest
     case unauthorized
@@ -124,7 +123,7 @@ enum CustomError: Error {
         case .profileNotFound: return LocalizationKey.errorProfileNotFound.localized()
         case .serverError: return LocalizationKey.errorServer.localized()
         case .serviceUnavailable: return LocalizationKey.errorServiceUnavailable.localized()
-        case .unknownError(let code): return String(format: LocalizationKey.errorNetworkDescription.localized(), code)
+        case .unknownError(let code): return "\(LocalizationKey.errorNetworkDescription.localized()), \(code))"
         }
     }
 }

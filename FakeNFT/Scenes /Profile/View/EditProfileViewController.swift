@@ -156,7 +156,9 @@ extension EditProfileViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension EditProfileViewController: UITableViewDelegate {}
+extension EditProfileViewController: UITableViewDelegate {
+
+}
 
 // MARK: - UITableViewDataSource
 extension EditProfileViewController: UITableViewDataSource {
@@ -187,6 +189,8 @@ extension EditProfileViewController: UITableViewDataSource {
             return cell
         } else {
             let cell: TextViewCell = tableView.dequeueReusableCell()
+            cell.delegate = self
+            cell.section = indexPath.section
 
             if let text = presenter.getTextForSection(indexPath.section) {
                 cell.changeText(text)
@@ -272,3 +276,11 @@ extension EditProfileViewController: EditProfileViewControllerProtocol {
         dismiss(animated: true)
     }
 }
+
+// MARK: - TextViewCellDelegate
+extension EditProfileViewController: TextViewCellDelegate {
+    func textViewCell(_ cell: TextViewCell, didUpdateText text: String, for section: Int) {
+        presenter?.updateProfileData(text: text, for: section)
+    }
+}
+
