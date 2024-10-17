@@ -10,7 +10,7 @@ import Foundation
 struct Collection: Decodable {
     let name: String
     let cover: String
-    let nfts: [Int] // TODO: Заменить 
+    let nfts: [Int]
     let description: String
     let author: String
     let id: String

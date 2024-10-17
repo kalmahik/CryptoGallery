@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct CatalogRequest: NetworkRequest {
+    var endpoint: URL? {
+        URL(string: "\(RequestConstants.baseURL)\(RequestConstants.colectionsPath)")
+    }
+    var httpMethod: HttpMethod = .get
+    var dto: Dto?
+}

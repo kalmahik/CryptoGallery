@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+enum CatalogSortType {
+        case name
+        case quantityNft
+    }

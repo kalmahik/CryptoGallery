@@ -1,10 +1,11 @@
 //
-//  CallCollection.swift
+//  CellCollection.swift
 //  FakeNFT
 //
 //  Created by Глеб Хамин on 12.10.2024.
 //
 
+import Kingfisher
 import UIKit
 
 final class CellTableCollectionNFT: UITableViewCell, ReuseIdentifying {
@@ -12,8 +13,7 @@ final class CellTableCollectionNFT: UITableViewCell, ReuseIdentifying {
     private lazy var coverImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .top
-        imageView.image = UIImage(named: "CoverCollection") // TODO: - Remove after adding API
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 12
         imageView.layer.masksToBounds = true
         return imageView
@@ -22,7 +22,6 @@ final class CellTableCollectionNFT: UITableViewCell, ReuseIdentifying {
     private lazy var nameCollection: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Ghkm 17" // TODO: - Remove after adding API
         label.font = .bold17
         label.textColor = .ypBlack
         return label
@@ -32,7 +31,7 @@ final class CellTableCollectionNFT: UITableViewCell, ReuseIdentifying {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        backgroundColor = .none
         setupLayout()
     }
 
@@ -43,12 +42,16 @@ final class CellTableCollectionNFT: UITableViewCell, ReuseIdentifying {
 
     // MARK: - Public Methods
 
-    func configCell(_ cover: UIImage, _ name: String, _ quantity: Int) {
-        coverImage.image = cover
+    func configCell(_ cover: String, _ name: String, _ quantity: Int) {
+        let URLImage = URL(string: cover)
+        coverImage.kf.setImage(with: URLImage)
         nameCollection.text = "\(name) (\(quantity))"
     }
+}
 
-    // MARK: - View Layout
+// MARK: - Extension: View Layout
+
+extension CellTableCollectionNFT {
 
     private func setupLayout() {
         selectionStyle = .none
