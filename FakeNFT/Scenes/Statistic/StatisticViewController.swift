@@ -2,7 +2,7 @@ import UIKit
 
 final class StatisticViewController: UIViewController {
     let servicesAssembly: ServicesAssembly
-    
+
     private lazy var tableView: UITableView = {
         let tableView  = UITableView()
         tableView.register(StatisticCell.self)
@@ -30,6 +30,9 @@ final class StatisticViewController: UIViewController {
         setupView()
         setupConstraints()
         setNavigationItem()
+        servicesAssembly.statisticService.sendStatisticGetRequest { result in
+            print(result)
+        }
     }
 }
 
