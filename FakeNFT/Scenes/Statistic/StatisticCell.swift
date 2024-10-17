@@ -10,7 +10,7 @@ import UIKit
 final class StatisticCell: UITableViewCell, ReuseIdentifying {
 
     // MARK: - Private Properties
-    
+
     private lazy var rootStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -18,7 +18,7 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
-    
+
     private lazy var placeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.regular15
@@ -27,7 +27,7 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         label.textAlignment = .center
         return label
     }()
-    
+
     private lazy var contentStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -40,7 +40,7 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         stackView.backgroundColor = .ypLightGrey
         return stackView
     }()
-    
+
     private lazy var labelStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -48,7 +48,7 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         stackView.spacing = 8
         return stackView
     }()
-    
+
     private lazy var avatar: UIImageView = {
         let avatar = UIImageView(image: UIImage(systemName: "person.crop.circle.fill"))
         return avatar
@@ -62,7 +62,7 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         label.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal)
         return label
     }()
-    
+
     private lazy var scoreLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.bold22
