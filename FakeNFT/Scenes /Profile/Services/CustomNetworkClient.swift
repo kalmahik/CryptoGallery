@@ -8,10 +8,12 @@
 import Foundation
 
 final class CustomNetworkClient: NetworkClient {
+    // MARK: - Private Properties
     private let session: URLSession
     private let decoder: JSONDecoder
     private let encoder: JSONEncoder
 
+    // MARK: - Init
     init(session: URLSession = URLSession.shared,
          decoder: JSONDecoder = JSONDecoder(),
          encoder: JSONEncoder = JSONEncoder()) {
@@ -20,6 +22,12 @@ final class CustomNetworkClient: NetworkClient {
         self.encoder = encoder
     }
 
+
+}
+
+
+extension CustomNetworkClient {
+    // MARK: - Public Methods
     @discardableResult
     func send(
         request: NetworkRequest,
@@ -87,6 +95,7 @@ final class CustomNetworkClient: NetworkClient {
         }
     }
 
+    // MARK: - Private Methods
     private func create(request: NetworkRequest) -> URLRequest? {
         guard let endpoint = request.endpoint else {
             assertionFailure("Empty endpoint")
@@ -128,9 +137,10 @@ final class CustomNetworkClient: NetworkClient {
         }
         return urlRequest
     }
+}
 
-    // MARK: - Logging Methods
-
+// MARK: - Logging Methods
+extension CustomNetworkClient {
     private func logRequest(_ request: URLRequest) {
         var logMessage = "\n----- Request -----\n"
 

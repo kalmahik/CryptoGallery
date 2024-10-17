@@ -5,8 +5,8 @@
 //  Created by Konstantin Lyashenko on 14.10.2024.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 enum ProfileImageMode {
     case view
@@ -23,7 +23,9 @@ enum ProfileImageMode {
 }
 
 final class UserProfileImageView: UIView {
+
     // MARK: - Private Properties
+
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 35 // TODO: - Change
@@ -55,6 +57,7 @@ final class UserProfileImageView: UIView {
     }
 
     // MARK: - Initializers
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -67,8 +70,11 @@ final class UserProfileImageView: UIView {
 }
 
 // MARK: - Configure view
+
 extension UserProfileImageView {
+
     // MARK: - Public Methods
+
     func setProfile(_ profile: Profile?, mode: ProfileImageMode) {
         self.mode = mode
         if let profile, let avatarURLString = profile.avatar, let avatarURL = URL(string: avatarURLString) {
@@ -91,6 +97,7 @@ extension UserProfileImageView {
 }
 
 // MARK: - Private Methods
+
 extension UserProfileImageView {
     private func updateUserProfileImage(with url: URL, completion: @escaping (UIImage?) -> Void) {
         let cache = ImageCache.default
@@ -119,6 +126,7 @@ extension UserProfileImageView {
 }
 
 // MARK: - Layout
+
 extension UserProfileImageView {
     private func setupUI() {
         [userImageView, changePhotoButton].forEach {
