@@ -34,7 +34,6 @@
 		249909322CBFB30C00F4F5DE /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249909312CBFB30C00F4F5DE /* ProfileService.swift */; };
 		2499093A2CBFEEB700F4F5DE /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249909392CBFEEB700F4F5DE /* ShimmerView.swift */; };
 		2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499527A2CB513C000CB36F8 /* LocalizationKey.swift */; };
-		24CD87C52CBD35B100886559 /* UserPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 24CD87C42CBD35B100886559 /* UserPic.png */; };
 		24CD87C72CBD47CB00886559 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87C62CBD47CB00886559 /* ProfileCell.swift */; };
 		24CD87C92CBD4AA800886559 /* ConfigureTableViewCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87C82CBD4AA800886559 /* ConfigureTableViewCellHelper.swift */; };
 		24CD87D32CBDA25900886559 /* UserProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87D22CBDA25900886559 /* UserProfileImageView.swift */; };
@@ -119,7 +118,6 @@
 		249909392CBFEEB700F4F5DE /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		249952792CB512DE00CB36F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2499527A2CB513C000CB36F8 /* LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKey.swift; sourceTree = "<group>"; };
-		24CD87C42CBD35B100886559 /* UserPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserPic.png; sourceTree = "<group>"; };
 		24CD87C62CBD47CB00886559 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		24CD87C82CBD4AA800886559 /* ConfigureTableViewCellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureTableViewCellHelper.swift; sourceTree = "<group>"; };
 		24CD87D22CBDA25900886559 /* UserProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileImageView.swift; sourceTree = "<group>"; };
@@ -249,7 +247,6 @@
 		243FC8632CB94EAA00A7C04D /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				24CD87C42CBD35B100886559 /* UserPic.png */,
 				24CD87C12CBD006500886559 /* Helpers */,
 				243FC8642CB94EB700A7C04D /* Model */,
 				243FC8652CB94EBE00A7C04D /* View */,
@@ -633,7 +630,6 @@
 				8406DDC42CB866D00014BCE4 /* Azimov.md in Resources */,
 				3F6806A029CBBAF200B4F915 /* Assets.xcassets in Resources */,
 				3F68069E29CBBAF100B4F915 /* Main.storyboard in Resources */,
-				24CD87C52CBD35B100886559 /* UserPic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
