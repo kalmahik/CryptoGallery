@@ -78,12 +78,17 @@ final class PaymentMethodViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
-        setupNavigationBarTitle()
         setupUI()
         setupConstraints()
+        setupBackButton()
+        setupNavigationBarTitle()
     }
 
     // MARK: - Actions
+
+    @objc private func didTapBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
 
     @objc private func agreeUserButtonTapped() {
         print("Вы согласились")
@@ -128,5 +133,16 @@ extension PaymentMethodViewController {
 
     private func setupNavigationBarTitle() {
         navigationItem.titleView = titleLabel
+    }
+
+    private func setupBackButton() {
+        let backButton = UIButton(type: .system)
+        let backImage = UIImage(named: "back")
+        backButton.setImage(backImage, for: .normal)
+        backButton.tintColor = .ypBlack
+        backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 9, bottom: 0, right: 0)
+        backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backBarButtonItem
     }
 }
