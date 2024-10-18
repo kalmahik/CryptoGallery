@@ -22,6 +22,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .ypWhite
         tableView.register(
             NFTTableViewCell.self,
             forCellReuseIdentifier: BacketViewController.cellIdentifier)
@@ -104,7 +105,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .background
         setupUI()
         setupConstraints()
         setupNavigationBar()
