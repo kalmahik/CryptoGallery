@@ -5,6 +5,7 @@
 //  Created by Konstantin Lyashenko on 17.10.2024.
 //
 
+import Kingfisher
 import UIKit
 
 enum ProfileImageMode {
@@ -16,13 +17,15 @@ enum ProfileImageMode {
         case .view:
             return UIImage(systemName: "person.circle.fill") ?? UIImage()
         case .edit:
-            return UIImage(systemName: "person.crop.circle.fill.badge.plus") ?? UIImage()
+            return UIImage(systemName: "plus.circle") ?? UIImage()
         }
     }
 }
 
 final class UserProfileImageView: UIView {
+
     // MARK: - Private Properties
+
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 35 // TODO: - Change
@@ -54,6 +57,7 @@ final class UserProfileImageView: UIView {
     }
 
     // MARK: - Initializers
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -66,11 +70,15 @@ final class UserProfileImageView: UIView {
 }
 
 // MARK: - Configure view
+
 extension UserProfileImageView {
+
     // MARK: - Public Methods
+
     func setProfile(_ profile: Profile?, mode: ProfileImageMode) {
         self.mode = mode
-        if let profile = profile, let avatarURLString = profile.avatar, let avatarURL = URL(string: avatarURLString) {
+        if let profile, let avatarURLString = profile.avatar, let avatarURL = URL(string: avatarURLString) {
+            Logger.shared.info("Avatar URL: \(avatarURL)")
             updateUserProfileImage(with: avatarURL) { [weak self] image in
                 if image != nil {
                     self?.userImageView.tintColor = nil
@@ -89,13 +97,17 @@ extension UserProfileImageView {
 }
 
 // MARK: - Private Methods
+
 extension UserProfileImageView {
     private func updateUserProfileImage(with url: URL, completion: @escaping (UIImage?) -> Void) {
+        let cache = ImageCache.default
+        cache.removeImage(forKey: url.absoluteString)
+
         userImageView.kf.indicatorType = .activity
         userImageView.kf.setImage(
             with: url,
             placeholder: mode.placeholder,
-            options: [.transition(.fade(0.2))]
+            options: [.transition(.fade(0.2)), .cacheOriginalImage]
         ) { result in
             switch result {
             case .success(let value):
@@ -114,6 +126,7 @@ extension UserProfileImageView {
 }
 
 // MARK: - Layout
+
 extension UserProfileImageView {
     private func setupUI() {
         [userImageView, changePhotoButton].forEach {
@@ -133,4 +146,3 @@ extension UserProfileImageView {
         ])
     }
 }
-
