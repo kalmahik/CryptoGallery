@@ -180,7 +180,7 @@ extension BacketViewController {
         ])
     }
 
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         let filterBarButtonItem = UIBarButtonItem(customView: filterButton)
         navigationItem.rightBarButtonItem = filterBarButtonItem
     }
