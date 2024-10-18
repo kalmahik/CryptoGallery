@@ -7,9 +7,14 @@
 
 import UIKit
 
-protocol NFTCellView: AnyObject {
+protocol NFTCellViewProtocol: AnyObject {
     func displayNFTName(_ name: String)
     func displayNFTRating(_ rating: Int)
     func displayNFTPrice(_ price: Double)
     func displayNFTImage(_ image: UIImage?)
+}
+
+protocol NFTCellPresenterProtocol {
+    func loadNFTData()
+    func deleteNFT(from viewController: UIViewController, at index: Int)
 }

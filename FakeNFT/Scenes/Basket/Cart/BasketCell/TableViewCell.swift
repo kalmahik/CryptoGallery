@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class NFTTableViewCell: UITableViewCell, NFTCellView {
+final class NFTTableViewCell: UITableViewCell, NFTCellViewProtocol {
 
     // MARK: - Private Properties
 
     private let priceTitle = LocalizationKey.price.localized()
 
-    private var presenter: NFTCellPresenter?
+    private var presenter: NFTCellPresenterProtocol?
 
     private lazy var nftImageView: UIImageView = {
         let imageView = UIImageView()

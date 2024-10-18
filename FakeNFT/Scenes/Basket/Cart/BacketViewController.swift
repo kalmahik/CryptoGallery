@@ -15,8 +15,6 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     // MARK: - Public Properties
 
-    var presenter: BacketPresenterProtocol?
-
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -37,6 +35,8 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     private let sortRatingTitle = LocalizationKey.sortByRating.localized()
     private let sortNameTitle = LocalizationKey.sortByName.localized()
     private let sortCloseTitle = LocalizationKey.close.localized()
+
+    private var presenter: BacketPresenterProtocol?
 
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .system)
@@ -121,6 +121,11 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     func updateTotalPriceLabel(with totalPrice: Double) {
         priceLabel.text = String(format: "%.2f ETH", totalPrice)
+    }
+
+    func deleteNFT(at index: Int) {
+        presenter?.deleteNFT(at: index)
+        tableView.reloadData()
     }
 
     // MARK: - Actions
