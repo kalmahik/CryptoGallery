@@ -105,6 +105,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .background
         setupUI()
         setupConstraints()
     }

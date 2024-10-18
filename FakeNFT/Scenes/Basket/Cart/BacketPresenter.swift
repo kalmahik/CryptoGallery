@@ -62,6 +62,7 @@ final class BacketPresenter: BacketPresenterProtocol {
     func payButtonTapped() {
         guard let viewController = view as? UIViewController else { return }
         let paymentVC = PaymentMethodViewController()
+        paymentVC.hidesBottomBarWhenPushed = true
         viewController.navigationController?.pushViewController(paymentVC, animated: true)
     }
 

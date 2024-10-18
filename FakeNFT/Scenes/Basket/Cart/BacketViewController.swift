@@ -19,10 +19,13 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(NFTTableViewCell.self, forCellReuseIdentifier: BacketViewController.cellIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .ypWhite
+        tableView.register(
+            NFTTableViewCell.self,
+            forCellReuseIdentifier: BacketViewController.cellIdentifier)
         return tableView
     }()
 
@@ -102,7 +105,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .background
         setupUI()
         setupConstraints()
         setupNavigationBar()
@@ -180,7 +183,7 @@ extension BacketViewController {
         ])
     }
 
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         let filterBarButtonItem = UIBarButtonItem(customView: filterButton)
         navigationItem.rightBarButtonItem = filterBarButtonItem
     }

@@ -57,4 +57,3 @@ final class ShimmerView: UIView {
         layer.addSublayer(gradientLayer)
     }
 }
-
