@@ -8,26 +8,54 @@
 import Foundation
 
 enum LocalizationKey: String {
-    // Error
+
+    // MARK: - Error
+
     case errorNetwork = "Error.network"
     case errorUnknown = "Error.unknown"
     case errorRepeat = "Error.repeat"
     case errorTitle = "Error.title"
 
-    // Tab
+    // MARK: - Error messages
+
+    case errorNetworkDescription = "Error.networkDescription"
+    case errorUnauthorized = "Error.unauthorized"
+    case errorBadRequest = "Error.badRequest"
+    case errorProfileNotFound = "Error.profileNotFound"
+    case errorServer = "Error.server"
+    case errorServiceUnavailable = "Error.serviceUnavailable"
+    case errorUpdateProfile = "Error.updateProfile"
+
+    // MARK: - Common Actions
+
+    case actionRetry = "Action.retry"
+    case actionEdit = "Action.edit"
+    case actionCancel = "Action.cancel"
+    case actionClose = "Action.close"
+    case actionSave = "Action.save"
+    case actionOK = "Action.OK"
+
+    // MARK: - Alert
+    
+    case alertTitle = "Alert.title"
+
+    // MARK: - Tab
+
     case tabProfile = "Tab.profile"
     case tabCatalog = "Tab.catalog"
     case tabBasket = "Tab.basket"
     case tabStatistic = "Tab.statistic"
 
-    // Sort
+    // MARK: - Sort
+
     case sortTitle = "Sort.title"
     case sortByName = "Sort.byName"
     case sortByPrice = "Sort.byPrice"
     case sortByRating = "Sort.byRating"
     case sortByQuantity = "Sort.byQuantity"
 
-    // Global
+    // MARK: - Global
+
     case close = "Close"
     case price = "Price"
     case delete = "Delete"
@@ -36,13 +64,15 @@ enum LocalizationKey: String {
     case cancel = "Cancel"
     case repeatAction = "Repeat"
 
-    // Catalog
+    // MARK: - Catalog
+
     case catOpenNft = "Catalog.openNft"
     case catAuthor = "Catalog.author"
     case catAddBasketButton = "Catalog.addBasket.button"
     case catSellersButton = "Catalog.sellers.button"
 
-    // Basket
+    // MARK: - Basket
+
     case basketForPayButton = "Basket.forPay.button"
     case basketAlert = "Basket.allert"
     case basketTitle = "Basket.title"
@@ -53,7 +83,8 @@ enum LocalizationKey: String {
     case basketPayErrorAlert = "Basket.payError.alert"
     case basketEmptyPlaceholder = "Basket.empty.placeholder"
 
-    // Profile
+    // MARK: - Profile
+
     case profMyNft = "Profile.myNft"
     case profSelectedNft = "Profile.selectedNft"
     case profAboutDev = "Profile.aboutDev"
@@ -70,6 +101,10 @@ enum LocalizationKey: String {
     case statUserButton = "Stat.user.button"
     case statCollectionNft = "Stat.collectionNft"
     case statEmptyDataAlert = "Stat.emptyData.alert"
+
+    // MARK: - Shimmer
+
+    case shimmerLoading = "Shimmer.loading"
 
     func localized() -> String {
         return NSLocalizedString(self.rawValue, comment: "")

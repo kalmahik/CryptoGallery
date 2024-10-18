@@ -31,7 +31,8 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let profileController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
+        let profileController = ProfileViewController(servicesAssembly: servicesAssembly)
+        let profileNavigationController = UINavigationController(rootViewController: profileController)
         let catalogController = TestCatalogViewController(servicesAssembly: servicesAssembly)
         let basketController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
         let statisticController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
@@ -39,7 +40,7 @@ final class TabBarController: UITabBarController {
         catalogController.tabBarItem = catalogTabBarItem
         basketController.tabBarItem = basketTabBarItem
         statisticController.tabBarItem = statisticTabBarItem
-        viewControllers = [profileController, catalogController, basketController, statisticController]
+        viewControllers = [profileNavigationController, catalogController, basketController, statisticController]
         view.backgroundColor = .systemBackground
         tabBar.unselectedItemTintColor = .ypBlack
     }
