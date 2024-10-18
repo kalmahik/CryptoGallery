@@ -34,6 +34,7 @@
 		2499092D2CBFAED200F4F5DE /* UpdateProfileDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499092C2CBFAED200F4F5DE /* UpdateProfileDto.swift */; };
 		249909322CBFB30C00F4F5DE /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249909312CBFB30C00F4F5DE /* ProfileService.swift */; };
 		2499093A2CBFEEB700F4F5DE /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249909392CBFEEB700F4F5DE /* ShimmerView.swift */; };
+		2418A9332CB90D0A00C1D1B5 /* Lyashenko.md in Resources */ = {isa = PBXBuildFile; fileRef = 2418A9322CB90D0A00C1D1B5 /* Lyashenko.md */; };
 		2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499527A2CB513C000CB36F8 /* LocalizationKey.swift */; };
 		24CD87C72CBD47CB00886559 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87C62CBD47CB00886559 /* ProfileCell.swift */; };
 		24CD87C92CBD4AA800886559 /* ConfigureTableViewCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87C82CBD4AA800886559 /* ConfigureTableViewCellHelper.swift */; };
@@ -67,6 +68,9 @@
 		8406DDBB2CB64A580014BCE4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDBA2CB64A570014BCE4 /* Logger.swift */; };
 		8406DDC12CB7A5D10014BCE4 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8406DDC02CB7A5D00014BCE4 /* .swiftlint.yml */; };
 		8406DDC42CB866D00014BCE4 /* Azimov.md in Resources */ = {isa = PBXBuildFile; fileRef = 8406DDC32CB866D00014BCE4 /* Azimov.md */; };
+		8406DDCC2CB8EA890014BCE4 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDCB2CB8EA890014BCE4 /* UIView+Extension.swift */; };
+		8406DDCE2CB8EAE40014BCE4 /* Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDCD2CB8EAE40014BCE4 /* Margins.swift */; };
+		8406DDD02CBE48A00014BCE4 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406DDCF2CBE48A00014BCE4 /* UIViewController+Extension.swift */; };
 		DD4C4B902CB93BBF004D379F /* Mikheev.md in Resources */ = {isa = PBXBuildFile; fileRef = DD4C4B8F2CB93BBF004D379F /* Mikheev.md */; };
 		E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */; };
 		E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */; };
@@ -154,6 +158,9 @@
 		8406DDBA2CB64A570014BCE4 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		8406DDC02CB7A5D00014BCE4 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8406DDC32CB866D00014BCE4 /* Azimov.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Azimov.md; sourceTree = "<group>"; };
+		8406DDCB2CB8EA890014BCE4 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		8406DDCD2CB8EAE40014BCE4 /* Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margins.swift; sourceTree = "<group>"; };
+		8406DDCF2CBE48A00014BCE4 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DD4C4B8F2CB93BBF004D379F /* Mikheev.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Mikheev.md; sourceTree = "<group>"; };
 		E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -207,6 +214,7 @@
 			children = (
 				0CF2C2DF2A784C5600FDC837 /* Views */,
 				0CF2C2DE2A784C4C00FDC837 /* Protocols */,
+				8406DDCD2CB8EAE40014BCE4 /* Margins.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -224,8 +232,9 @@
 			isa = PBXGroup;
 			children = (
 				0CF2C2E02A784C7000FDC837 /* LinePageControl.swift */,
-				24CD87D22CBDA25900886559 /* UserProfileImageView.swift */,
-				249909392CBFEEB700F4F5DE /* ShimmerView.swift */,
+				8406DDCB2CB8EA890014BCE4 /* UIView+Extension.swift */,
+				8406DDCF2CBE48A00014BCE4 /* UIViewController+Extension.swift */,
+				2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -367,7 +376,7 @@
 				3F478ECD29DB473000F6D39E /* DesignSystem */,
 				3F6806CE29CBBD1B00B4F915 /* Foundation */,
 				3F6806C929CBBCAF00B4F915 /* Models */,
-				3F6806C729CBBC5B00B4F915 /* Scenes  */,
+				3F6806C729CBBC5B00B4F915 /* Scenes */,
 				3F6806C629CBBC4E00B4F915 /* Services */,
 				3F6806A429CBBAF200B4F915 /* Info.plist */,
 			);
@@ -401,7 +410,7 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		3F6806C729CBBC5B00B4F915 /* Scenes  */ = {
+		3F6806C729CBBC5B00B4F915 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
 				243FC8632CB94EAA00A7C04D /* Profile */,
@@ -411,7 +420,7 @@
 				0C79EE642A76DDCF00EE90EA /* NftDetails */,
 				3F6806C829CBBC8100B4F915 /* ProductDetails */,
 			);
-			path = "Scenes ";
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		3F6806C829CBBC8100B4F915 /* ProductDetails */ = {
@@ -697,10 +706,13 @@
 				24CD87DB2CBE6A7B00886559 /* TextViewCell.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
 				0CFCB7402A78002A0009A829 /* ExamplePutService.swift in Sources */,
+				2486E9AD2CC0FBCA00E66548 /* ShimmerView.swift in Sources */,
+				8406DDD02CBE48A00014BCE4 /* UIViewController+Extension.swift in Sources */,
 				3F6806D529CBBEC700B4F915 /* NetworkTask.swift in Sources */,
 				0CF2C2DB2A783C1B00FDC837 /* LoadingView.swift in Sources */,
 				558E39E72C68CE0A00FB86AC /* NftService.swift in Sources */,
 				3F68069729CBBAF100B4F915 /* AppDelegate.swift in Sources */,
+				8406DDCE2CB8EAE40014BCE4 /* Margins.swift in Sources */,
 				3F68069929CBBAF100B4F915 /* SceneDelegate.swift in Sources */,
 				0C79EE6C2A76DE2E00EE90EA /* ServicesAssemly.swift in Sources */,
 				24CD87DF2CBEBBB000886559 /* NetworkConstants.swift in Sources */,
@@ -722,6 +734,7 @@
 				E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */,
 				249909322CBFB30C00F4F5DE /* ProfileService.swift in Sources */,
 				0CF2C2E12A784C7000FDC837 /* LinePageControl.swift in Sources */,
+				8406DDCC2CB8EA890014BCE4 /* UIView+Extension.swift in Sources */,
 				243FC8722CB94FF700A7C04D /* ProfilePresenter.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				0CFCB7492A7808900009A829 /* TestCatalogController.swift in Sources */,
