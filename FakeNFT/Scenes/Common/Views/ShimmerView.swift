@@ -2,7 +2,7 @@
 //  ShimmerView.swift
 //  FakeNFT
 //
-//  Created by Konstantin Lyashenko on 16.10.2024.
+//  Created by Konstantin Lyashenko on 18.10.2024.
 //
 
 import UIKit
