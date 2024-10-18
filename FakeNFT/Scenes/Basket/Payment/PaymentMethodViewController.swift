@@ -7,14 +7,21 @@
 
 import UIKit
 
-final class PaymentMethodViewController: UIViewController {
+final class PaymentMethodViewController: UIViewController, PaymentMethodViewProtocol {
+
+    // MARK: - Identifier
+
+    static let cellIdentifier = "CurrencyCell"
 
     // MARK: - Private Properties
+
+    private var presenter: PaymentMethodPresenterProtocol?
 
     private let paymentTitleLabel = LocalizationKey.basketTitle.localized()
     private let payButtonTitle = LocalizationKey.basketForPayButton.localized()
     private let descriptionTitleLabel = LocalizationKey.basketAgreeDescription.localized()
     private let userTitleLabel = LocalizationKey.basketUserAgree.localized()
+    private let currencies: [CurrencyType] = CurrencyType.allCases
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -22,6 +29,19 @@ final class PaymentMethodViewController: UIViewController {
         label.font = .bold17
         label.textColor = .ypBlack
         return label
+    }()
+
+    private lazy var cryptoCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(
+            CurrencyCell.self,
+            forCellWithReuseIdentifier: PaymentMethodViewController.cellIdentifier)
+        return collectionView
     }()
 
     private lazy var customView: UIView = {
@@ -82,6 +102,17 @@ final class PaymentMethodViewController: UIViewController {
         setupConstraints()
         setupBackButton()
         setupNavigationBarTitle()
+        presenter = PaymentMethodPresenter(view: self)
+    }
+
+    // MARK: - Public Methods
+
+    func displayPaymentSuccess() {
+        print("Вы оплатили успешно!")
+    }
+
+    func displayAgreementConfirmation() {
+        print("Вы согласились")
     }
 
     // MARK: - Actions
@@ -91,11 +122,11 @@ final class PaymentMethodViewController: UIViewController {
     }
 
     @objc private func agreeUserButtonTapped() {
-        print("Вы согласились")
+        presenter?.didTapAgreeButton()
     }
 
     @objc func payButtonTapped() {
-        print("Вы оплатили")
+        presenter?.didTapPayButton()
     }
 }
 
@@ -103,7 +134,7 @@ final class PaymentMethodViewController: UIViewController {
 
 extension PaymentMethodViewController {
     func setupUI() {
-        [customView].forEach {
+        [cryptoCollectionView, customView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -116,6 +147,11 @@ extension PaymentMethodViewController {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            cryptoCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            cryptoCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            cryptoCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            cryptoCollectionView.bottomAnchor.constraint(equalTo: customView.topAnchor),
+
             customView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             customView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             customView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -144,5 +180,71 @@ extension PaymentMethodViewController {
         backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         let backBarButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = backBarButtonItem
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension PaymentMethodViewController: UICollectionViewDataSource {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        return currencies.count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: PaymentMethodViewController.cellIdentifier,
+            for: indexPath) as? CurrencyCell else {
+            return UICollectionViewCell()
+        }
+        let currency = currencies[indexPath.item]
+        cell.configure(with: currency)
+
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension PaymentMethodViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let padding: CGFloat = 16
+        let interItemSpacing: CGFloat = 7
+        let availableWidth = collectionView.frame.width - padding * 2 - interItemSpacing
+        let cellWidth = availableWidth / 2
+        return CGSize(width: cellWidth, height: 46)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return 7
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return 7
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 16, bottom: 0, right: 16)
     }
 }

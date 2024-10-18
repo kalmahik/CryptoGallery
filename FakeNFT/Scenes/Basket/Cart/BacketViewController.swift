@@ -19,10 +19,12 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(NFTTableViewCell.self, forCellReuseIdentifier: BacketViewController.cellIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.register(
+            NFTTableViewCell.self,
+            forCellReuseIdentifier: BacketViewController.cellIdentifier)
         return tableView
     }()
 
