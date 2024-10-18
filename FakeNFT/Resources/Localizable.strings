@@ -1,4 +1,5 @@
-// Error
+// MARK: - Error
+
 "Error.network" = "Произошла ошибка сети";
 "Error.unknown" = "Произошла неизвестная ошибка";
 "Error.repeat" = "Повторить";
@@ -11,27 +12,36 @@
 "Error.serviceUnavailable" = "Проблемы на сервере. Попробуйте позже.";
 "Error.updateProfile" = "Не удалось обновить профиль. Попробуйте снова.";
 
-// Action
+// MARK: - Action
+
 "Action.retry" = "Повторить";
 "Action.edit" = "Редактировать";
 "Action.cancel" = "Отмена";
 "Action.close" = "Закрыть";
 "Action.save" = "Сохранить";
+"Action.OK" = "OK";
 
-// Tab
+// MARK: - Alert
+
+"Alert.title" = "Введите URL аватарки";
+
+// MARK: - Tab
+
 "Tab.profile" = "Профиль";
 "Tab.catalog" = "Каталог";
 "Tab.basket" = "Корзина";
-"Tab.statistics" = "Статистика";
+"Tab.statistic" = "Статистика";
 
-// Sort
+// MARK: - Sort
+
 "Sort.title" = "Сортировка";
 "Sort.byName" = "По названию";
 "Sort.byPrice" = "По цене";
 "Sort.byRating" = "По рейтингу";
 "Sort.byQuantity" = "По количеству NFT";
 
-// Global
+// MARK: - Global
+
 "Close" = "Закрыть";
 "Price" = "Цена";
 "Delete" = "Удалить";
@@ -40,13 +50,15 @@
 "Cancel" = "Отмена";
 "Repeat" = "Повторить";
 
-// Catalog
+// MARK: - Catalog
+
 "Catalog.openNft" = "Открыть Nft";
 "Catalog.author" = "Автор коллекции";
 "Catalog.addBasket.button" = "Добавить в корзину";
 "Catalog.sellers.button" = "Перейти на сайт продавца";
 
-// Basket
+// MARK: - Basket
+
 "Basket.forPay.button" = "К оплате";
 "Basket.allert" = "Вы уверены, что хотите\n удалить объект из корзины?";
 "Basket.title" = "Выберите способ оплаты";
@@ -57,7 +69,8 @@
 "Basket.payError.alert" = "Не удалось произвести оплату";
 "Basket.empty.placeholder" = "Корзина пуста";
 
-// Profile
+// MARK: - Profile
+
 "Profile.myNft" = "Мои NFT";
 "Profile.selectedNft" = "Избранные NFT";
 "Profile.aboutDev" = "О разработчике";
@@ -70,10 +83,12 @@
 "Profile.myNft.placeholder" = "У вас еще нет NFT";
 "Profile.selectedNft.placeholder" = "У вас еще нет избранных NFT";
 
-// Statistics
+// MARK: - Statistics
+
 "Stat.user.button" = "Перейти на сайт пользователя";
 "Stat.collectionNft" = "Коллекция NFT";
 "Stat.emptyData.alert" = "Не удалось получить данные";
 
-// Shimmer
+// MARK: - Shimmer
+
 "Shimmer.loading" = "Загрузка...";

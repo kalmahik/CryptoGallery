@@ -14,9 +14,11 @@ protocol UserPicCellDelegate: AnyObject {
 final class UserPicCell: UITableViewCell, ReuseIdentifying {
 
     // MARK: - Public Properties
+
     weak var delegate: UserPicCellDelegate?
 
     // MARK: - Private Properties
+
     private lazy var userImageView: UserProfileImageView = {
         let imageView = UserProfileImageView(frame: .zero)
         return imageView
@@ -36,7 +38,8 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
         return button
     }()
 
-    // MARK: - Initializers
+    // MARK: - Init
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .background
@@ -50,6 +53,7 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
 }
 
 // MARK: - Configure cell
+
 extension UserPicCell {
     func setUserImage(_ profile: Profile?) {
         if let profile {
@@ -63,8 +67,11 @@ extension UserPicCell {
 }
 
 // MARK: - Layout
+
 extension UserPicCell {
+
     // MARK: - Private Methods
+
     private func setupUI() {
         [userImageView, changePhotoButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -87,6 +94,7 @@ extension UserPicCell {
 }
 
 // MARK: - Action
+
 extension UserPicCell {
     @objc private func changePhotoButtonTapped() {
         delegate?.userPicCellDidTapChangePhotoButton(self)

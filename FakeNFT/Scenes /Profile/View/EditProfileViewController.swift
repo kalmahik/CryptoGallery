@@ -35,10 +35,13 @@ enum SectionHeader: CaseIterable {
 }
 
 final class EditProfileViewController: UIViewController {
+
     // MARK: - Public Properties
+
     var presenter: EditProfilePresenterProtocol?
 
     // MARK: - Private Properties
+
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "close"), for: .normal)
@@ -58,7 +61,8 @@ final class EditProfileViewController: UIViewController {
         return tableView
     }()
 
-    // MARK: - Initializers
+    // MARK: - Init
+
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -73,6 +77,7 @@ final class EditProfileViewController: UIViewController {
     }
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .ypWhite
@@ -84,8 +89,11 @@ final class EditProfileViewController: UIViewController {
 }
 
 // MARK: - Layout
+
 extension EditProfileViewController {
+
     // MARK: - Private Methods
+
     private func setupUI() {
         [tableView, closeButton].forEach {
             view.addSubview($0)
@@ -101,8 +109,11 @@ extension EditProfileViewController {
 }
 
 // MARK: - Keyboard Notification
+
 extension EditProfileViewController {
+
     // MARK: - Private Methods
+
     private func setupKeyboardNotification() {
         NotificationCenter.default.addObserver(
             self,
@@ -131,6 +142,7 @@ extension EditProfileViewController {
 }
 
 // MARK: - Action
+
 extension EditProfileViewController {
     @objc private func openImagePicker() {
         presenter?.openImagePicker()
@@ -156,21 +168,23 @@ extension EditProfileViewController {
 }
 
 // MARK: - UITableViewDelegate
+
 extension EditProfileViewController: UITableViewDelegate {
 
 }
 
 // MARK: - UITableViewDataSource
+
 extension EditProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let presenter = presenter else {
+        guard let presenter else {
             return 0
         }
         return presenter.sections.isEmpty ? 0 : presenter.sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let presenter = presenter, section >= 0 && section < presenter.sections.count else {
+        guard let presenter, section >= 0 && section < presenter.sections.count else {
             return 0
         }
         return 1
@@ -203,7 +217,7 @@ extension EditProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let presenter = presenter, indexPath.section >= 0 && indexPath.section < presenter.sections.count else {
+        guard let presenter, indexPath.section >= 0 && indexPath.section < presenter.sections.count else {
             return 0
         }
         return UITableView.automaticDimension
@@ -211,16 +225,17 @@ extension EditProfileViewController: UITableViewDataSource {
 }
 
 // MARK: - Header
+
 extension EditProfileViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let presenter = presenter, section >= 0 && section < presenter.sections.count else {
+        guard let presenter, section >= 0 && section < presenter.sections.count else {
             return nil
         }
         return presenter.getSectionTitle(for: section)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let presenter = presenter, section >= 0 && section < presenter.sections.count else {
+        guard let presenter, section >= 0 && section < presenter.sections.count else {
             return nil
         }
 
@@ -236,7 +251,7 @@ extension EditProfileViewController {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let presenter = presenter, section >= 0 && section < presenter.sections.count else {
+        guard let presenter, section >= 0 && section < presenter.sections.count else {
             return 0
         }
         return 28
@@ -244,9 +259,10 @@ extension EditProfileViewController {
 }
 
 // MARK: - Footer
+
 extension EditProfileViewController {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let presenter = presenter, section >= 0 && section < presenter.sections.count else {
+        guard let presenter, section >= 0 && section < presenter.sections.count else {
             return nil
         }
 
@@ -257,7 +273,7 @@ extension EditProfileViewController {
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let presenter = presenter, section >= 0 && section < presenter.sections.count else {
+        guard let presenter, section >= 0 && section < presenter.sections.count else {
             return 0
         }
         return presenter.shouldShowFooter(for: section) ? 30 : 24
@@ -265,6 +281,7 @@ extension EditProfileViewController {
 }
 
 // MARK: - EditProfileView
+
 extension EditProfileViewController: EditProfileViewControllerProtocol {
     func updateSections() {
         tableView.reloadData()
@@ -280,6 +297,7 @@ extension EditProfileViewController: EditProfileViewControllerProtocol {
 }
 
 // MARK: - TextViewCellDelegate
+
 extension EditProfileViewController: TextViewCellDelegate {
     func textViewCell(_ cell: TextViewCell, didUpdateText text: String, for section: Int) {
         presenter?.updateProfileData(text: text, for: section)
@@ -287,14 +305,15 @@ extension EditProfileViewController: TextViewCellDelegate {
 }
 
 // MARK: - UserPicCellDelegate
+
 extension EditProfileViewController: UserPicCellDelegate {
     func userPicCellDidTapChangePhotoButton(_ cell: UserPicCell) {
-        let alertController = UIAlertController(title: "Введите URL аватарки", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: LocalizationKey.alertTitle.localized(), message: nil, preferredStyle: .alert)
         alertController.addTextField { textField in
             textField.placeholder = "https://example.com/avatar.png"
         }
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        let submitAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+        let cancelAction = UIAlertAction(title: LocalizationKey.actionClose.localized(), style: .cancel, handler: nil)
+        let submitAction = UIAlertAction(title: LocalizationKey.actionOK.localized(), style: .default) { [weak self] _ in
             guard let self, let urlText = alertController.textFields?.first?.text else { return }
             self.presenter?.updateProfileData(text: urlText, for: 0)
             self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)

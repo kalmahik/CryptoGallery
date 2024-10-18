@@ -12,11 +12,14 @@ protocol TextViewCellDelegate: AnyObject {
 }
 
 final class TextViewCell: UITableViewCell, ReuseIdentifying {
+
     // MARK: - Public Properties
+
     weak var delegate: TextViewCellDelegate?
     var section: Int?
 
     // MARK: - Private Properties
+
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.systemFont(
@@ -63,7 +66,11 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
 }
 
 // MARK: - Configure cell
+
 extension TextViewCell {
+
+    // MARK: - Public Methods
+
     func getText() -> UITextView {
         return textView
     }
@@ -74,8 +81,11 @@ extension TextViewCell {
 }
 
 // MARK: - Layout
+
 extension TextViewCell {
+
     // MARK: - Private Methods
+
     private func setupUI() {
         [textView, clearButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -97,6 +107,7 @@ extension TextViewCell {
 }
 
 // MARK: - Action
+
 extension TextViewCell {
     @objc private func clearText() {
         textView.text = ""
@@ -105,6 +116,7 @@ extension TextViewCell {
 }
 
 // MARK: - TextViewDelegate
+
 extension TextViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         clearButton.isHidden = textView.text.isEmpty

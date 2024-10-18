@@ -30,7 +30,9 @@ enum CategoryCell: CaseIterable {
 }
 
 final class ProfileViewController: UIViewController {
+
     // MARK: - Public Properties
+
     lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.hidesWhenStopped = true
@@ -39,6 +41,7 @@ final class ProfileViewController: UIViewController {
     }()
 
     // MARK: - Private Properties
+
     private var presenter: ProfilePresenterProtocol?
     private let servicesAssembly: ServicesAssembly
     private var websiteURL = ""
@@ -172,7 +175,8 @@ final class ProfileViewController: UIViewController {
         return tableView
     }()
 
-    // MARK: - Initializers
+    // MARK: - Init
+
     init(servicesAssembly: ServicesAssembly) {
         self.servicesAssembly = servicesAssembly
         super.init(nibName: nil, bundle: nil)
@@ -191,6 +195,7 @@ final class ProfileViewController: UIViewController {
     }
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
@@ -203,6 +208,7 @@ final class ProfileViewController: UIViewController {
 }
 
 // MARK: - Layout
+
 extension ProfileViewController {
 
     private func setupUI() {
@@ -249,6 +255,7 @@ extension ProfileViewController {
 }
 
 // MARK: - Shimmer
+
 extension ProfileViewController {
     private func showShimmerViews() {
         [shimmerUserProfileImage, shimmerNameLabel, shimmerDescriptionLabel, shimmerWebsiteLabel].forEach {
@@ -274,6 +281,7 @@ extension ProfileViewController {
 }
 
 // MARK: - Actions
+
 extension ProfileViewController {
 
     @objc
@@ -288,11 +296,11 @@ extension ProfileViewController {
 }
 
 // MARK: - LoadingView
-extension ProfileViewController: LoadingView {
-    // TODO: - Activity Indicator
-}
+
+extension ProfileViewController: LoadingView {}
 
 // MARK: - UITableViewDelegate
+
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
@@ -300,6 +308,7 @@ extension ProfileViewController: UITableViewDelegate {
 }
 
 // MARK: - UITableViewDataSource
+
 extension ProfileViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -321,6 +330,7 @@ extension ProfileViewController: UITableViewDataSource {
 }
 
 // MARK: - ProfileViewControllerProtocol
+
 extension ProfileViewController: ProfileViewControllerProtocol {
 
     func updateProfileDetails(profile: Profile?) {

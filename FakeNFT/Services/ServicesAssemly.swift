@@ -1,7 +1,6 @@
 final class ServicesAssembly {
 
     private let networkClient: NetworkClient
-    private let customNetworkClient = CustomNetworkClient()
     private let nftStorage: NftStorage
 
     init(
@@ -20,6 +19,6 @@ final class ServicesAssembly {
     }
 
     var profileService: ProfileService {
-        ProfileServiceImpl(networkClient: customNetworkClient)
+        ProfileServiceImpl(networkClient: networkClient)
     }
 }

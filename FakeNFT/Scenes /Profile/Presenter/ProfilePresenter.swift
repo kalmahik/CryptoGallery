@@ -23,7 +23,9 @@ protocol ProfilePresenterProtocol: AnyObject {
 }
 
 final class ProfilePresenter {
+
     // MARK: - Public Properties
+
     weak var view: ProfileViewControllerProtocol?
     var cellsItems: [CategoryCell] = [
         .myNft,
@@ -32,11 +34,13 @@ final class ProfilePresenter {
     ]
 
     // MARK: - Private Properties
+
     private let router: ProfileRouterProtocol
     private var profile: Profile?
     private let profileService: ProfileService
 
-    // MARK: - Lifecycle
+    // MARK: - Init
+
     init(
         view: ProfileViewControllerProtocol,
         router: ProfileRouterProtocol,
@@ -49,6 +53,7 @@ final class ProfilePresenter {
 }
 
 // MARK: - ProfilePresenterProtocol
+
 extension ProfilePresenter: ProfilePresenterProtocol {
     func viewDidLoad() {
         fetchUserProfile()
@@ -92,6 +97,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
 }
 
 // MARK: - Fetching Profile Data from Network
+
 extension ProfilePresenter {
     private func fetchUserProfile() {
         profileService.getProfile { [weak self] result in
@@ -108,6 +114,7 @@ extension ProfilePresenter {
 }
 
 // MARK: - Show Error
+
 extension ProfilePresenter {
     private func handleError(_ error: Error) {
         let errorMessage = (error as? CustomError)?.localizedDescription ?? LocalizationKey.errorUnknown.localized()
@@ -127,6 +134,7 @@ extension ProfilePresenter {
 }
 
 // MARK: - EditProfilePresenterDelegate
+
 extension ProfilePresenter: EditProfilePresenterDelegate {
     func didUpdateProfile(_ profile: Profile) {
         self.profile = profile

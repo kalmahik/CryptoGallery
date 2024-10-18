@@ -78,7 +78,6 @@ extension UserProfileImageView {
     func setProfile(_ profile: Profile?, mode: ProfileImageMode) {
         self.mode = mode
         if let profile, let avatarURLString = profile.avatar, let avatarURL = URL(string: avatarURLString) {
-            Logger.shared.info("Avatar URL: \(avatarURL)")
             updateUserProfileImage(with: avatarURL) { [weak self] image in
                 if image != nil {
                     self?.userImageView.tintColor = nil

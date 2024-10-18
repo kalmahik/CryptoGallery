@@ -8,7 +8,9 @@
 import UIKit
 
 final class TableViewHeaderAndFooterHelper {
+
     // MARK: - Public Methods
+    
     static func configureTextHeaderView(
         title: String
     ) -> UIView {

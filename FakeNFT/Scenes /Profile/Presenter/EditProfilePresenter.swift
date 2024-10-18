@@ -28,7 +28,9 @@ protocol EditProfilePresenterProtocol: AnyObject {
 }
 
 final class EditProfilePresenter {
+
     // MARK: - Public Properties
+
     weak var view: EditProfileViewControllerProtocol?
     weak var delegate: EditProfilePresenterDelegate?
     var profile: Profile?
@@ -40,11 +42,13 @@ final class EditProfilePresenter {
     ]
 
     // MARK: - Private Properties
+
     private var isImageChanged = false
     private let profileService: ProfileService
     private var profileBuilder: ProfileBuilder
 
-    // MARK: - Initializers
+    // MARK: - Init
+
     init(
         view: EditProfileViewControllerProtocol,
         profile: Profile?,
@@ -62,8 +66,11 @@ final class EditProfilePresenter {
 }
 
 // MARK: - EditProfilePresenterProtocol
+
 extension EditProfilePresenter: EditProfilePresenterProtocol {
+
     // MARK: - Public Methods
+
     func viewDidLoad() {
         view?.updateSections()
     }
@@ -121,6 +128,7 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
 }
 
 // MARK: - Saving Profile Data to Network
+
 extension EditProfilePresenter {
     func saveProfileChanges() {
         let updatedProfile = profileBuilder.build()
@@ -146,6 +154,7 @@ extension EditProfilePresenter {
 }
 
 // MARK: - Show Error
+
 extension EditProfilePresenter {
     private func handleError(_ error: Error) {
         let errorMessage = (error as? CustomError)?.localizedDescription ?? LocalizationKey.errorUnknown.localized()

@@ -17,13 +17,17 @@ protocol ProfileRouterProtocol: AnyObject {
 }
 
 final class ProfileRouter {
+
     // MARK: - Public Properties
+
     weak var viewController: UIViewController?
 
     // MARK: - Private Properties
+
     private let profileService: ProfileService
 
     // MARK: - Init
+
     init(viewController: UIViewController, profileService: ProfileService) {
         self.viewController = viewController
         self.profileService = profileService
@@ -31,7 +35,11 @@ final class ProfileRouter {
 }
 
 // MARK: - ProfileRouterProtocol
+
 extension ProfileRouter: ProfileRouterProtocol {
+
+    // MARK: - Public Methods
+
     func navigateToMyNFT() {}
 
     func navigateToSelectedNFT() {}

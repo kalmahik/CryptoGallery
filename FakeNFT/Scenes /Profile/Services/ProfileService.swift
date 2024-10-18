@@ -30,9 +30,10 @@ final class ProfileServiceImpl: ProfileService {
     }
 
     // MARK: - GET Profile
+
     func getProfile(completion: @escaping ProfileCompletion) {
         syncQueue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             let request = ProfileRequest()
 
             self.networkClient.send(request: request, type: Profile.self) { result in
@@ -50,6 +51,7 @@ final class ProfileServiceImpl: ProfileService {
     }
 
     // MARK: - PUT Profile
+
     func updateProfile(
         name: String?,
         avatar: String?,
@@ -59,7 +61,7 @@ final class ProfileServiceImpl: ProfileService {
         completion: @escaping ProfileCompletion
     ) {
         syncQueue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             let dto = UpdateProfileDto(
                 name: name,
                 avatar: avatar,
@@ -69,11 +71,11 @@ final class ProfileServiceImpl: ProfileService {
             )
             let request = UpdateProfileRequest(dto: dto)
 
-            self.networkClient.send(request: request, type: Profile.self) { result in
+            self.networkClient.send(request: request) { result in
                 DispatchQueue.main.async {
                     switch result {
-                    case .success(let profile):
-                        completion(.success(profile))
+                    case .success:
+                        self.getProfile(completion: completion)
                     case .failure(let error):
                         let customError = self.handleNetworkError(error)
                         completion(.failure(customError))
@@ -84,6 +86,7 @@ final class ProfileServiceImpl: ProfileService {
     }
 
     // MARK: - Network Error Handling
+
     private func handleNetworkError(_ error: Error) -> Error {
         if let networkError = error as? NetworkClientError {
             switch networkError {
@@ -107,6 +110,8 @@ final class ProfileServiceImpl: ProfileService {
         }
     }
 }
+
+// MARK: - CustomError Handler
 
 enum CustomError: Error {
     case badRequest

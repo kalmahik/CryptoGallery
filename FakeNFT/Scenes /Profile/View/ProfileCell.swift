@@ -9,6 +9,8 @@ import UIKit
 
 final class ProfileCell: UITableViewCell, ReuseIdentifying {
 
+    // MARK: - Private Properties
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .bold17
@@ -25,6 +27,8 @@ final class ProfileCell: UITableViewCell, ReuseIdentifying {
         return imageView
     }()
 
+    // MARK: - Init
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .background
@@ -35,6 +39,25 @@ final class ProfileCell: UITableViewCell, ReuseIdentifying {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Configure Cell
+
+extension ProfileCell {
+
+    // MARK: - Public Methods
+
+    func configure(with title: String) {
+        titleLabel.text = title
+    }
+}
+
+
+// MARK: - Layout
+
+extension ProfileCell {
+
+    // MARK: - Private Methods
 
     private func setupCell() {
         contentView.addSubview(titleLabel)
@@ -48,9 +71,5 @@ final class ProfileCell: UITableViewCell, ReuseIdentifying {
             customDisclosureIndicator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             customDisclosureIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
-    }
-
-    func configure(with title: String) {
-        titleLabel.text = title
     }
 }
