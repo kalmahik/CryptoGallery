@@ -8,7 +8,6 @@
 import UIKit
 
 protocol EditProfileViewControllerProtocol: AnyObject {
-    var presenter: EditProfilePresenterProtocol? { get set }
     func updateSections()
     func reloadSection(_ section: Int)
     func dismissView()
@@ -38,7 +37,7 @@ final class EditProfileViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    var presenter: EditProfilePresenterProtocol?
+    private let presenter: EditProfilePresenterProtocol
 
     // MARK: - Private Properties
 
@@ -63,8 +62,10 @@ final class EditProfileViewController: UIViewController {
 
     // MARK: - Init
 
-    init() {
+    init(presenter: EditProfilePresenterProtocol) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
+        self.presenter.view = self
     }
 
     @available(*, unavailable)
@@ -73,7 +74,7 @@ final class EditProfileViewController: UIViewController {
     }
 
     deinit {
-        removeKeyboardNotification()
+        removeKeyboardObservers()
     }
 
     // MARK: - Lifecycle
@@ -82,9 +83,9 @@ final class EditProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .ypWhite
         setupUI()
-        setupKeyboardNotification()
+        setupKeyboardObservers()
         dismissKeyboard(view: view)
-        presenter?.viewDidLoad()
+        presenter.viewDidLoad()
     }
 }
 
@@ -102,8 +103,8 @@ extension EditProfileViewController {
         tableView.constraintEdges(to: view)
 
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: UIConstants.Padding.large24),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -UIConstants.Padding.large24)
         ])
     }
 }
@@ -114,20 +115,22 @@ extension EditProfileViewController {
 
     // MARK: - Private Methods
 
-    private func setupKeyboardNotification() {
+    private func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardWillShow(notification:)),
-            name: UIResponder.keyboardWillShowNotification, object: nil
+            selector: #selector(keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
         )
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardWillHide(notification:)),
-            name: UIResponder.keyboardWillHideNotification, object: nil
+            selector: #selector(keyboardWillHide(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
         )
     }
 
-    private func removeKeyboardNotification() {
+    private func removeKeyboardObservers() {
         NotificationCenter.default.removeObserver(
             self,
             name: UIResponder.keyboardWillShowNotification,
@@ -139,13 +142,27 @@ extension EditProfileViewController {
             object: nil
         )
     }
+
+    // MARK: - Keyboard Handling
+
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let keyboardHeight = keyboardFrame.height
+            let bottomInset = keyboardHeight - view.safeAreaInsets.bottom
+            tableView.contentInset.bottom = bottomInset
+        }
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        tableView.contentInset.bottom = 0
+    }
 }
 
 // MARK: - Action
 
 extension EditProfileViewController {
     @objc private func openImagePicker() {
-        presenter?.openImagePicker()
+        presenter.openImagePicker()
     }
 
     @objc private func keyboardWillShow(notification: Notification) {
@@ -163,7 +180,7 @@ extension EditProfileViewController {
     }
 
     @objc private func tapCloseButton() {
-        presenter?.tapCloseButton()
+        presenter.tapCloseButton()
     }
 }
 
@@ -177,21 +194,18 @@ extension EditProfileViewController: UITableViewDelegate {
 
 extension EditProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let presenter else {
-            return 0
-        }
         return presenter.sections.isEmpty ? 0 : presenter.sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let presenter, section >= 0 && section < presenter.sections.count else {
+        guard section >= 0 && section < presenter.sections.count else {
             return 0
         }
         return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let presenter, indexPath.section >= 0 && indexPath.section < presenter.sections.count else {
+        guard indexPath.section >= 0 && indexPath.section < presenter.sections.count else {
             return UITableViewCell()
         }
 
@@ -217,7 +231,7 @@ extension EditProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let presenter, indexPath.section >= 0 && indexPath.section < presenter.sections.count else {
+        guard indexPath.section >= 0 && indexPath.section < presenter.sections.count else {
             return 0
         }
         return UITableView.automaticDimension
@@ -228,14 +242,14 @@ extension EditProfileViewController: UITableViewDataSource {
 
 extension EditProfileViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let presenter, section >= 0 && section < presenter.sections.count else {
+        guard section >= 0 && section < presenter.sections.count else {
             return nil
         }
         return presenter.getSectionTitle(for: section)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let presenter, section >= 0 && section < presenter.sections.count else {
+        guard section >= 0 && section < presenter.sections.count else {
             return nil
         }
 
@@ -251,10 +265,10 @@ extension EditProfileViewController {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let presenter, section >= 0 && section < presenter.sections.count else {
+        guard section >= 0 && section < presenter.sections.count else {
             return 0
         }
-        return 28
+        return UIConstants.Heights.rowHeightMedium28
     }
 }
 
@@ -262,7 +276,7 @@ extension EditProfileViewController {
 
 extension EditProfileViewController {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let presenter, section >= 0 && section < presenter.sections.count else {
+        guard section >= 0 && section < presenter.sections.count else {
             return nil
         }
 
@@ -273,10 +287,12 @@ extension EditProfileViewController {
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let presenter, section >= 0 && section < presenter.sections.count else {
+        guard section >= 0 && section < presenter.sections.count else {
             return 0
         }
-        return presenter.shouldShowFooter(for: section) ? 30 : 24
+        return presenter.shouldShowFooter(for: section) ?
+        UIConstants.Heights.rowHeightMedium30 :
+        UIConstants.Heights.rowHeightMedium24
     }
 }
 
@@ -300,7 +316,7 @@ extension EditProfileViewController: EditProfileViewControllerProtocol {
 
 extension EditProfileViewController: TextViewCellDelegate {
     func textViewCell(_ cell: TextViewCell, didUpdateText text: String, for section: Int) {
-        presenter?.updateProfileData(text: text, for: section)
+        presenter.updateProfileData(text: text, for: section)
     }
 }
 
@@ -315,7 +331,7 @@ extension EditProfileViewController: UserPicCellDelegate {
         let cancelAction = UIAlertAction(title: LocalizationKey.actionClose.localized(), style: .cancel, handler: nil)
         let submitAction = UIAlertAction(title: LocalizationKey.actionOK.localized(), style: .default) { [weak self] _ in
             guard let self, let urlText = alertController.textFields?.first?.text else { return }
-            self.presenter?.updateProfileData(text: urlText, for: 0)
+            self.presenter.updateProfileData(text: urlText, for: 0)
             self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
         }
         alertController.addAction(cancelAction)

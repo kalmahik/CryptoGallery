@@ -52,7 +52,6 @@ extension ProfileCell {
     }
 }
 
-
 // MARK: - Layout
 
 extension ProfileCell {

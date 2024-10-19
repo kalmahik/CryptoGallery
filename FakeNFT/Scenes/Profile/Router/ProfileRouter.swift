@@ -28,8 +28,7 @@ final class ProfileRouter {
 
     // MARK: - Init
 
-    init(viewController: UIViewController, profileService: ProfileService) {
-        self.viewController = viewController
+    init(profileService: ProfileService) {
         self.profileService = profileService
     }
 }
@@ -47,14 +46,16 @@ extension ProfileRouter: ProfileRouterProtocol {
     func navigateToEditProfile(_ profile: Profile?, delegate: EditProfilePresenterDelegate) {
         guard let viewController else { return }
 
-        let editProfileViewController = EditProfileViewController()
+        let profileService = self.profileService
         let presenter = EditProfilePresenter(
-            view: editProfileViewController,
             profile: profile,
             profileService: profileService
         )
         presenter.delegate = delegate
-        editProfileViewController.presenter = presenter
+
+        let editProfileViewController = EditProfileViewController(presenter: presenter)
+        presenter.view = editProfileViewController
+
         editProfileViewController.modalPresentationStyle = .formSheet
 
         DispatchQueue.main.async {

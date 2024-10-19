@@ -42,11 +42,7 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private var presenter: ProfilePresenterProtocol?
-    private let servicesAssembly: ServicesAssembly
-    private var websiteURL = ""
-    private var myNftValueCount = 0
-    private var selectedNftValueCount = 0
+    private let presenter: ProfilePresenterProtocol
 
     private lazy var editButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
@@ -61,28 +57,28 @@ final class ProfileViewController: UIViewController {
 
     private lazy var shimmerUserProfileImage: ShimmerView = {
         let shimmerView = ShimmerView()
-        shimmerView.layer.cornerRadius = 35
+        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.large35
         shimmerView.clipsToBounds = true
         return shimmerView
     }()
 
     private lazy var shimmerNameLabel: ShimmerView = {
         let shimmerView = ShimmerView()
-        shimmerView.layer.cornerRadius = 16
+        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.medium16
         shimmerView.clipsToBounds = true
         return shimmerView
     }()
 
     private lazy var shimmerDescriptionLabel: ShimmerView = {
         let shimmerView = ShimmerView()
-        shimmerView.layer.cornerRadius = 16
+        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.medium16
         shimmerView.clipsToBounds = true
         return shimmerView
     }()
 
     private lazy var shimmerWebsiteLabel = {
         let shimmerView = ShimmerView()
-        shimmerView.layer.cornerRadius = 10
+        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.small10
         shimmerView.clipsToBounds = true
         return shimmerView
     }()
@@ -133,7 +129,7 @@ final class ProfileViewController: UIViewController {
         stack.axis = .horizontal
         stack.alignment = .center
         stack.distribution = .fill
-        stack.spacing = 16
+        stack.spacing = UIConstants.Spacing.medium16
         return stack
     }()
 
@@ -152,14 +148,14 @@ final class ProfileViewController: UIViewController {
         stack.backgroundColor = .ypWhite
         stack.axis = .vertical
         stack.distribution = .fill
-        stack.spacing = 20
+        stack.spacing = UIConstants.Spacing.large20
         return stack
     }()
 
     private lazy var customSpacerView: UIView = {
         let spacer = UIView()
         spacer.translatesAutoresizingMaskIntoConstraints = false
-        spacer.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        spacer.heightAnchor.constraint(equalToConstant: UIConstants.Padding.large20).isActive = true
         return spacer
     }()
 
@@ -177,16 +173,9 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Init
 
-    init(servicesAssembly: ServicesAssembly) {
-        self.servicesAssembly = servicesAssembly
+    init(presenter: ProfilePresenterProtocol) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
-
-        let router = ProfileRouter(viewController: self, profileService: servicesAssembly.profileService)
-        presenter = ProfilePresenter(
-            view: self,
-            router: router,
-            profileService: servicesAssembly.profileService
-        )
     }
 
     @available(*, unavailable)
@@ -203,7 +192,7 @@ final class ProfileViewController: UIViewController {
         setupNavigation()
         showShimmerViews()
         showLoading()
-        presenter?.viewDidLoad()
+        presenter.viewDidLoad()
     }
 }
 
@@ -230,22 +219,22 @@ extension ProfileViewController {
         activityIndicator.constraintCenters(to: view)
 
         NSLayoutConstraint.activate([
-            globalProfileStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            globalProfileStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            globalProfileStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            globalProfileStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: UIConstants.Padding.large20),
+            globalProfileStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UIConstants.Padding.medium16),
+            globalProfileStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -UIConstants.Padding.medium16),
             globalProfileStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            userProfileImage.widthAnchor.constraint(equalToConstant: 70),
-            userProfileImage.heightAnchor.constraint(equalToConstant: 70),
+            userProfileImage.widthAnchor.constraint(equalToConstant: UIConstants.Square.imageView),
+            userProfileImage.heightAnchor.constraint(equalToConstant: UIConstants.Square.imageView),
 
             shimmerUserProfileImage.widthAnchor.constraint(equalTo: userProfileImage.widthAnchor),
             shimmerUserProfileImage.heightAnchor.constraint(equalTo: userProfileImage.heightAnchor),
 
-            profileUserDataStack.heightAnchor.constraint(equalToConstant: 70),
+            profileUserDataStack.heightAnchor.constraint(equalToConstant: UIConstants.Square.imageView),
 
-            shimmerNameLabel.heightAnchor.constraint(equalToConstant: 28),
-            shimmerDescriptionLabel.heightAnchor.constraint(equalToConstant: 72),
-            shimmerWebsiteLabel.heightAnchor.constraint(equalToConstant: 28)
+            shimmerNameLabel.heightAnchor.constraint(equalToConstant: UIConstants.Heights.shimmerMedium),
+            shimmerDescriptionLabel.heightAnchor.constraint(equalToConstant: UIConstants.Heights.shimmerLarge),
+            shimmerWebsiteLabel.heightAnchor.constraint(equalToConstant: UIConstants.Heights.shimmerMedium)
         ])
     }
 
@@ -286,12 +275,12 @@ extension ProfileViewController {
 
     @objc
     private func tapEditButton() {
-        presenter?.didTapEditProfile()
+        presenter.didTapEditProfile()
     }
 
     @objc
     private func tapToWebsite() {
-        presenter?.didTapWebsite(url: websiteURL)
+        presenter.didTapWebsite()
     }
 }
 
@@ -303,7 +292,7 @@ extension ProfileViewController: LoadingView {}
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 54
+        return UIConstants.Heights.rowHeightLarge54
     }
 }
 
@@ -317,13 +306,14 @@ extension ProfileViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ProfileCell = tableView.dequeueReusableCell()
-        guard let presenter, let title = presenter.cellsItems[indexPath.row].title else { return UITableViewCell() }
+        guard let title = presenter.cellsItems[indexPath.row].title else { return UITableViewCell() }
+
         ConfigureTableViewCellHelper.configureTableViewCell(
             cell,
             title: title,
             at: indexPath,
-            myNFTValue: myNftValueCount,
-            selectedNFTValue: selectedNftValueCount
+            myNFTValue: presenter.myNftValueCount,
+            selectedNFTValue: presenter.selectedNftValueCount
         )
         return cell
     }
@@ -341,9 +331,6 @@ extension ProfileViewController: ProfileViewControllerProtocol {
             nameLabel.text = profile.name
             descriptionLabel.text = profile.description
             websiteLabel.text = profile.website
-            myNftValueCount = profile.nfts.count
-            selectedNftValueCount = profile.likes.count
-            websiteURL = profile.website
             userProfileImage.setProfile(profile, mode: .view)
             tableView.reloadData()
         }

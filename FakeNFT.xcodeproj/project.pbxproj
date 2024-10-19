@@ -484,11 +484,11 @@
 		F5E6CB892CC2C06E00360743 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F5E6CB8A2CC2C06E00360743 /* ProfileCell.swift */,
+				F5E6CB8E2CC2C06E00360743 /* ProfileViewController.swift */,
 				F5E6CB8B2CC2C06E00360743 /* EditProfileViewController.swift */,
+				F5E6CB8A2CC2C06E00360743 /* ProfileCell.swift */,
 				F5E6CB8C2CC2C06E00360743 /* TextViewCell.swift */,
 				F5E6CB8D2CC2C06E00360743 /* UserPicCell.swift */,
-				F5E6CB8E2CC2C06E00360743 /* ProfileViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
