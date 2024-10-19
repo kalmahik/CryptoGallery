@@ -307,6 +307,7 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ProfileCell = tableView.dequeueReusableCell()
         guard let title = presenter.cellsItems[indexPath.row].title else { return UITableViewCell() }
+
         ConfigureTableViewCellHelper.configureTableViewCell(
             cell,
             title: title,
