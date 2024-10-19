@@ -50,11 +50,9 @@ final class EditProfilePresenter {
     // MARK: - Init
 
     init(
-        view: EditProfileViewControllerProtocol,
         profile: Profile?,
         profileService: ProfileService
     ) {
-        self.view = view
         self.profile = profile
         self.profileService = profileService
         if let profile = profile {

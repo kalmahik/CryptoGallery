@@ -17,7 +17,7 @@ final class UIRating: UIView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.spacing = 2
+        stackView.spacing = UIConstants.Spacing.small2
 
         for ratingValue in 1...5 {
             let star = starImageConfigure(active: ratingValue <= rating)

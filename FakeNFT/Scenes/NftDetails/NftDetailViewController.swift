@@ -12,8 +12,8 @@ final class NftDetailViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = UIConstants.Spacing.zero
+        layout.minimumLineSpacing = UIConstants.Spacing.zero
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(NftImageCollectionViewCell.self)
         collectionView.dataSource = self

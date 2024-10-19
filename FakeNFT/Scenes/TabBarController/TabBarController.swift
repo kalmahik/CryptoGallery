@@ -31,17 +31,27 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let profileController = ProfileViewController(servicesAssembly: servicesAssembly)
-        let profileNavigationController = UINavigationController(rootViewController: profileController)
+        let profileNavigationController = createProfileViewController()
         let catalogController = TestCatalogViewController(servicesAssembly: servicesAssembly)
         let basketController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
         let statisticController = TestCatalogViewController(servicesAssembly: servicesAssembly) // TODO: change to correct VC
-        profileController.tabBarItem = profileTabBarItem
         catalogController.tabBarItem = catalogTabBarItem
         basketController.tabBarItem = basketTabBarItem
         statisticController.tabBarItem = statisticTabBarItem
         viewControllers = [profileNavigationController, catalogController, basketController, statisticController]
         view.backgroundColor = .systemBackground
         tabBar.unselectedItemTintColor = .ypBlack
+    }
+
+    private func createProfileViewController() -> UINavigationController {
+        let profileService = servicesAssembly.profileService
+        let profileRouter = ProfileRouter(profileService: profileService)
+        let profilePresenter = ProfilePresenter(router: profileRouter, profileService: profileService)
+        let profileController = ProfileViewController(presenter: profilePresenter)
+        profilePresenter.view = profileController
+        profileRouter.viewController = profileController
+        profileController.tabBarItem = profileTabBarItem
+
+        return UINavigationController(rootViewController: profileController)
     }
 }

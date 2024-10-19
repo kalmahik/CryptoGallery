@@ -28,7 +28,7 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
         let button = UIButton(type: .system)
         button.setTitle(LocalizationKey.profChangeImage.localized(), for: .normal)
         button.titleLabel?.font = .medium10
-        button.layer.cornerRadius = 35
+        button.layer.cornerRadius = UIConstants.CornerRadius.large35
         button.clipsToBounds = true
         button.backgroundColor = .black.withAlphaComponent(0.6)
         button.tintColor = .white
@@ -80,15 +80,15 @@ extension UserPicCell {
 
         NSLayoutConstraint.activate([
             userImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            userImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 22),
-            userImageView.widthAnchor.constraint(equalToConstant: 70),
-            userImageView.heightAnchor.constraint(equalToConstant: 70),
+            userImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: UIConstants.Padding.large22),
+            userImageView.widthAnchor.constraint(equalToConstant: UIConstants.Square.imageView),
+            userImageView.heightAnchor.constraint(equalToConstant: UIConstants.Square.imageView),
             userImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
             changePhotoButton.centerXAnchor.constraint(equalTo: userImageView.centerXAnchor),
             changePhotoButton.centerYAnchor.constraint(equalTo: userImageView.centerYAnchor),
-            changePhotoButton.widthAnchor.constraint(equalToConstant: 70),
-            changePhotoButton.heightAnchor.constraint(equalToConstant: 70)
+            changePhotoButton.widthAnchor.constraint(equalToConstant: UIConstants.Square.imageView),
+            changePhotoButton.heightAnchor.constraint(equalToConstant: UIConstants.Square.imageView)
         ])
     }
 }

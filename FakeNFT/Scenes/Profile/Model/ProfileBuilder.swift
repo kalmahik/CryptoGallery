@@ -47,7 +47,7 @@ final class ProfileBuilder {
     }
 
     // MARK: - Public Methods
-    
+
     func setName(_ name: String) -> ProfileBuilder {
         self.name = name
         return self

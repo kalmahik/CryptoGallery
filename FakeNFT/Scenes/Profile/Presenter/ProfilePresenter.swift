@@ -10,13 +10,15 @@ import UIKit
 protocol ProfilePresenterProtocol: AnyObject {
     var view: ProfileViewControllerProtocol? { get set }
     var cellsItems: [CategoryCell] { get }
+    var myNftValueCount: Int { get set }
+    var selectedNftValueCount: Int { get set }
 
     func viewDidLoad()
     func getCellsTitle(for items: Int) -> String?
     func didTapEditProfile()
     func didTapMyNft()
     func didTapSelectedNft()
-    func didTapWebsite(url: String)
+    func didTapWebsite()
     func didTapAboutDev()
     func updateUserProfile(_ profile: Profile?)
     func updateUserProfileImage()
@@ -32,6 +34,8 @@ final class ProfilePresenter {
         .selectedNft,
         .aboutDev
     ]
+    var myNftValueCount = 0
+    var selectedNftValueCount = 0
 
     // MARK: - Private Properties
 
@@ -42,11 +46,9 @@ final class ProfilePresenter {
     // MARK: - Init
 
     init(
-        view: ProfileViewControllerProtocol,
         router: ProfileRouterProtocol,
         profileService: ProfileService
     ) {
-        self.view = view
         self.router = router
         self.profileService = profileService
     }
@@ -72,7 +74,7 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     func didTapMyNft() {}
     func didTapSelectedNft() {}
 
-    func didTapWebsite(url: String) {
+    func didTapWebsite() {
         if let profile {
             router.navigateToWebsite(websiteURL: profile.website)
         }
@@ -85,8 +87,10 @@ extension ProfilePresenter: ProfilePresenterProtocol {
     func updateUserProfile(_ profile: Profile?) {
         if let profile {
             self.profile = profile
+            self.myNftValueCount = profile.nfts.count
+            self.selectedNftValueCount = profile.likes.count
+            view?.updateProfileDetails(profile: profile)
         }
-        view?.updateProfileDetails(profile: profile)
     }
 
     func updateUserProfileImage() {

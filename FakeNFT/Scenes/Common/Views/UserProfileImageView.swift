@@ -13,12 +13,7 @@ enum ProfileImageMode {
     case edit
 
     var placeholder: UIImage {
-        switch self {
-        case .view:
-            return UIImage(systemName: "person.circle.fill") ?? UIImage()
-        case .edit:
-            return UIImage(systemName: "plus.circle") ?? UIImage()
-        }
+        return UIImage(named: "stub") ?? UIImage()
     }
 }
 
@@ -28,7 +23,7 @@ final class UserProfileImageView: UIView {
 
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 35 // TODO: - Change
+        imageView.layer.cornerRadius = UIConstants.CornerRadius.large35
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .ypGrayUniversal
@@ -39,7 +34,7 @@ final class UserProfileImageView: UIView {
         let button = UIButton(type: .system)
         button.setTitle(LocalizationKey.profChangeImage.localized(), for: .normal)
         button.titleLabel?.font = .medium10
-        button.layer.cornerRadius = 35 // TODO: - Change
+        button.layer.cornerRadius = UIConstants.CornerRadius.large35
         button.clipsToBounds = true
         button.backgroundColor = .black.withAlphaComponent(0.2)
         button.tintColor = .white

@@ -22,13 +22,10 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
 
     private lazy var textView: UITextView = {
         let textView = UITextView()
-        textView.font = UIFont.systemFont(
-            ofSize: 17,
-            weight: .regular
-        )
+        textView.font = .regular17
         textView.tintColor = .systemBlue
         textView.isScrollEnabled = false
-        textView.layer.cornerRadius = 12
+        textView.layer.cornerRadius = UIConstants.CornerRadius.small12
         textView.clipsToBounds = true
         textView.backgroundColor = .ypLightGrey
         textView.textAlignment = .left
@@ -95,13 +92,13 @@ extension TextViewCell {
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: contentView.topAnchor),
             textView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            textView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.Padding.medium16),
+            textView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.Padding.medium16),
 
-            clearButton.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -12),
+            clearButton.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -UIConstants.Padding.medium12),
             clearButton.centerYAnchor.constraint(equalTo: textView.centerYAnchor),
-            clearButton.widthAnchor.constraint(equalToConstant: 17),
-            clearButton.heightAnchor.constraint(equalToConstant: 17)
+            clearButton.widthAnchor.constraint(equalToConstant: UIConstants.Square.clearButton),
+            clearButton.heightAnchor.constraint(equalToConstant: UIConstants.Square.clearButton)
         ])
     }
 }
