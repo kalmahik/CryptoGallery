@@ -57,6 +57,7 @@
 		E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */; };
 		E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */; };
 		E1CD40DC2A96BECC00BE7FE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1CD40DB2A96BECC00BE7FE8 /* Localizable.strings */; };
+		F71D05D52CC3EE6C005458A5 /* Khamin.md in Resources */ = {isa = PBXBuildFile; fileRef = F71D05D42CC3EE6C005458A5 /* Khamin.md */; };
 		F78BC7D02CBFFB9A00CC7915 /* CatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78BC7CF2CBFFB9A00CC7915 /* CatalogService.swift */; };
 		F78BC7D42CC0015100CC7915 /* CatalodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78BC7D32CC0015100CC7915 /* CatalodRequest.swift */; };
 		F78BC7D62CC0041D00CC7915 /* NFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78BC7D52CC0041D00CC7915 /* NFT.swift */; };
@@ -142,6 +143,7 @@
 		E1CD40D82A96BE7D00BE7FE8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		E1CD40D92A96BE7D00BE7FE8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E1CD40DB2A96BECC00BE7FE8 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		F71D05D42CC3EE6C005458A5 /* Khamin.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Khamin.md; sourceTree = "<group>"; };
 		F78BC7CF2CBFFB9A00CC7915 /* CatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogService.swift; sourceTree = "<group>"; };
 		F78BC7D32CC0015100CC7915 /* CatalodRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalodRequest.swift; sourceTree = "<group>"; };
 		F78BC7D52CC0041D00CC7915 /* NFT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFT.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				DD4C4B8F2CB93BBF004D379F /* Mikheev.md */,
+				F71D05D42CC3EE6C005458A5 /* Khamin.md */,
 				8406DDC32CB866D00014BCE4 /* Azimov.md */,
 				2418A9322CB90D0A00C1D1B5 /* Lyashenko.md */,
 			);
@@ -582,6 +585,7 @@
 			files = (
 				DD4C4B902CB93BBF004D379F /* Mikheev.md in Resources */,
 				8406DDC12CB7A5D10014BCE4 /* .swiftlint.yml in Resources */,
+				F71D05D52CC3EE6C005458A5 /* Khamin.md in Resources */,
 				3F6806A329CBBAF200B4F915 /* LaunchScreen.storyboard in Resources */,
 				E1CD40DC2A96BECC00BE7FE8 /* Localizable.strings in Resources */,
 				8406DDC42CB866D00014BCE4 /* Azimov.md in Resources */,
