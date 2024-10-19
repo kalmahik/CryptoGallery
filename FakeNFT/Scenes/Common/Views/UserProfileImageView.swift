@@ -106,13 +106,14 @@ extension UserProfileImageView {
         userImageView.kf.setImage(
             with: url,
             placeholder: mode.placeholder,
-            options: [.transition(.fade(0.2)), .cacheOriginalImage]
+            options: [.transition(.fade(0.2))]
         ) { result in
             switch result {
             case .success(let value):
                 completion(value.image)
             case .failure(let error):
                 Logger.shared.error("Ошибка загрузки изображения: \(error.localizedDescription)")
+                self.updatePlaceholder()
                 completion(nil)
             }
         }
