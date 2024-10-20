@@ -14,6 +14,7 @@ final class CurrencyCellPresenter: CurrencyCellPresenterProtocol {
     private weak var view: CollectionViewProtokol?
 
     private var currency: CurrencyType?
+    private var isSelected: Bool = false
 
     // MARK: - Initializers
 
@@ -28,5 +29,10 @@ final class CurrencyCellPresenter: CurrencyCellPresenterProtocol {
         view?.displayLogo(currency.logo)
         view?.displayFullName(currency.fullName)
         view?.displayShortName(currency.shortName)
+    }
+
+    func didTapCell() {
+        isSelected.toggle()
+        (view as? CurrencyCell)?.setSelected(isSelected)
     }
 }

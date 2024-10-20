@@ -15,4 +15,9 @@ protocol CollectionViewProtokol: AnyObject {
 
 protocol CurrencyCellPresenterProtocol {
     func configure(with currency: CurrencyType)
+    func didTapCell()
+}
+
+protocol CurrencyCellDelegate: AnyObject {
+    func didSelectCurrency(_ currency: CurrencyType)
 }

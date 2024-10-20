@@ -13,6 +13,8 @@ final class PaymentMethodPresenter: PaymentMethodPresenterProtocol {
 
     private weak var view: PaymentMethodViewProtocol?
 
+    private var selectedCurrency: CurrencyType?
+
     // MARK: - Initializers
 
     init(view: PaymentMethodViewProtocol) {
@@ -22,10 +24,19 @@ final class PaymentMethodPresenter: PaymentMethodPresenterProtocol {
     // MARK: - Public Methods
 
     func didTapPayButton() {
-        print("Вы оплатили успешно!")
+        if let currency = selectedCurrency {
+            print("Оплата произведена с валютой \(currency.shortName)")
+        } else {
+            print("Вы не выбрали валюту!")
+        }
     }
 
     func didTapAgreeButton() {
         print("Вы согласились")
+    }
+
+    func updateSelectedCurrency(_ currency: CurrencyType) {
+        selectedCurrency = currency
+        print("Вы выбрали валюту: \(currency.shortName)")
     }
 }

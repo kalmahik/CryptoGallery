@@ -9,9 +9,12 @@ import UIKit
 
 final class CurrencyCell: UICollectionViewCell, CollectionViewProtokol {
 
+    weak var delegate: CurrencyCellDelegate?
+
     // MARK: - Private Properties
 
     private var presenter: CurrencyCellPresenterProtocol?
+    private var currency: CurrencyType?
 
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -47,6 +50,7 @@ final class CurrencyCell: UICollectionViewCell, CollectionViewProtokol {
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.spacing = 4
+        stackView.isUserInteractionEnabled = false
         return stackView
     }()
 
@@ -55,7 +59,10 @@ final class CurrencyCell: UICollectionViewCell, CollectionViewProtokol {
         button.backgroundColor = .ypLightGrey
         button.layer.cornerRadius = UIConstants.CornerRadius.small12
         button.clipsToBounds = true
+        button.layer.borderColor = UIColor.clear.cgColor
+        button.layer.borderWidth = 1.0
         button.addSubview(horizontalStackView)
+        button.addTarget(self, action: #selector(cellButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -76,6 +83,7 @@ final class CurrencyCell: UICollectionViewCell, CollectionViewProtokol {
     // MARK: - Public Methods
 
     func configure(with currency: CurrencyType) {
+        self.currency = currency
         presenter?.configure(with: currency)
     }
 
@@ -91,10 +99,20 @@ final class CurrencyCell: UICollectionViewCell, CollectionViewProtokol {
         shortNameLabel.text = name
     }
 
-    // MARK: - Private Methods
+    func setSelected(_ isSelected: Bool) {
+        if isSelected {
+            cellButton.layer.borderColor = UIColor.ypBlack.cgColor
+        } else {
+            cellButton.layer.borderColor = UIColor.clear.cgColor
+        }
+    }
 
-    private func setButtonAction(target: Any?, action: Selector) {
-        cellButton.addTarget(target, action: action, for: .touchUpInside)
+    // MARK: - Actions
+
+    @objc private func cellButtonTapped() {
+        if let currency = currency {
+            delegate?.didSelectCurrency(currency)
+        }
     }
 }
 

@@ -16,6 +16,7 @@ final class PaymentMethodViewController: UIViewController, PaymentMethodViewProt
     // MARK: - Private Properties
 
     private var presenter: PaymentMethodPresenterProtocol?
+    private var selectedIndexPath: IndexPath?
 
     private let paymentTitleLabel = LocalizationKey.basketTitle.localized()
     private let payButtonTitle = LocalizationKey.basketForPayButton.localized()
@@ -204,8 +205,28 @@ extension PaymentMethodViewController: UICollectionViewDataSource {
         }
         let currency = currencies[indexPath.item]
         cell.configure(with: currency)
-
+        let isSelected = (indexPath == selectedIndexPath)
+        cell.setSelected(isSelected)
+        cell.delegate = self
         return cell
+    }
+}
+
+// MARK: - CurrencyCellDelegate
+
+extension PaymentMethodViewController: CurrencyCellDelegate {
+    func didSelectCurrency(_ currency: CurrencyType) {
+        if let previousIndexPath = selectedIndexPath {
+            let previousCell = cryptoCollectionView.cellForItem(at: previousIndexPath) as? CurrencyCell
+            previousCell?.setSelected(false)
+        }
+        if let index = currencies.firstIndex(of: currency),
+           let currentCell = cryptoCollectionView.cellForItem(
+            at: IndexPath(item: index, section: 0)) as? CurrencyCell {
+            currentCell.setSelected(true)
+            selectedIndexPath = IndexPath(item: index, section: 0)
+        }
+        presenter?.updateSelectedCurrency(currency)
     }
 }
 
