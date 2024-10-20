@@ -7,16 +7,17 @@
 
 import UIKit
 
-final class NFTCellPresenter {
+final class NFTCellPresenter: NFTCellPresenterProtocol {
 
     // MARK: - Private Properties
 
-    private weak var view: NFTCellView?
+    private weak var view: NFTCellViewProtocol?
+
     private var nft: NFT
 
     // MARK: - Initializers
 
-    init(view: NFTCellView, nft: NFT) {
+    init(view: NFTCellViewProtocol, nft: NFT) {
         self.view = view
         self.nft = nft
     }
@@ -27,16 +28,15 @@ final class NFTCellPresenter {
         view?.displayNFTName(nft.name)
         view?.displayNFTRating(nft.rating)
         view?.displayNFTPrice(nft.price)
-        view?.displayNFTImage(UIImage(named: nft.imageName))
+        view?.displayNFTImage(UIImage(named: nft.image.first ?? ""))
     }
 
     func deleteNFT(from viewController: UIViewController, at index: Int) {
         let deleteConfirmationVC = DeleteConfirmationViewController()
-        deleteConfirmationVC.nftImage = UIImage(named: nft.imageName)
+        deleteConfirmationVC.nftImage = UIImage(named: nft.image.first ?? "")
         deleteConfirmationVC.onDeleteConfirmed = {
             if let backetVC = viewController as? BacketViewController {
-                backetVC.presenter?.deleteNFT(at: index)
-                backetVC.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+                backetVC.deleteNFT(at: index)
             }
         }
         deleteConfirmationVC.modalPresentationStyle = .overFullScreen

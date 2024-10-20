@@ -15,14 +15,15 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     // MARK: - Public Properties
 
-    var presenter: BacketPresenterProtocol?
-
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(NFTTableViewCell.self, forCellReuseIdentifier: BacketViewController.cellIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .ypWhite
+        tableView.register(
+            NFTTableViewCell.self,
+            forCellReuseIdentifier: BacketViewController.cellIdentifier)
         return tableView
     }()
 
@@ -34,6 +35,8 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     private let sortRatingTitle = LocalizationKey.sortByRating.localized()
     private let sortNameTitle = LocalizationKey.sortByName.localized()
     private let sortCloseTitle = LocalizationKey.close.localized()
+
+    private var presenter: BacketPresenterProtocol?
 
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .system)
@@ -102,7 +105,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .background
         setupUI()
         setupConstraints()
         setupNavigationBar()
@@ -116,8 +119,13 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         nftCountLabel.text = "\(count) NFT"
     }
 
-    func updateTotalPriceLabel(with totalPrice: Double) {
+    func updateTotalPriceLabel(with totalPrice: Float) {
         priceLabel.text = String(format: "%.2f ETH", totalPrice)
+    }
+
+    func deleteNFT(at index: Int) {
+        presenter?.deleteNFT(at: index)
+        tableView.reloadData()
     }
 
     // MARK: - Actions
@@ -180,7 +188,7 @@ extension BacketViewController {
         ])
     }
 
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         let filterBarButtonItem = UIBarButtonItem(customView: filterButton)
         navigationItem.rightBarButtonItem = filterBarButtonItem
     }
