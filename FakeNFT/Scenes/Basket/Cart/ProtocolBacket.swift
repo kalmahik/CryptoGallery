@@ -9,7 +9,7 @@ import Foundation
 
 protocol BacketViewProtocol: AnyObject {
     func updateNFTCountLabel(with count: Int)
-    func updateTotalPriceLabel(with totalPrice: Double)
+    func updateTotalPriceLabel(with totalPrice: Float)
     func payButtonTapped()
 }
 

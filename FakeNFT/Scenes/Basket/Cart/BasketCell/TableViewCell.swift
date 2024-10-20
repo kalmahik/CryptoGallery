@@ -132,7 +132,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellViewProtocol {
         nameRatingStackView.addArrangedSubview(ratingView)
     }
 
-    func displayNFTPrice(_ price: Double) {
+    func displayNFTPrice(_ price: Float) {
         priceLabel.text = "\(price)"
     }
 

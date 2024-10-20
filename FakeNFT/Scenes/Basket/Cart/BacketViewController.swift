@@ -119,7 +119,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         nftCountLabel.text = "\(count) NFT"
     }
 
-    func updateTotalPriceLabel(with totalPrice: Double) {
+    func updateTotalPriceLabel(with totalPrice: Float) {
         priceLabel.text = String(format: "%.2f ETH", totalPrice)
     }
 

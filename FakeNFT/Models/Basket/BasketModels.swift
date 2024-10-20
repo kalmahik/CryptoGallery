@@ -10,8 +10,8 @@ import UIKit
 struct NFT {
     let name: String
     let rating: Int
-    let price: Double
-    let imageName: String
+    let price: Float
+    let image: [String]
 }
 
 struct Currency {

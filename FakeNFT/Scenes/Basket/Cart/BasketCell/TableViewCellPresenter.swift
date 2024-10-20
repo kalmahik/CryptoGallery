@@ -28,12 +28,12 @@ final class NFTCellPresenter: NFTCellPresenterProtocol {
         view?.displayNFTName(nft.name)
         view?.displayNFTRating(nft.rating)
         view?.displayNFTPrice(nft.price)
-        view?.displayNFTImage(UIImage(named: nft.imageName))
+        view?.displayNFTImage(UIImage(named: nft.image.first ?? ""))
     }
 
     func deleteNFT(from viewController: UIViewController, at index: Int) {
         let deleteConfirmationVC = DeleteConfirmationViewController()
-        deleteConfirmationVC.nftImage = UIImage(named: nft.imageName)
+        deleteConfirmationVC.nftImage = UIImage(named: nft.image.first ?? "")
         deleteConfirmationVC.onDeleteConfirmed = {
             if let backetVC = viewController as? BacketViewController {
                 backetVC.deleteNFT(at: index)

@@ -410,7 +410,7 @@
 				DD2837A22CBC09A800589C71 /* BacketPresenter.swift */,
 				DD5360EB2CBAE4D800C60FEE /* BasketCell */,
 				DD80897B2CBF132000F3B4FD /* SortNFT */,
-				DD837F132CBF1059001988C1 /* DeleteNFT 2 */,
+				DD837F132CBF1059001988C1 /* DeleteNFT */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -473,12 +473,12 @@
 			path = SortNFT;
 			sourceTree = "<group>";
 		};
-		DD837F132CBF1059001988C1 /* DeleteNFT 2 */ = {
+		DD837F132CBF1059001988C1 /* DeleteNFT */ = {
 			isa = PBXGroup;
 			children = (
 				DD837F142CBF1096001988C1 /* DeleteConfirmationViewController.swift */,
 			);
-			path = "DeleteNFT 2";
+			path = DeleteNFT;
 			sourceTree = "<group>";
 		};
 		E19CD5A92A98B55900CA39A5 /* Cell */ = {
