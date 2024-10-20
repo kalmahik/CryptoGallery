@@ -108,11 +108,11 @@ final class PaymentMethodViewController: UIViewController, PaymentMethodViewProt
     // MARK: - Public Methods
 
     func displayPaymentSuccess() {
-        print("Вы оплатили успешно!")
+        presenter?.didTapPayButton()
     }
 
     func displayAgreementConfirmation() {
-        print("Вы согласились")
+        presenter?.didTapAgreeButton()
     }
 
     // MARK: - Actions

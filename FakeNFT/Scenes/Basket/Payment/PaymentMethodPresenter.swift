@@ -22,10 +22,10 @@ final class PaymentMethodPresenter: PaymentMethodPresenterProtocol {
     // MARK: - Public Methods
 
     func didTapPayButton() {
-        view?.displayPaymentSuccess()
+        print("Вы оплатили успешно!")
     }
 
     func didTapAgreeButton() {
-        view?.displayAgreementConfirmation()
+        print("Вы согласились")
     }
 }
