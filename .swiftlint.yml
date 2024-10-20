@@ -4,6 +4,7 @@ opt_in_rules:
 disabled_rules:
  - void_function_in_ternary
  - todo
+ - trailing_whitespace
  
 line_length:
   warning: 150
