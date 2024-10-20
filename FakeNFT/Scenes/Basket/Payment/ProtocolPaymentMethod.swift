@@ -16,4 +16,5 @@ protocol PaymentMethodPresenterProtocol {
     func didTapPayButton()
     func didTapAgreeButton()
     func updateSelectedCurrency(_ currency: CurrencyType)
+    func openTermsOfUse()
 }

@@ -103,7 +103,7 @@ final class PaymentMethodViewController: UIViewController, PaymentMethodViewProt
         setupConstraints()
         setupBackButton()
         setupNavigationBarTitle()
-        presenter = PaymentMethodPresenter(view: self)
+        presenter = PaymentMethodPresenter(view: self, viewController: self)
     }
 
     // MARK: - Public Methods

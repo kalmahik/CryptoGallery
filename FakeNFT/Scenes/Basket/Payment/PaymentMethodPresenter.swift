@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 
 final class PaymentMethodPresenter: PaymentMethodPresenterProtocol {
 
@@ -14,11 +15,13 @@ final class PaymentMethodPresenter: PaymentMethodPresenterProtocol {
     private weak var view: PaymentMethodViewProtocol?
 
     private var selectedCurrency: CurrencyType?
+    private var viewController: UIViewController?
 
     // MARK: - Initializers
 
-    init(view: PaymentMethodViewProtocol) {
+    init(view: PaymentMethodViewProtocol, viewController: UIViewController) {
         self.view = view
+        self.viewController = viewController
     }
 
     // MARK: - Public Methods
@@ -32,11 +35,18 @@ final class PaymentMethodPresenter: PaymentMethodPresenterProtocol {
     }
 
     func didTapAgreeButton() {
-        print("Вы согласились")
+        openTermsOfUse()
     }
 
     func updateSelectedCurrency(_ currency: CurrencyType) {
         selectedCurrency = currency
         print("Вы выбрали валюту: \(currency.shortName)")
+    }
+
+    func openTermsOfUse() {
+        guard let view = viewController else { return }
+        let webViewController = WebViewController(urlString: "https://yandex.ru/legal/practicum_termsofuse/")
+        webViewController.modalPresentationStyle = .pageSheet
+        view.present(webViewController, animated: true, completion: nil)
     }
 }
