@@ -421,7 +421,7 @@
 				DD5B91FA2CC2A5D900A20B48 /* ProtocolPaymentMethod.swift */,
 				DD07093B2CBCF72D00AFF2CE /* PaymentMethodViewController.swift */,
 				DD5B91FC2CC2A61200A20B48 /* PaymentMethodPresenter.swift */,
-				DD5B91F52CC27D5C00A20B48 /* PaymentView */,
+				DD5B91F52CC27D5C00A20B48 /* PaymentCollectionView */,
 			);
 			path = Payment;
 			sourceTree = "<group>";
@@ -454,7 +454,7 @@
 			path = BasketCell;
 			sourceTree = "<group>";
 		};
-		DD5B91F52CC27D5C00A20B48 /* PaymentView */ = {
+		DD5B91F52CC27D5C00A20B48 /* PaymentCollectionView */ = {
 			isa = PBXGroup;
 			children = (
 				DD5B91F82CC27E9F00A20B48 /* EnumCurrencyType.swift */,
@@ -462,7 +462,7 @@
 				DD5B91F62CC27D7F00A20B48 /* CollectionViewCell.swift */,
 				DD5B92002CC2A8A500A20B48 /* CollectionViewPresenter.swift */,
 			);
-			path = PaymentView;
+			path = PaymentCollectionView;
 			sourceTree = "<group>";
 		};
 		DD80897B2CBF132000F3B4FD /* SortNFT */ = {
