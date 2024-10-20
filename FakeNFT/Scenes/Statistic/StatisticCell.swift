@@ -59,7 +59,8 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         label.font = UIFont.bold22
         label.textColor = UIColor.textPrimary
         label.layer.borderWidth = 1
-        label.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
     }()
 
@@ -68,7 +69,8 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         label.font = UIFont.bold22
         label.textColor = UIColor.textPrimary
         label.layer.borderWidth = 1
-        label.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
     }()
 
@@ -86,10 +88,10 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
 
     // MARK: - Public Methods
 
-    func setupCell() {
-        placeLabel.text = "1"
-        nameLabel.text = "kjanerflkjabef jafhbalehflahebfkjahbsdkfh"
-        scoreLabel.text = "45"
+    func setupCell(statistic: Statistic, place: Int) {
+        placeLabel.text = "\(place)"
+        nameLabel.text = statistic.name
+        scoreLabel.text = statistic.rating
     }
 }
 

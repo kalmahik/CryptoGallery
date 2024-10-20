@@ -1,7 +1,9 @@
 import UIKit
 
-final class StatisticViewController: UIViewController {
-    let servicesAssembly: ServicesAssembly
+final class StatisticViewController: UIViewController, StatisticViewProtocol {
+    private let servicesAssembly: ServicesAssembly
+    private var presenter: StatisticPresenterProtocol?
+    private var users: [Statistic] = []
 
     private lazy var tableView: UITableView = {
         let tableView  = UITableView()
@@ -19,6 +21,8 @@ final class StatisticViewController: UIViewController {
     init(servicesAssembly: ServicesAssembly) {
         self.servicesAssembly = servicesAssembly
         super.init(nibName: nil, bundle: nil)
+        let model = StatisticModel(statisticService: servicesAssembly.statisticService)
+        presenter = StatisticPresenter(view: self, model: model)
     }
 
     required init?(coder: NSCoder) {
@@ -27,12 +31,12 @@ final class StatisticViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        setupConstraints()
-        setNavigationItem()
-        servicesAssembly.statisticService.sendStatisticGetRequest { result in
-            print(result)
-        }
+        presenter?.viewDidLoad()
+    }
+    
+    func updateStatistic(_ users: [Statistic]) {
+        self.users = users
+        self.tableView.reloadData()
     }
 }
 
@@ -40,7 +44,7 @@ final class StatisticViewController: UIViewController {
 
 extension StatisticViewController: UITableViewDelegate {
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-////        viewModel.didSelectRowAt(indexPath: indexPath)
+//        viewModel.didSelectRowAt(indexPath: indexPath)
 //    }
 }
 
@@ -48,14 +52,14 @@ extension StatisticViewController: UITableViewDelegate {
 
 extension StatisticViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 99
+        return users.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let statistic = statistic[indexPath.row]
+        let statistic = users[indexPath.row]
         let cell: StatisticCell = tableView.dequeueReusableCell()
         cell.selectionStyle = .none
-        cell.setupCell()
+        cell.setupCell(statistic: statistic, place: indexPath.row + 1)
         return cell
     }
 
@@ -67,13 +71,13 @@ extension StatisticViewController: UITableViewDataSource {
 extension StatisticViewController {
     // MARK: - Configure
 
-    private func setupView() {
+    internal func setupView() {
         view.backgroundColor = .ypWhite
         view.setupView(tableView)
         tableView.constraintEdges(to: view)
     }
 
-    private func setupConstraints() {
+    internal func setupConstraints() {
         NSLayoutConstraint.activate([
 //            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
 //            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),

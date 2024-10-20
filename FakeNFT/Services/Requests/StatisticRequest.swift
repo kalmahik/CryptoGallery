@@ -2,7 +2,7 @@ import Foundation
 
 struct StatisticRequest: NetworkRequest {
     var endpoint: URL? {
-        URL(string: "\(RequestConstants.baseURL)/api/v1/users")
+        URL(string: "\(RequestConstants.baseURL)/api/v1/users?page=0&size=1000&sortBy=rating&order=asc")
     }
     var httpMethod: HttpMethod = .get
     var dto: Dto?
