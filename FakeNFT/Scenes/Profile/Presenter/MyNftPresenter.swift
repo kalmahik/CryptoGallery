@@ -12,6 +12,7 @@ protocol MyNftPresenterProtocol: AnyObject {
     var nfts: [NFT] { get set }
     func loadNfts(page: Int, size: Int, sort: NftRequest.NftSort)
     func viewDidLoad()
+    func loadMoreNftsIfNeeded(currentItemIndex: Int)
 }
 
 final class MyNftPresenter {
@@ -19,29 +20,55 @@ final class MyNftPresenter {
     weak var view: MyNftProtocol?
     var nfts: [NFT] = []
 
+    private var nftIds: [String] = []
     private let nftService: CustomNftService
 
-    init(nfts: [NFT], nftService: CustomNftService) {
+    private var currentPage = 1
+    private let pageSize = 10
+    private var isLoading = false
+    private var allDataLoaded = false
+
+    init(nfts: [NFT], nftService: CustomNftService, nftIds: [String]) {
         self.nfts = nfts
         self.nftService = nftService
+        self.nftIds = nftIds
     }
 
-    func viewDidLoad() {}
+    func viewDidLoad() {
+        loadNfts(page: 1, size: 20, sort: .rating)
+    }
 }
 
 // MARK: - MyNftPresenterProtocol
 
 extension MyNftPresenter: MyNftPresenterProtocol {
 
-    func loadNfts(page: Int = 1, size: Int = 10, sort: NftRequest.NftSort = .rating) {
-        nftService.loadNfts(page: page, size: size, sort: sort) { [weak self] (result: Result<[NFT], Error>) in
+    func loadNfts(page: Int, size: Int, sort: NftRequest.NftSort) {
+        guard !isLoading, !allDataLoaded else { return }
+
+        isLoading = true
+        nftService.loadNftsByIds(ids: nftIds, page: page, size: size) { [weak self] (result: Result<[NFT], Error>) in
+            guard let self = self else { return }
+            self.isLoading = false
+
             switch result {
             case .success(let nfts):
-                self?.nfts = nfts
-                self?.view?.reloadData()
+                if nfts.isEmpty {
+                    self.allDataLoaded = true
+                } else {
+                    self.nfts.append(contentsOf: nfts)
+                    self.view?.reloadData()
+                }
             case .failure(let error):
-                Logger.shared.error("Error loading NFTs: \(error.localizedDescription)")
+                Logger.shared.error("Ошибка загрузки NFT: \(error.localizedDescription)")
             }
+        }
+    }
+
+    func loadMoreNftsIfNeeded(currentItemIndex: Int) {
+        if currentItemIndex >= nfts.count - 3 {
+            currentPage += 1
+            loadNfts(page: currentPage, size: pageSize, sort: .rating)
         }
     }
 }

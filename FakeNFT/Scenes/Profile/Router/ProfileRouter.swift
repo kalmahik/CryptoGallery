@@ -46,27 +46,19 @@ extension ProfileRouter: ProfileRouterProtocol {
 
         let nftIds = profile.nfts
 
-        nftService.loadNftsByIds(ids: nftIds) { [weak self] (result: Result<[NFT], Error>) in
-            guard let self else { return }
+        let presenter = MyNftPresenter(
+            nfts: [],
+            nftService: self.nftService,
+            nftIds: nftIds
+        )
 
-            switch result {
-            case .success(let nfts):
-                let presenter = MyNftPresenter(
-                    nfts: nfts,
-                    nftService: self.nftService
-                )
+        let myNftController = MyNftViewController(presenter: presenter)
+        presenter.view = myNftController
 
-                let myNftController = MyNftViewController(presenter: presenter)
-                presenter.view = myNftController
+        myNftController.modalPresentationStyle = .formSheet
 
-                myNftController.modalPresentationStyle = .formSheet
-
-                DispatchQueue.main.async {
-                    viewController.present(myNftController, animated: true)
-                }
-            case .failure(let error):
-                Logger.shared.error("Ошибка загрузки NFT: \(error.localizedDescription)")
-            }
+        DispatchQueue.main.async {
+            viewController.present(myNftController, animated: true)
         }
     }
 

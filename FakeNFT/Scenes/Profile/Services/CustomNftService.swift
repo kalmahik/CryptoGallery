@@ -11,8 +11,7 @@ typealias CustomNftCompletion = (Result<NFT, Error>) -> Void
 
 protocol CustomNftService {
     func loadNft(id: String, completion: @escaping CustomNftCompletion)
-    func loadNfts(page: Int, size: Int, sort: NftRequest.NftSort, completion: @escaping (Result<[NFT], Error>) -> Void)
-    func loadNftsByIds(ids: [String], completion: @escaping (Result<[NFT], Error>) -> Void)
+    func loadNftsByIds(ids: [String], page: Int, size: Int, completion: @escaping (Result<[NFT], Error>) -> Void)
 }
 
 final class CustomNftServiceImpl: CustomNftService {
@@ -43,23 +42,20 @@ final class CustomNftServiceImpl: CustomNftService {
         }
     }
 
-    func loadNfts(page: Int, size: Int, sort: NftRequest.NftSort, completion: @escaping (Result<[NFT], Error>) -> Void) {
-        let request = NftRequest(page: page, size: size, sort: sort)
-        networkClient.send(request: request, type: [NFT].self) { result in
-            switch result {
-            case .success(let nfts):
-                completion(.success(nfts))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
+    func loadNftsByIds(ids: [String], page: Int, size: Int, completion: @escaping (Result<[NFT], Error>) -> Void) {
+        let start = (page - 1) * size
+        let end = min(page * size, ids.count)
 
-    func loadNftsByIds(ids: [String], completion: @escaping (Result<[NFT], Error>) -> Void) {
+        guard start < end else {
+            completion(.failure(NetworkClientError.parsingError))
+            return
+        }
+
+        let idsForPage = Array(ids[start..<end])
         var nfts: [NFT] = []
         let group = DispatchGroup()
 
-        for id in ids {
+        for id in idsForPage {
             group.enter()
             loadNft(id: id) { result in
                 switch result {

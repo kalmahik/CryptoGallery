@@ -40,6 +40,7 @@ final class MyNftViewController: UIViewController {
     init(presenter: MyNftPresenterProtocol) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
+        presenter.view = self
     }
 
     @available(*, unavailable)
@@ -54,14 +55,15 @@ final class MyNftViewController: UIViewController {
         view.backgroundColor = .ypWhite
         setupUI()
         checkForData()
+        presenter.viewDidLoad()
     }
 
     // MARK: - Private Methods
 
     private func checkForData() {
         let hasData = presenter.nfts.count > 0
-        placeholderView.isHidden = hasData
-        tableView.isHidden = !hasData
+        placeholderView.isHidden = !hasData
+        tableView.isHidden = hasData
     }
 }
 
@@ -81,7 +83,17 @@ extension MyNftViewController {
 
 // MARK: - UITableViewDelegate
 
-extension MyNftViewController: UITableViewDelegate {}
+extension MyNftViewController: UITableViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+
+        if offsetY > contentHeight - height - 100 {
+            presenter.loadMoreNftsIfNeeded(currentItemIndex: tableView.indexPathsForVisibleRows?.last?.row ?? 0)
+        }
+    }
+}
 
 // MARK: - UITableViewDataSource
 
@@ -106,3 +118,4 @@ extension MyNftViewController: MyNftProtocol {
         tableView.reloadData()
     }
 }
+
