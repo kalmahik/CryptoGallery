@@ -10,4 +10,6 @@ import Foundation
 protocol StatisticPresenterProtocol {
     func viewDidLoad()
     func loadStatistic()
+    func loadNextStatistic(indexPath: IndexPath)
+    func openProfile(indexPath: IndexPath)
 }
