@@ -268,7 +268,7 @@ extension EditProfileViewController {
         guard section >= 0 && section < presenter.sections.count else {
             return 0
         }
-        return UIConstants.Heights.rowHeightMedium28
+        return UIConstants.Heights.height28
     }
 }
 
@@ -291,8 +291,8 @@ extension EditProfileViewController {
             return 0
         }
         return presenter.shouldShowFooter(for: section) ?
-        UIConstants.Heights.rowHeightMedium30 :
-        UIConstants.Heights.rowHeightMedium24
+        UIConstants.Heights.height30 :
+        UIConstants.Heights.height24
     }
 }
 

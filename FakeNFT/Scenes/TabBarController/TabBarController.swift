@@ -45,7 +45,8 @@ final class TabBarController: UITabBarController {
 
     private func createProfileViewController() -> UINavigationController {
         let profileService = servicesAssembly.profileService
-        let profileRouter = ProfileRouter(profileService: profileService)
+        let nftService = servicesAssembly.customNftService
+        let profileRouter = ProfileRouter(profileService: profileService, nftService: nftService)
         let profilePresenter = ProfilePresenter(router: profileRouter, profileService: profileService)
         let profileController = ProfileViewController(presenter: profilePresenter)
         profilePresenter.view = profileController

@@ -71,7 +71,12 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         }
     }
 
-    func didTapMyNft() {}
+    func didTapMyNft() {
+        if let profile {
+            router.navigateToMyNFT(profile)
+        }
+    }
+
     func didTapSelectedNft() {}
 
     func didTapWebsite() {

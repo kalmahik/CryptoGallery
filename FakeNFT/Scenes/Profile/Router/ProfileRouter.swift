@@ -9,7 +9,7 @@ import SafariServices
 import UIKit
 
 protocol ProfileRouterProtocol: AnyObject {
-    func navigateToMyNFT()
+    func navigateToMyNFT(_ profile: Profile?)
     func navigateToSelectedNFT()
     func navigateToEditProfile(_ profile: Profile?, delegate: EditProfilePresenterDelegate)
     func navigateToAboutTheDeveloper()
@@ -25,11 +25,13 @@ final class ProfileRouter {
     // MARK: - Private Properties
 
     private let profileService: ProfileService
+    private let nftService: CustomNftService
 
     // MARK: - Init
 
-    init(profileService: ProfileService) {
+    init(profileService: ProfileService, nftService: CustomNftService) {
         self.profileService = profileService
+        self.nftService = nftService
     }
 }
 
@@ -39,7 +41,34 @@ extension ProfileRouter: ProfileRouterProtocol {
 
     // MARK: - Public Methods
 
-    func navigateToMyNFT() {}
+    func navigateToMyNFT(_ profile: Profile?) {
+        guard let viewController = viewController, let profile = profile else { return }
+
+        let nftIds = profile.nfts
+
+        nftService.loadNftsByIds(ids: nftIds) { [weak self] (result: Result<[NFT], Error>) in
+            guard let self else { return }
+
+            switch result {
+            case .success(let nfts):
+                let presenter = MyNftPresenter(
+                    nfts: nfts,
+                    nftService: self.nftService
+                )
+
+                let myNftController = MyNftViewController(presenter: presenter)
+                presenter.view = myNftController
+
+                myNftController.modalPresentationStyle = .formSheet
+
+                DispatchQueue.main.async {
+                    viewController.present(myNftController, animated: true)
+                }
+            case .failure(let error):
+                Logger.shared.error("Ошибка загрузки NFT: \(error.localizedDescription)")
+            }
+        }
+    }
 
     func navigateToSelectedNFT() {}
 

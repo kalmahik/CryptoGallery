@@ -232,9 +232,9 @@ extension ProfileViewController {
 
             profileUserDataStack.heightAnchor.constraint(equalToConstant: UIConstants.Square.imageView),
 
-            shimmerNameLabel.heightAnchor.constraint(equalToConstant: UIConstants.Heights.shimmerMedium),
-            shimmerDescriptionLabel.heightAnchor.constraint(equalToConstant: UIConstants.Heights.shimmerLarge),
-            shimmerWebsiteLabel.heightAnchor.constraint(equalToConstant: UIConstants.Heights.shimmerMedium)
+            shimmerNameLabel.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height28),
+            shimmerDescriptionLabel.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height72),
+            shimmerWebsiteLabel.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height28)
         ])
     }
 
@@ -286,13 +286,25 @@ extension ProfileViewController {
 
 // MARK: - LoadingView
 
-extension ProfileViewController: LoadingView {}
+extension ProfileViewController: LoadingView {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        switch presenter.cellsItems[indexPath.row] {
+        case .myNft:
+            presenter.didTapMyNft()
+        case .selectedNft:
+            presenter.didTapSelectedNft()
+        case .aboutDev:
+            presenter.didTapAboutDev()
+        }
+    }
+}
 
 // MARK: - UITableViewDelegate
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIConstants.Heights.rowHeightLarge54
+        return UIConstants.Heights.height54
     }
 }
 

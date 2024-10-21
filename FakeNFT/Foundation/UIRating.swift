@@ -12,6 +12,7 @@ final class UIRating: UIView {
     // MARK: - Private Properties
 
     private var rating: Int = 0
+    private var starImageViews: [UIImageView] = []
 
     private lazy var ratingStack: UIStackView = {
         let stackView = UIStackView()
@@ -65,5 +66,17 @@ final class UIRating: UIView {
         imageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
         imageView.tintColor = active ? .ypYellowUniversal : .ypLightGrey
         return imageView
+    }
+}
+
+// MARK: - Public Methods
+
+extension UIRating {
+    func updateRating(_ newRating: Int) {
+        rating = newRating
+        for (index, starImageView) in starImageViews.enumerated() {
+            let isActive = index < newRating
+            starImageView.tintColor = isActive ? .ypYellowUniversal : .ypLightGrey
+        }
     }
 }
