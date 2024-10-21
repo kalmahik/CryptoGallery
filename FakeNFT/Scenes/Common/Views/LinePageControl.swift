@@ -24,7 +24,7 @@ final class LinePageControl: UIView {
 
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.spacing = 8
+        stackView.spacing = UIConstants.Spacing.small8
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
         return stackView
