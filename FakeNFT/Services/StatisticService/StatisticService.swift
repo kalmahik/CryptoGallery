@@ -3,9 +3,7 @@ import Foundation
 typealias StatisticCompletion = (Result<StatisticResponse, Error>) -> Void
 
 protocol StatisticService {
-    func sendStatisticGetRequest(
-        completion: @escaping StatisticCompletion
-    )
+    func sendStatisticGetRequest(page: Int, size: Int, sortBy: SortBy, completion: @escaping StatisticCompletion)
 }
 
 final class StatisticNetworkServiceImpl: StatisticService {
@@ -15,9 +13,14 @@ final class StatisticNetworkServiceImpl: StatisticService {
         self.networkClient = networkClient
     }
 
-    func sendStatisticGetRequest(completion: @escaping StatisticCompletion) {
+    func sendStatisticGetRequest(
+        page: Int,
+        size: Int,
+        sortBy: SortBy,
+        completion: @escaping StatisticCompletion
+    ) {
         let dto = StatisticDtoObject()
-        let request = StatisticRequest(dto: dto)
+        let request = StatisticRequest(dto: dto, page: page, size: size, sortBy: sortBy)
         networkClient.send(request: request, type: StatisticResponse.self) { result in
             switch result {
             case .success(let putResponse):

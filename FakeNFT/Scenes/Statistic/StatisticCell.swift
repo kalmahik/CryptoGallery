@@ -49,10 +49,12 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         return stackView
     }()
 
-    private lazy var avatar: UIImageView = {
-        let avatar = UIImageView(image: UIImage(systemName: "person.crop.circle.fill"))
-        return avatar
-    }()
+//    private lazy var avatar: UIImageView = {
+//        let avatar = UIImageView(image: UIImage(systemName: "person.crop.circle.fill"))
+//        return avatar
+//    }()   
+    
+    private lazy var avatar = UserProfileImageView()
 
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -92,6 +94,7 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         placeLabel.text = "\(place)"
         nameLabel.text = statistic.name
         scoreLabel.text = statistic.rating
+//        avatar.setProfile(statistic, mode: .view)
     }
 }
 
