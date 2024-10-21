@@ -17,4 +17,8 @@ final class ServicesAssembly {
             storage: nftStorage
         )
     }
+
+    var statisticService: StatisticService {
+        StatisticNetworkServiceImpl(networkClient: networkClient)
+    }
 }
