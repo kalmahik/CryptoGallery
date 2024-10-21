@@ -24,7 +24,7 @@ final class UserProfileImageView: UIView {
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .ypGrayUniversal
         return imageView
     }()
