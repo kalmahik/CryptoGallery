@@ -43,9 +43,13 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
 // MARK: - UITableViewDelegate
 
 extension StatisticViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        viewModel.didSelectRowAt(indexPath: indexPath)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.openProfile(indexPath: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        presenter?.loadNextStatistic(indexPath: indexPath)
+    }
 }
 
 // MARK: - UITableViewDataSource
