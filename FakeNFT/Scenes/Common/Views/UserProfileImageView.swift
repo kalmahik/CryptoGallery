@@ -13,12 +13,7 @@ enum ProfileImageMode {
     case edit
 
     var placeholder: UIImage {
-        switch self {
-        case .view:
-            return UIImage(systemName: "person.circle.fill") ?? UIImage()
-        case .edit:
-            return UIImage(systemName: "plus.circle") ?? UIImage()
-        }
+        return UIImage(named: "profile") ?? UIImage()
     }
 }
 
@@ -28,7 +23,6 @@ final class UserProfileImageView: UIView {
 
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 35 // TODO: - Change
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .ypGrayUniversal
@@ -39,7 +33,6 @@ final class UserProfileImageView: UIView {
         let button = UIButton(type: .system)
         button.setTitle(LocalizationKey.profChangeImage.localized(), for: .normal)
         button.titleLabel?.font = .medium10
-        button.layer.cornerRadius = 35 // TODO: - Change
         button.clipsToBounds = true
         button.backgroundColor = .black.withAlphaComponent(0.2)
         button.tintColor = .white
@@ -67,6 +60,12 @@ final class UserProfileImageView: UIView {
         super.init(coder: coder)
         setupUI()
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userImageView.layer.cornerRadius = userImageView.frame.width / 2
+        changePhotoButton.layer.cornerRadius = changePhotoButton.frame.width / 2
+    }
 }
 
 // MARK: - Configure view
@@ -78,7 +77,6 @@ extension UserProfileImageView {
     func setProfile(_ profile: Profile?, mode: ProfileImageMode) {
         self.mode = mode
         if let profile, let avatarURLString = profile.avatar, let avatarURL = URL(string: avatarURLString) {
-            Logger.shared.info("Avatar URL: \(avatarURL)")
             updateUserProfileImage(with: avatarURL) { [weak self] image in
                 if image != nil {
                     self?.userImageView.tintColor = nil
@@ -100,20 +98,18 @@ extension UserProfileImageView {
 
 extension UserProfileImageView {
     private func updateUserProfileImage(with url: URL, completion: @escaping (UIImage?) -> Void) {
-        let cache = ImageCache.default
-        cache.removeImage(forKey: url.absoluteString)
-
         userImageView.kf.indicatorType = .activity
         userImageView.kf.setImage(
             with: url,
             placeholder: mode.placeholder,
-            options: [.transition(.fade(0.2)), .cacheOriginalImage]
+            options: [.transition(.fade(0.2))]
         ) { result in
             switch result {
             case .success(let value):
                 completion(value.image)
             case .failure(let error):
                 Logger.shared.error("Ошибка загрузки изображения: \(error.localizedDescription)")
+                self.updatePlaceholder()
                 completion(nil)
             }
         }
@@ -138,11 +134,15 @@ extension UserProfileImageView {
         userImageView.constraintCenters(to: self)
 
         NSLayoutConstraint.activate([
-            userImageView.widthAnchor.constraint(equalToConstant: 70),
-            userImageView.heightAnchor.constraint(equalToConstant: 70),
+            userImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            userImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            userImageView.topAnchor.constraint(equalTo: topAnchor),
+            userImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            changePhotoButton.widthAnchor.constraint(equalToConstant: 70),
-            changePhotoButton.heightAnchor.constraint(equalToConstant: 70)
+            changePhotoButton.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor),
+            changePhotoButton.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor),
+            changePhotoButton.topAnchor.constraint(equalTo: userImageView.topAnchor),
+            changePhotoButton.bottomAnchor.constraint(equalTo: userImageView.bottomAnchor)
         ])
     }
 }
