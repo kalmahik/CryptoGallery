@@ -49,11 +49,6 @@ final class Placeholder: UIView {
         addSubview(stackView)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
+        stackView.constraintCenters(to: self)
     }
 }
-
-

@@ -42,6 +42,19 @@ final class MyNftPresenter {
     }
 
     func viewDidLoad() {
+        let savedSortType = UserDefaults.standard.loadSortType()
+
+        switch savedSortType {
+        case .price:
+            currentSort = .price
+        case .rating:
+            currentSort = .rating
+        case .name:
+            currentSort = .name
+        default:
+            break
+        }
+
         loadNfts(page: 1, size: 20, sort: currentSort)
     }
 }
@@ -63,7 +76,8 @@ extension MyNftPresenter: MyNftPresenterProtocol {
                 if nfts.isEmpty {
                     self.allDataLoaded = true
                 } else {
-                    self.nfts.append(contentsOf: nfts)
+                    let sortedNfts = self.sortNfts(nfts, by: sort)
+                    self.nfts.append(contentsOf: sortedNfts)
                     self.view?.reloadData()
                 }
             case .failure(let error):
@@ -84,6 +98,24 @@ extension MyNftPresenter: MyNftPresenterProtocol {
         currentPage = 1
         nfts = []
         view?.reloadData()
+
+        if let safeSortType = SortType(rawValue: sort.rawValue) {
+            UserDefaults.standard.saveSortType(safeSortType)
+        } else {
+            Logger.shared.error("Ошибка: Невозможно сохранить неизвестный тип сортировки.")
+        }
+
         loadNfts(page: 1, size: pageSize, sort: currentSort)
+    }
+
+    private func sortNfts(_ nfts: [NFT], by sort: NftRequest.NftSort) -> [NFT] {
+        switch sort {
+        case .price:
+            return nfts.sorted { $0.price < $1.price }
+        case .rating:
+            return nfts.sorted { $0.rating > $1.rating }
+        case .name:
+            return nfts.sorted { $0.name.lowercased() < $1.name.lowercased() }
+        }
     }
 }

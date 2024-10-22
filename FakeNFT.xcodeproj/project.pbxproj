@@ -32,6 +32,7 @@
 		245510482CC6844100E37E2D /* MyNftService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245510472CC6844100E37E2D /* MyNftService.swift */; };
 		2455104A2CC6869800E37E2D /* MyNftStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245510492CC6869800E37E2D /* MyNftStorage.swift */; };
 		2455104C2CC6F2E900E37E2D /* NftImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455104B2CC6F2E900E37E2D /* NftImageView.swift */; };
+		2455104E2CC7A28D00E37E2D /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455104D2CC7A28D00E37E2D /* UserDefaults+Extension.swift */; };
 		2486E9AD2CC0FBCA00E66548 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */; };
 		2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499527A2CB513C000CB36F8 /* LocalizationKey.swift */; };
 		24CD87CD2CBD875500886559 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87CC2CBD875500886559 /* UIConstants.swift */; };
@@ -130,6 +131,7 @@
 		245510472CC6844100E37E2D /* MyNftService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNftService.swift; sourceTree = "<group>"; };
 		245510492CC6869800E37E2D /* MyNftStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNftStorage.swift; sourceTree = "<group>"; };
 		2455104B2CC6F2E900E37E2D /* NftImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageView.swift; sourceTree = "<group>"; };
+		2455104D2CC7A28D00E37E2D /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		249952792CB512DE00CB36F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2499527A2CB513C000CB36F8 /* LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKey.swift; sourceTree = "<group>"; };
@@ -467,6 +469,9 @@
 			isa = PBXGroup;
 			children = (
 				F5E6CB802CC2C06E00360743 /* GlobalFunc.swift */,
+				245510432CC654CD00E37E2D /* Placeholder.swift */,
+				2455104B2CC6F2E900E37E2D /* NftImageView.swift */,
+				2455104D2CC7A28D00E37E2D /* UserDefaults+Extension.swift */,
 				F5E6CB812CC2C06E00360743 /* Presenter */,
 				F5E6CB842CC2C06E00360743 /* Model */,
 				F5E6CB892CC2C06E00360743 /* View */,
@@ -474,7 +479,6 @@
 				F5E6CB922CC2C06E00360743 /* Services */,
 				F5E6CB962CC2C06E00360743 /* NetworkConstants.swift */,
 				F5E6CB972CC2C06E00360743 /* Router */,
-				245510432CC654CD00E37E2D /* Placeholder.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -505,10 +509,10 @@
 			children = (
 				F5E6CB8E2CC2C06E00360743 /* ProfileViewController.swift */,
 				F5E6CB8B2CC2C06E00360743 /* EditProfileViewController.swift */,
+				2455103D2CC653F000E37E2D /* MyNftViewController.swift */,
 				F5E6CB8A2CC2C06E00360743 /* ProfileCell.swift */,
 				F5E6CB8C2CC2C06E00360743 /* TextViewCell.swift */,
 				F5E6CB8D2CC2C06E00360743 /* UserPicCell.swift */,
-				2455103D2CC653F000E37E2D /* MyNftViewController.swift */,
 				245510412CC6547100E37E2D /* MyNftCell.swift */,
 			);
 			path = View;
@@ -519,7 +523,6 @@
 			children = (
 				F5E6CB902CC2C06E00360743 /* TableViewHeaderAndFooterHelper.swift */,
 				F5E6CB912CC2C06E00360743 /* ConfigureTableViewCellHelper.swift */,
-				2455104B2CC6F2E900E37E2D /* NftImageView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 				F5E6CBA92CC2C06E00360743 /* NetworkConstants.swift in Sources */,
 				F5E6CB992CC2C06E00360743 /* GlobalFunc.swift in Sources */,
 				3FC8C38B29D242E90081F015 /* ProductDetailsTableViewCell.swift in Sources */,
+				2455104E2CC7A28D00E37E2D /* UserDefaults+Extension.swift in Sources */,
 				8406DDBB2CB64A580014BCE4 /* Logger.swift in Sources */,
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */,
