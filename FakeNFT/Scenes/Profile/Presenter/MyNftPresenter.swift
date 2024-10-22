@@ -35,18 +35,19 @@ final class MyNftPresenter {
     private var currentPage = 1
     private var isLoading = false
     private var allDataLoaded = false
+    private let profileService: ProfileService
 
     private var currentSort: NftRequest.NftSort = .rating
 
-    init(nfts: [NFT], nftService: MyNftService, nftIds: [String]) {
+    init(nfts: [NFT], nftService: MyNftService, profileService: ProfileService, nftIds: [String]) {
         self.nfts = nfts
         self.nftService = nftService
         self.nftIds = nftIds
-        self.likedNftIds = UserDefaults.standard.loadLikedNftIds()
+        self.profileService = profileService
     }
 
     func viewDidLoad() {
-        loadNfts(page: 1, size: 20, sort: currentSort)
+        getProfileDataForLikes()
     }
 }
 
@@ -120,17 +121,61 @@ extension MyNftPresenter {
     func toggleLike(for nft: NFT) {
         if let index = likedNftIds.firstIndex(of: nft.id) {
             likedNftIds.remove(at: index)
+            updateProfileWithLikes(removedNftId: nft.id)
         } else {
             likedNftIds.append(nft.id)
+            updateProfileWithLikes(removedNftId: nil)
         }
-        saveLikedNftIds()
+
+        if let index = nfts.firstIndex(where: { $0.id == nft.id }) {
+            view?.reloadRow(at: index)
+        }
     }
 
     func isLiked(nft: NFT) -> Bool {
-        return likedNftIds.contains(nft.id)
+        let isLiked = likedNftIds.contains(nft.id)
+        return isLiked
     }
 
-    private func saveLikedNftIds() {
-        UserDefaults.standard.saveLikedNftIds(likedNftIds)
+    private func updateProfileWithLikes(removedNftId: String?) {
+        profileService.getProfile { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case .success(let profile):
+                let updatedLikes = removedNftId == nil ? self.likedNftIds : self.likedNftIds.filter { $0 != removedNftId }
+
+                self.profileService.updateProfile(
+                    name: profile.name,
+                    avatar: profile.avatar,
+                    description: profile.description,
+                    website: profile.website,
+                    likes: removedNftId != nil ? nil : updatedLikes
+                ) { updateResult in
+                    switch updateResult {
+                    case .success:
+                        Logger.shared.info("Profile successfully updated with liked NFTs.")
+                    case .failure(let error):
+                        Logger.shared.error("Error updating profile with liked NFTs: \(error.localizedDescription)")
+                        self.getProfileDataForLikes()
+                        self.view?.reloadData()
+                    }
+                }
+            case .failure(let error):
+                Logger.shared.error("Error fetching profile for updating likes: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func getProfileDataForLikes() {
+        profileService.getProfile { [weak self] result in
+            switch result {
+            case .success(let profile):
+                self?.likedNftIds = profile.likes
+                self?.loadNfts(page: 1, size: 20, sort: self?.currentSort ?? .rating)
+            case .failure(let error):
+                Logger.shared.error("Error fetching profile: \(error.localizedDescription)")
+            }
+        }
     }
 }

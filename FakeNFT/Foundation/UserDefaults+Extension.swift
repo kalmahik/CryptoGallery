@@ -18,7 +18,6 @@ extension UserDefaults {
     private enum Keys {
         static let nftSortType = "nftSortType"
         static let statisticSortType = "statisticSortType"
-        static let likedNftIds = "likedNftIds"
     }
 
     func saveSortType(_ sortType: SortType) {
@@ -32,15 +31,5 @@ extension UserDefaults {
         } else {
             return .rating
         }
-    }
-}
-
-extension UserDefaults {
-    func saveLikedNftIds(_ ids: [String]) {
-        set(ids, forKey: Keys.likedNftIds)
-    }
-
-    func loadLikedNftIds() -> [String] {
-        return array(forKey: Keys.likedNftIds) as? [String] ?? []
     }
 }

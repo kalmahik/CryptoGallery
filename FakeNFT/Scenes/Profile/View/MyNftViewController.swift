@@ -9,6 +9,7 @@ import UIKit
 
 protocol MyNftProtocol: AnyObject {
     func reloadData()
+    func reloadRow(at index: Int)
 }
 
 final class MyNftViewController: UIViewController {
@@ -144,6 +145,11 @@ extension MyNftViewController: UITableViewDataSource {
 // MARK: - MyNftProtocol
 
 extension MyNftViewController: MyNftProtocol {
+    func reloadRow(at index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+
     func reloadData() {
         tableView.reloadData()
     }
