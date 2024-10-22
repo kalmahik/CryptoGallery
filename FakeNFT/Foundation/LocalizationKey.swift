@@ -103,7 +103,7 @@ enum LocalizationKey: String {
     case statCollectionNft = "Stat.collectionNft"
     case statEmptyDataAlert = "Stat.emptyData.alert"
 
-    // MARK: -  Shimmer
+    // MARK: - Shimmer
 
     case shimmerLoading = "Shimmer.loading"
 

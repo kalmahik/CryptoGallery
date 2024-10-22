@@ -75,6 +75,8 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         setupViews()
         setupConstraints()
     }
+    
+    // MARK: - Private Methods
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -82,7 +84,7 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
 
     // MARK: - Public Methods
 
-    func setupCell(statistic: Statistic, place: Int) {
+    func setupCell(statistic: Users, place: Int) {
         placeLabel.text = "\(place)"
         nameLabel.text = statistic.name
         scoreLabel.text = statistic.rating
