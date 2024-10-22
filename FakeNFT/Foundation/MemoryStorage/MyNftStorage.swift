@@ -12,7 +12,6 @@ protocol MyNftStorage: AnyObject {
     func getNft(with id: String) -> NFT?
 }
 
-
 final class MyNftStorageImpl: MyNftStorage {
     private var storage: [String: NFT] = [:]
 

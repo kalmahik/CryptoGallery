@@ -12,6 +12,8 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
     // MARK: - Private Properties
 
     private var id: String?
+    private var nft: NFT?
+    private var onLikeButtonTap: ((NFT) -> Void)?
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -35,7 +37,6 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
-        // TODO: Change color and font
         label.font = UIFont.regular13
         label.text = LocalizationKey.price.localized()
         return label
@@ -43,7 +44,6 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
 
     private lazy var priceValueLabel: UILabel = {
         let label = UILabel()
-        // TODO: Change color and font
         label.font = UIFont.bold17
         label.setContentHuggingPriority(.required, for: .horizontal)
         return label
@@ -180,13 +180,23 @@ extension MyNftCell {
 // MARK: - Configure Cell
 
 extension MyNftCell {
-    func configure(with nft: NFT) {
+
+    func configure(with nft: NFT, isLiked: Bool, onLikeButtonTap: @escaping (NFT) -> Void) {
+        self.nft = nft
+        self.onLikeButtonTap = onLikeButtonTap
+
         titleLabel.text = nft.name
         ratingView.updateRating(nft.rating)
         priceValueLabel.text = String(format: "%.2f", nft.price)
         authorLabel.text = nft.author
         nftImageView.setNftImage(from: nft.images.first)
         coinLabel.text = "ETH"
+
+        updateFavoriteButton(isLiked: isLiked)
+    }
+
+    private func updateFavoriteButton(isLiked: Bool) {
+        favoriteButton.tintColor = isLiked ? .ypRedUniversal : .ypLightGrey
     }
 }
 
@@ -195,6 +205,8 @@ extension MyNftCell {
 extension MyNftCell {
     @objc
     private func tapFavoriteButton() {
-        print("Add favorite")
+        guard let nft else { return }
+        onLikeButtonTap?(nft)
+        updateFavoriteButton(isLiked: !(favoriteButton.tintColor == .ypRedUniversal))
     }
 }

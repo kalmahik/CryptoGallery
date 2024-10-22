@@ -10,10 +10,13 @@ import Foundation
 protocol MyNftPresenterProtocol: AnyObject {
     var view: MyNftProtocol? { get set }
     var nfts: [NFT] { get set }
+    var pageSize: Int { get }
     func loadNfts(page: Int, size: Int, sort: NftRequest.NftSort)
     func viewDidLoad()
     func loadMoreNftsIfNeeded(currentItemIndex: Int)
     func setSortType(_ sort: NftRequest.NftSort)
+    func isLiked(nft: NFT) -> Bool
+    func toggleLike(for nft: NFT)
 }
 
 final class MyNftPresenter {
@@ -22,14 +25,14 @@ final class MyNftPresenter {
 
     weak var view: MyNftProtocol?
     var nfts: [NFT] = []
+    var likedNftIds: [String] = []
+    let pageSize = 10
 
     // MARK: - Private Properties
 
     private var nftIds: [String] = []
     private let nftService: MyNftService
-
     private var currentPage = 1
-    private let pageSize = 10
     private var isLoading = false
     private var allDataLoaded = false
 
@@ -39,22 +42,10 @@ final class MyNftPresenter {
         self.nfts = nfts
         self.nftService = nftService
         self.nftIds = nftIds
+        self.likedNftIds = UserDefaults.standard.loadLikedNftIds()
     }
 
     func viewDidLoad() {
-        let savedSortType = UserDefaults.standard.loadSortType()
-
-        switch savedSortType {
-        case .price:
-            currentSort = .price
-        case .rating:
-            currentSort = .rating
-        case .name:
-            currentSort = .name
-        default:
-            break
-        }
-
         loadNfts(page: 1, size: 20, sort: currentSort)
     }
 }
@@ -68,7 +59,7 @@ extension MyNftPresenter: MyNftPresenterProtocol {
 
         isLoading = true
         nftService.loadNftsByIds(ids: nftIds, page: page, size: size) { [weak self] (result: Result<[NFT], Error>) in
-            guard let self = self else { return }
+            guard let self else { return }
             self.isLoading = false
 
             switch result {
@@ -87,7 +78,9 @@ extension MyNftPresenter: MyNftPresenterProtocol {
     }
 
     func loadMoreNftsIfNeeded(currentItemIndex: Int) {
-        if currentItemIndex >= nfts.count - 3 {
+        guard !isLoading, !allDataLoaded else { return }
+
+        if currentItemIndex >= nfts.count - 1 {
             currentPage += 1
             loadNfts(page: currentPage, size: pageSize, sort: currentSort)
         }
@@ -117,5 +110,27 @@ extension MyNftPresenter: MyNftPresenterProtocol {
         case .name:
             return nfts.sorted { $0.name.lowercased() < $1.name.lowercased() }
         }
+    }
+}
+
+// MARK: - Like Handler
+
+extension MyNftPresenter {
+
+    func toggleLike(for nft: NFT) {
+        if let index = likedNftIds.firstIndex(of: nft.id) {
+            likedNftIds.remove(at: index)
+        } else {
+            likedNftIds.append(nft.id)
+        }
+        saveLikedNftIds()
+    }
+
+    func isLiked(nft: NFT) -> Bool {
+        return likedNftIds.contains(nft.id)
+    }
+
+    private func saveLikedNftIds() {
+        UserDefaults.standard.saveLikedNftIds(likedNftIds)
     }
 }

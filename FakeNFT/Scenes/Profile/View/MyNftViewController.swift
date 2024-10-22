@@ -114,7 +114,7 @@ extension MyNftViewController: UITableViewDelegate {
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.size.height
 
-        if offsetY > contentHeight - height - 100 {
+        if offsetY > contentHeight - height - 100, presenter.nfts.count >= presenter.pageSize - 1 {
             presenter.loadMoreNftsIfNeeded(currentItemIndex: tableView.indexPathsForVisibleRows?.last?.row ?? 0)
         }
     }
@@ -130,7 +130,12 @@ extension MyNftViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: MyNftCell = tableView.dequeueReusableCell()
         let nft = presenter.nfts[indexPath.row]
-        cell.configure(with: nft)
+
+        cell.configure(with: nft, isLiked: presenter.isLiked(nft: nft)) { [weak self] likedNft in
+            self?.presenter.toggleLike(for: likedNft)
+            self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+
         cell.selectionStyle = .none
         return cell
     }

@@ -258,6 +258,8 @@
 				8406DDCB2CB8EA890014BCE4 /* UIView+Extension.swift */,
 				8406DDCF2CBE48A00014BCE4 /* UIViewController+Extension.swift */,
 				2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */,
+				245510432CC654CD00E37E2D /* Placeholder.swift */,
+				2455104B2CC6F2E900E37E2D /* NftImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -395,6 +397,7 @@
 				3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */,
 				0CFCB74A2A780EA80009A829 /* UIView+Constraints.swift */,
 				2499527A2CB513C000CB36F8 /* LocalizationKey.swift */,
+				2455104D2CC7A28D00E37E2D /* UserDefaults+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -469,9 +472,6 @@
 			isa = PBXGroup;
 			children = (
 				F5E6CB802CC2C06E00360743 /* GlobalFunc.swift */,
-				245510432CC654CD00E37E2D /* Placeholder.swift */,
-				2455104B2CC6F2E900E37E2D /* NftImageView.swift */,
-				2455104D2CC7A28D00E37E2D /* UserDefaults+Extension.swift */,
 				F5E6CB812CC2C06E00360743 /* Presenter */,
 				F5E6CB842CC2C06E00360743 /* Model */,
 				F5E6CB892CC2C06E00360743 /* View */,
