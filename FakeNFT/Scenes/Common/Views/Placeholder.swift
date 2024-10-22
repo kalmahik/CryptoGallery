@@ -11,12 +11,11 @@ final class Placeholder: UIView {
 
     // MARK: - Private Properties
 
-    private let label: UILabel
+    private let label = UILabel()
 
     // MARK: - Init
 
     init(text: String) {
-        label = UILabel()
         super.init(frame: .zero)
         configureView(text: text)
     }
@@ -46,9 +45,8 @@ final class Placeholder: UIView {
         stackView.alignment = .center
         stackView.spacing = UIConstants.CornerRadius.small10
         stackView.addArrangedSubview(label)
-        addSubview(stackView)
 
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        setupView(stackView)
         stackView.constraintCenters(to: self)
     }
 }
