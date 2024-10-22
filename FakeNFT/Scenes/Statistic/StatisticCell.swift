@@ -23,7 +23,6 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         let label = UILabel()
         label.font = UIFont.regular15
         label.textColor = UIColor.textPrimary
-        label.layer.borderWidth = 1
         label.textAlignment = .center
         return label
     }()
@@ -48,11 +47,6 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         stackView.spacing = 8
         return stackView
     }()
-
-//    private lazy var avatar: UIImageView = {
-//        let avatar = UIImageView(image: UIImage(systemName: "person.crop.circle.fill"))
-//        return avatar
-//    }()   
     
     private lazy var avatar = UserProfileImageView()
 
@@ -60,7 +54,6 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         let label = UILabel()
         label.font = UIFont.bold22
         label.textColor = UIColor.textPrimary
-        label.layer.borderWidth = 1
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
@@ -70,7 +63,6 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         let label = UILabel()
         label.font = UIFont.bold22
         label.textColor = UIColor.textPrimary
-        label.layer.borderWidth = 1
         label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
@@ -94,7 +86,16 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         placeLabel.text = "\(place)"
         nameLabel.text = statistic.name
         scoreLabel.text = statistic.rating
-//        avatar.setProfile(statistic, mode: .view)
+        let profile = Profile(
+            name: statistic.name,
+            avatar: statistic.avatar,
+            description: statistic.description ?? "",
+            website: statistic.website,
+            nfts: statistic.nfts,
+            likes: [],
+            id: statistic.id
+        )
+        avatar.setProfile(profile, mode: .view)
     }
 }
 
@@ -112,7 +113,6 @@ extension StatisticCell {
     private func setupConstraints() {
         rootStack.constraintEdges(to: self)
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 80),
             placeLabel.widthAnchor.constraint(equalToConstant: 28),
             avatar.heightAnchor.constraint(equalToConstant: 28),
             avatar.widthAnchor.constraint(equalToConstant: 28)
