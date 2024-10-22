@@ -108,7 +108,7 @@ extension UserProfileImageView {
             case .success(let value):
                 completion(value.image)
             case .failure(let error):
-                Logger.shared.error("Ошибка загрузки изображения профиля")
+                Logger.shared.error("Ошибка загрузки изображения профиля \(error.localizedDescription)")
                 self.updatePlaceholder()
                 completion(nil)
             }
@@ -117,6 +117,7 @@ extension UserProfileImageView {
 
     private func updatePlaceholder() {
         userImageView.image = mode.placeholder
+        userImageView.contentMode = .scaleAspectFill
         userImageView.tintColor = .ypGrayUniversal
     }
 }
@@ -129,20 +130,7 @@ extension UserProfileImageView {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
-
-        changePhotoButton.constraintCenters(to: userImageView)
-        userImageView.constraintCenters(to: self)
-
-        NSLayoutConstraint.activate([
-            userImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            userImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            userImageView.topAnchor.constraint(equalTo: topAnchor),
-            userImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-
-            changePhotoButton.leadingAnchor.constraint(equalTo: userImageView.leadingAnchor),
-            changePhotoButton.trailingAnchor.constraint(equalTo: userImageView.trailingAnchor),
-            changePhotoButton.topAnchor.constraint(equalTo: userImageView.topAnchor),
-            changePhotoButton.bottomAnchor.constraint(equalTo: userImageView.bottomAnchor)
-        ])
+        userImageView.constraintEdges(to: self)
+        changePhotoButton.constraintEdges(to: userImageView)
     }
 }

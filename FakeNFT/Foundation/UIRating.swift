@@ -23,6 +23,7 @@ final class UIRating: UIView {
         for ratingValue in 1...5 {
             let star = starImageConfigure(active: ratingValue <= rating)
             stackView.addArrangedSubview(star)
+            starImageViews.append(star)
         }
         return stackView
     }()

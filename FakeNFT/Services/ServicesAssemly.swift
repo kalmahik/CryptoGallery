@@ -2,16 +2,16 @@ final class ServicesAssembly {
 
     private let networkClient: NetworkClient
     private let nftStorage: NftStorage
-    private let customNftStorage: CustomNftStorage
+    private let myNftStorage: MyNftStorage
 
     init(
         networkClient: NetworkClient,
         nftStorage: NftStorage,
-        customNftStorage: CustomNftStorage
+        myNftStorage: MyNftStorage
     ) {
         self.networkClient = networkClient
         self.nftStorage = nftStorage
-        self.customNftStorage = customNftStorage
+        self.myNftStorage = myNftStorage
     }
 
     var nftService: NftService {
@@ -21,8 +21,8 @@ final class ServicesAssembly {
         )
     }
 
-    var customNftService: CustomNftService {
-        CustomNftServiceImpl(networkClient: networkClient, storage: customNftStorage)
+    var myNftService: MyNftService {
+        MyNftServiceImpl(networkClient: networkClient, storage: myNftStorage)
     }
 
     var profileService: ProfileService {

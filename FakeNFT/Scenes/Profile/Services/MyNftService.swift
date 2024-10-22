@@ -7,24 +7,30 @@
 
 import Foundation
 
-typealias CustomNftCompletion = (Result<NFT, Error>) -> Void
+typealias MyNftCompletion = (Result<NFT, Error>) -> Void
 
-protocol CustomNftService {
-    func loadNft(id: String, completion: @escaping CustomNftCompletion)
+protocol MyNftService {
+    func loadNft(id: String, completion: @escaping MyNftCompletion)
     func loadNftsByIds(ids: [String], page: Int, size: Int, completion: @escaping (Result<[NFT], Error>) -> Void)
 }
 
-final class CustomNftServiceImpl: CustomNftService {
+final class MyNftServiceImpl: MyNftService {
+
+    // MARK: - Private Properties
 
     private let networkClient: NetworkClient
-    private let storage: CustomNftStorage
+    private let storage: MyNftStorage
 
-    init(networkClient: NetworkClient, storage: CustomNftStorage) {
+    // MARK: - Init
+
+    init(networkClient: NetworkClient, storage: MyNftStorage) {
         self.storage = storage
         self.networkClient = networkClient
     }
 
-    func loadNft(id: String, completion: @escaping CustomNftCompletion) {
+    // MARK: - Public Methods
+
+    func loadNft(id: String, completion: @escaping MyNftCompletion) {
         if let nft = storage.getNft(with: id) {
             completion(.success(nft))
             return

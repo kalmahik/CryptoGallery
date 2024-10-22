@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol CustomNftStorage: AnyObject {
+protocol MyNftStorage: AnyObject {
     func saveNft(_ nft: NFT)
     func getNft(with id: String) -> NFT?
 }
 
 
-final class CustomNftStorageImpl: CustomNftStorage {
+final class MyNftStorageImpl: MyNftStorage {
     private var storage: [String: NFT] = [:]
 
     private let syncQueue = DispatchQueue(label: "sync-nft-queue")

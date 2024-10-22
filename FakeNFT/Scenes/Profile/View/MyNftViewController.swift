@@ -55,6 +55,7 @@ final class MyNftViewController: UIViewController {
         view.backgroundColor = .ypWhite
         setupUI()
         checkForData()
+        setupNavigationBar()
         presenter.viewDidLoad()
     }
 
@@ -64,6 +65,30 @@ final class MyNftViewController: UIViewController {
         let hasData = presenter.nfts.count > 0
         placeholderView.isHidden = !hasData
         tableView.isHidden = hasData
+    }
+
+    private func setupNavigationBar() {
+        title = LocalizationKey.profMyNft.localized()
+
+        let sortButton = UIBarButtonItem(
+            image: UIImage(named: "light"),
+            style: .plain,
+            target: self,
+            action: #selector(sortButtonTapped)
+        )
+
+        let backButton = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.left"),
+            style: .plain,
+            target: self,
+            action: #selector(backButtonTapped)
+        )
+        [sortButton, backButton].forEach {
+            $0.tintColor = .ypBlack
+        }
+
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.rightBarButtonItem = sortButton
     }
 }
 
@@ -119,3 +144,62 @@ extension MyNftViewController: MyNftProtocol {
     }
 }
 
+// MARK: - Actions
+
+extension MyNftViewController {
+    @objc
+    private func sortButtonTapped() {
+        showSortActionSheet()
+    }
+
+    @objc
+    private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - Sort
+
+extension MyNftViewController {
+
+    private func showSortActionSheet() {
+        let alertController = UIAlertController(
+            title: LocalizationKey.sortTitle.localized(),
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        let sortByPriceAction = UIAlertAction(
+            title: LocalizationKey.sortByPrice.localized(),
+            style: .default
+        ) { [weak self] _ in
+            self?.presenter.setSortType(.price)
+        }
+
+        let sortByRatingAction = UIAlertAction(
+            title: LocalizationKey.sortByRating.localized(),
+            style: .default
+        ) { [weak self] _ in
+            self?.presenter.setSortType(.rating)
+        }
+
+        let sortByNameAction = UIAlertAction(
+            title: LocalizationKey.sortByName.localized(),
+            style: .default
+        ) { [weak self] _ in
+            self?.presenter.setSortType(.name)
+        }
+
+        let cancelAction = UIAlertAction(
+            title: LocalizationKey.actionClose.localized(),
+            style: .cancel,
+            handler: nil
+        )
+
+        [sortByPriceAction, sortByRatingAction, sortByNameAction, cancelAction].forEach {
+            alertController.addAction($0)
+        }
+
+        present(alertController, animated: true, completion: nil)
+    }
+}

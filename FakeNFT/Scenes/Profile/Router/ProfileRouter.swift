@@ -25,11 +25,11 @@ final class ProfileRouter {
     // MARK: - Private Properties
 
     private let profileService: ProfileService
-    private let nftService: CustomNftService
+    private let nftService: MyNftService
 
     // MARK: - Init
 
-    init(profileService: ProfileService, nftService: CustomNftService) {
+    init(profileService: ProfileService, nftService: MyNftService) {
         self.profileService = profileService
         self.nftService = nftService
     }
@@ -55,10 +55,8 @@ extension ProfileRouter: ProfileRouterProtocol {
         let myNftController = MyNftViewController(presenter: presenter)
         presenter.view = myNftController
 
-        myNftController.modalPresentationStyle = .formSheet
-
         DispatchQueue.main.async {
-            viewController.present(myNftController, animated: true)
+            viewController.navigationController?.pushViewController(myNftController, animated: true)
         }
     }
 

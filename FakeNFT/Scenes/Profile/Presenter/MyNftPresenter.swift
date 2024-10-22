@@ -13,29 +13,36 @@ protocol MyNftPresenterProtocol: AnyObject {
     func loadNfts(page: Int, size: Int, sort: NftRequest.NftSort)
     func viewDidLoad()
     func loadMoreNftsIfNeeded(currentItemIndex: Int)
+    func setSortType(_ sort: NftRequest.NftSort)
 }
 
 final class MyNftPresenter {
 
+    // MARK: - Public Properties
+
     weak var view: MyNftProtocol?
     var nfts: [NFT] = []
 
+    // MARK: - Private Properties
+
     private var nftIds: [String] = []
-    private let nftService: CustomNftService
+    private let nftService: MyNftService
 
     private var currentPage = 1
     private let pageSize = 10
     private var isLoading = false
     private var allDataLoaded = false
 
-    init(nfts: [NFT], nftService: CustomNftService, nftIds: [String]) {
+    private var currentSort: NftRequest.NftSort = .rating
+
+    init(nfts: [NFT], nftService: MyNftService, nftIds: [String]) {
         self.nfts = nfts
         self.nftService = nftService
         self.nftIds = nftIds
     }
 
     func viewDidLoad() {
-        loadNfts(page: 1, size: 20, sort: .rating)
+        loadNfts(page: 1, size: 20, sort: currentSort)
     }
 }
 
@@ -68,7 +75,15 @@ extension MyNftPresenter: MyNftPresenterProtocol {
     func loadMoreNftsIfNeeded(currentItemIndex: Int) {
         if currentItemIndex >= nfts.count - 3 {
             currentPage += 1
-            loadNfts(page: currentPage, size: pageSize, sort: .rating)
+            loadNfts(page: currentPage, size: pageSize, sort: currentSort)
         }
+    }
+
+    func setSortType(_ sort: NftRequest.NftSort) {
+        currentSort = sort
+        currentPage = 1
+        nfts = []
+        view?.reloadData()
+        loadNfts(page: 1, size: pageSize, sort: currentSort)
     }
 }

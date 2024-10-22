@@ -52,13 +52,12 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
     private lazy var coinLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.bold17
-        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         return label
     }()
 
-    private lazy var nftImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+    private lazy var nftImageView: NftImageView = {
+        let imageView = NftImageView()
         imageView.layer.cornerRadius = UIConstants.CornerRadius.small12
         imageView.clipsToBounds = true
         return imageView
@@ -82,6 +81,7 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
     private lazy var textStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, ratingView, authorStackView])
         stackView.axis = .vertical
+        stackView.alignment = .leading
         stackView.spacing = UIConstants.Spacing.small4
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(
@@ -185,7 +185,8 @@ extension MyNftCell {
         ratingView.updateRating(nft.rating)
         priceValueLabel.text = String(format: "%.2f", nft.price)
         authorLabel.text = nft.author
-        nftImageView.image = UIImage(named: nft.images.first ?? "placeholder") // TODO: - Change placeholder
+        nftImageView.setNftImage(from: nft.images.first)
+        coinLabel.text = "ETH"
     }
 }
 
