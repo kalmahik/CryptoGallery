@@ -14,7 +14,7 @@ class StatisticPresenter: StatisticPresenterProtocol {
     var lastLoadedPage = 0
     let size = 10
     var sortBy: SortBy = .rating
-
+    
     init(view: StatisticViewProtocol, model: StatisticModel) {
         self.view = view
         self.model = model
@@ -26,10 +26,12 @@ class StatisticPresenter: StatisticPresenterProtocol {
         view?.setNavigationItem()
         loadStatistic()
     }
-
+    
     func loadStatistic() {
-        model.fetchStatistic(page: 0, size: size, sortBy: sortBy) { [weak self] all, current in
-            self?.view?.updateStatistic(all)
+        view?.startLoading()
+        model.fetchStatistic(page: 0, size: size, sortBy: sortBy) { [weak self] _, current in
+            self?.view?.updateStatistic(current)
+            self?.view?.stopLoading()
         }
     }
     
@@ -42,12 +44,13 @@ class StatisticPresenter: StatisticPresenterProtocol {
                 return
             }
             lastRequestedPage = nextPage
-            
+            self.view?.startLoading()
             model.fetchStatistic(page: nextPage, size: size, sortBy: sortBy) { [weak self] all, current in
                 self?.view?.updateStatistic(all)
                 if !current.isEmpty {
                     self?.lastLoadedPage = nextPage
                 }
+                self?.view?.stopLoading()
             }
         }
     }

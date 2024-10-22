@@ -32,7 +32,7 @@ struct StatisticDtoObject: Dto {
     }
 }
 
-struct Statistic: Decodable {
+struct Users: Decodable {
     let name: String
     let avatar: String
     let description: String?
@@ -42,4 +42,4 @@ struct Statistic: Decodable {
     let id: String
 }
 
-typealias StatisticResponse = [Statistic]
+typealias StatisticResponse = [Users]
