@@ -69,7 +69,7 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
         let button = UIButton(type: .custom)
         button.accessibilityIdentifier = "likeButton"
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .ypLightGrey
+        button.tintColor = .white
         let heartImage = UIImage(systemName: "heart.fill")?.withRenderingMode(.alwaysTemplate)
         button.setImage(heartImage, for: .normal)
         button.addTarget(self, action: #selector(tapFavoriteButton), for: .touchUpInside)
@@ -196,7 +196,7 @@ extension MyNftCell {
     }
 
     private func updateFavoriteButton(isLiked: Bool) {
-        favoriteButton.tintColor = isLiked ? .ypRedUniversal : .ypLightGrey
+        favoriteButton.tintColor = isLiked ? .ypRedUniversal : .white
     }
 }
 
