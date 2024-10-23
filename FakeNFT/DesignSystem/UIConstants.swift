@@ -10,6 +10,7 @@ import UIKit
 struct UIConstants {
 
     struct CornerRadius {
+        static let small10: CGFloat = 10.0
         static let small12: CGFloat = 12.0
         static let medium16: CGFloat = 16.0
         static let large35: CGFloat = 35.0
