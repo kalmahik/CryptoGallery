@@ -42,6 +42,18 @@ final class UIRating: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Public Methods
+
+    func updateRating(_ newRating: Int) {
+        var numStar = 1
+        for star in ratingStack.arrangedSubviews {
+            guard let star = star as? UIImageView else { break }
+            let active = numStar <= newRating
+            star.tintColor = active ? .ypYellowUniversal : .ypLightGrey
+            numStar += 1
+        }
+    }
+
     // MARK: - Setup
 
     private func setupLayout() {

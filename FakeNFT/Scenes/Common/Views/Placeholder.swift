@@ -2,7 +2,7 @@
 //  Placeholder.swift
 //  FakeNFT
 //
-//  Created by Konstantin Lyashenko on 21.10.2024.
+//  Created by Konstantin Lyashenko on 22.10.2024.
 //
 
 import UIKit

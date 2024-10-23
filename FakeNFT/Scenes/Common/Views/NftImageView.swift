@@ -2,7 +2,7 @@
 //  NftImageView.swift
 //  FakeNFT
 //
-//  Created by Konstantin Lyashenko on 21.10.2024.
+//  Created by Konstantin Lyashenko on 22.10.2024.
 //
 
 import Kingfisher
@@ -81,6 +81,7 @@ extension NftImageView {
 
     private func updatePlaceholder() {
         userImageView.image = placeholder
+        userImageView.contentMode = .scaleAspectFill
         userImageView.tintColor = .ypGrayUniversal
     }
 }
@@ -94,6 +95,5 @@ extension NftImageView {
             addSubview($0)
         }
         userImageView.constraintEdges(to: self)
-
     }
 }

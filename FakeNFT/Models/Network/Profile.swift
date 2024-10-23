@@ -2,7 +2,7 @@
 //  Profile.swift
 //  FakeNFT
 //
-//  Created by Konstantin Lyashenko on 11.10.2024.
+//  Created by Konstantin Lyashenko on 17.10.2024.
 //
 
 import Foundation
