@@ -7,11 +7,20 @@
 
 import UIKit
 
-struct NFT {
+struct OrderResponse: Codable {
+    let nfts: [String]
+    let id: String
+}
+
+struct NFTResponse: Codable {
+    let createdAt: String
     let name: String
+    let images: [String]
     let rating: Int
+    let description: String
     let price: Float
-    let image: [String]
+    let author: String
+    let id: String
 }
 
 struct Currency {

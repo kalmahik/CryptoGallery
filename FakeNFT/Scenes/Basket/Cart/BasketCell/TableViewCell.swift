@@ -117,7 +117,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellViewProtocol {
 
     // MARK: - Public Methods
 
-    func configure(with nft: NFT) {
+    func configure(with nft: NFTResponse) {
         presenter = NFTCellPresenter(view: self, nft: nft)
         presenter?.loadNFTData()
     }

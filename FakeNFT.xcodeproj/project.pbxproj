@@ -53,7 +53,6 @@
 		DD0FBBB32CBBAC3700538774 /* BasketModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBB22CBBAC3700538774 /* BasketModels.swift */; };
 		DD0FBBB62CBBAC8C00538774 /* ProtocolNFTCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBB52CBBAC8C00538774 /* ProtocolNFTCellView.swift */; };
 		DD0FBBB82CBBAD3D00538774 /* TableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBB72CBBAD3D00538774 /* TableViewCellPresenter.swift */; };
-		DD0FBBBC2CBBB3E300538774 /* BasketMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0FBBBB2CBBB3E300538774 /* BasketMockData.swift */; };
 		DD15E4CF2CC5143A00A64BAC /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15E4CE2CC5143A00A64BAC /* WebViewController.swift */; };
 		DD2837A12CBC094300589C71 /* ProtocolBacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2837A02CBC094300589C71 /* ProtocolBacket.swift */; };
 		DD2837A32CBC09A800589C71 /* BacketPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2837A22CBC09A800589C71 /* BacketPresenter.swift */; };
@@ -68,6 +67,9 @@
 		DD5B92012CC2A8A500A20B48 /* CollectionViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5B92002CC2A8A500A20B48 /* CollectionViewPresenter.swift */; };
 		DD80897D2CBF133700F3B4FD /* SortManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD80897C2CBF133700F3B4FD /* SortManager.swift */; };
 		DD837F152CBF1096001988C1 /* DeleteConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD837F142CBF1096001988C1 /* DeleteConfirmationViewController.swift */; };
+		DDA02ABE2CC8CE57002EACEC /* OrderRequesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA02ABD2CC8CE57002EACEC /* OrderRequesting.swift */; };
+		DDA02AC02CC8CE82002EACEC /* NFTRequesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA02ABF2CC8CE82002EACEC /* NFTRequesting.swift */; };
+		DDF64A992CC8041F00A56018 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF64A982CC8041F00A56018 /* OrderService.swift */; };
 		E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */; };
 		E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */; };
 		E1CD40DC2A96BECC00BE7FE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1CD40DB2A96BECC00BE7FE8 /* Localizable.strings */; };
@@ -141,7 +143,6 @@
 		DD0FBBB22CBBAC3700538774 /* BasketModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketModels.swift; sourceTree = "<group>"; };
 		DD0FBBB52CBBAC8C00538774 /* ProtocolNFTCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolNFTCellView.swift; sourceTree = "<group>"; };
 		DD0FBBB72CBBAD3D00538774 /* TableViewCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellPresenter.swift; sourceTree = "<group>"; };
-		DD0FBBBB2CBBB3E300538774 /* BasketMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketMockData.swift; sourceTree = "<group>"; };
 		DD15E4CE2CC5143A00A64BAC /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		DD2837A02CBC094300589C71 /* ProtocolBacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolBacket.swift; sourceTree = "<group>"; };
 		DD2837A22CBC09A800589C71 /* BacketPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BacketPresenter.swift; sourceTree = "<group>"; };
@@ -156,6 +157,9 @@
 		DD5B92002CC2A8A500A20B48 /* CollectionViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewPresenter.swift; sourceTree = "<group>"; };
 		DD80897C2CBF133700F3B4FD /* SortManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortManager.swift; sourceTree = "<group>"; };
 		DD837F142CBF1096001988C1 /* DeleteConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmationViewController.swift; sourceTree = "<group>"; };
+		DDA02ABD2CC8CE57002EACEC /* OrderRequesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRequesting.swift; sourceTree = "<group>"; };
+		DDA02ABF2CC8CE82002EACEC /* NFTRequesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTRequesting.swift; sourceTree = "<group>"; };
+		DDF64A982CC8041F00A56018 /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		E19CD5AA2A98B56600CA39A5 /* NftImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1A1B9D92AA01CE400C3AFBC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E1CD40D82A96BE7D00BE7FE8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -433,7 +437,6 @@
 			isa = PBXGroup;
 			children = (
 				DD0FBBB22CBBAC3700538774 /* BasketModels.swift */,
-				DD0FBBBB2CBBB3E300538774 /* BasketMockData.swift */,
 			);
 			path = Basket;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 		DD5360E22CBA7C0400C60FEE /* Basket */ = {
 			isa = PBXGroup;
 			children = (
+				DDF64A972CC803DD00A56018 /* BasketServices */,
 				DD07093D2CBCF77D00AFF2CE /* Cart */,
 				DD07093E2CBCF79700AFF2CE /* Payment */,
 			);
@@ -490,6 +494,16 @@
 				DD837F142CBF1096001988C1 /* DeleteConfirmationViewController.swift */,
 			);
 			path = DeleteNFT;
+			sourceTree = "<group>";
+		};
+		DDF64A972CC803DD00A56018 /* BasketServices */ = {
+			isa = PBXGroup;
+			children = (
+				DDF64A982CC8041F00A56018 /* OrderService.swift */,
+				DDA02ABD2CC8CE57002EACEC /* OrderRequesting.swift */,
+				DDA02ABF2CC8CE82002EACEC /* NFTRequesting.swift */,
+			);
+			path = BasketServices;
 			sourceTree = "<group>";
 		};
 		E19CD5A92A98B55900CA39A5 /* Cell */ = {
@@ -704,6 +718,7 @@
 				DD5B91FD2CC2A61200A20B48 /* PaymentMethodPresenter.swift in Sources */,
 				DD5B92012CC2A8A500A20B48 /* CollectionViewPresenter.swift in Sources */,
 				0C79EE682A76DE0900EE90EA /* NftDetailPresenter.swift in Sources */,
+				DDA02ABE2CC8CE57002EACEC /* OrderRequesting.swift in Sources */,
 				F7B8703F2CB7E51700A8EB0E /* UIRating.swift in Sources */,
 				DD80897D2CBF133700F3B4FD /* SortManager.swift in Sources */,
 				3F68069B29CBBAF100B4F915 /* ProductDetailsTableViewController.swift in Sources */,
@@ -721,9 +736,9 @@
 				DD5B91FF2CC2A85100A20B48 /* ProtokolCollectionView.swift in Sources */,
 				3FC8C39129D2453B0081F015 /* ExamplePutRequest.swift in Sources */,
 				0CFCB7462A78064B0009A829 /* NftDetailCellModel.swift in Sources */,
+				DDF64A992CC8041F00A56018 /* OrderService.swift in Sources */,
 				DD5B91F72CC27D7F00A20B48 /* CollectionViewCell.swift in Sources */,
 				0CFCB74B2A780EA80009A829 /* UIView+Constraints.swift in Sources */,
-				DD0FBBBC2CBBB3E300538774 /* BasketMockData.swift in Sources */,
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				DD5B91F92CC27E9F00A20B48 /* EnumCurrencyType.swift in Sources */,
 				0C79EE612A76DCD600EE90EA /* NftByIdRequest.swift in Sources */,
@@ -731,6 +746,7 @@
 				0CF2C2E12A784C7000FDC837 /* LinePageControl.swift in Sources */,
 				DD2837A32CBC09A800589C71 /* BacketPresenter.swift in Sources */,
 				DD5B91FB2CC2A5D900A20B48 /* ProtocolPaymentMethod.swift in Sources */,
+				DDA02AC02CC8CE82002EACEC /* NFTRequesting.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
 				DD0FBBB82CBBAD3D00538774 /* TableViewCellPresenter.swift in Sources */,
 				DD5360E42CBA7C1F00C60FEE /* BacketViewController.swift in Sources */,
