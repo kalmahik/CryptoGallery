@@ -52,6 +52,10 @@ final class ProfilePresenter {
         self.router = router
         self.profileService = profileService
     }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 // MARK: - ProfilePresenterProtocol
@@ -59,6 +63,13 @@ final class ProfilePresenter {
 extension ProfilePresenter: ProfilePresenterProtocol {
     func viewDidLoad() {
         fetchUserProfile()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleLikeStatusChange(notification:)),
+            name: .nftLikeStatusChanged,
+            object: nil
+        )
     }
 
     func getCellsTitle(for items: Int) -> String? {
@@ -102,6 +113,24 @@ extension ProfilePresenter: ProfilePresenterProtocol {
         if let profile {
             view?.updateUserProfileImageView(profile: profile, mode: .view)
         }
+    }
+}
+
+// MARK: - Actions
+
+extension ProfilePresenter {
+
+    @objc private func handleLikeStatusChange(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let isLiked = userInfo["isLiked"] as? Bool else { return }
+
+        if isLiked {
+            selectedNftValueCount += 1
+        } else {
+            selectedNftValueCount -= 1
+        }
+
+        view?.updateProfileDetails(profile: profile)
     }
 }
 

@@ -47,7 +47,6 @@ extension ProfileRouter: ProfileRouterProtocol {
         let nftIds = profile.nfts
 
         let presenter = MyNftPresenter(
-            nfts: [],
             nftService: self.nftService,
             profileService: self.profileService,
             nftIds: nftIds

@@ -10,7 +10,11 @@ import Foundation
 protocol MyNftPresenterProtocol: AnyObject {
     var view: MyNftProtocol? { get set }
     var nfts: [NFT] { get set }
+    var isLoading: Bool { get set }
+    var currentPage: Int { get }
     var pageSize: Int { get }
+    var allDataLoaded: Bool { get }
+
     func loadNfts(page: Int, size: Int, sort: NftRequest.NftSort)
     func viewDidLoad()
     func loadMoreNftsIfNeeded(currentItemIndex: Int)
@@ -26,27 +30,33 @@ final class MyNftPresenter {
     weak var view: MyNftProtocol?
     var nfts: [NFT] = []
     var likedNftIds: [String] = []
+    var currentPage = 1
     let pageSize = 10
+    var isLoading = false
+    var allDataLoaded = false
 
     // MARK: - Private Properties
 
     private var nftIds: [String] = []
     private let nftService: MyNftService
-    private var currentPage = 1
-    private var isLoading = false
-    private var allDataLoaded = false
     private let profileService: ProfileService
-
     private var currentSort: NftRequest.NftSort = .rating
+    private var errorLoadAttempts = 0
+    private let maxErrorAttempts = 3
 
-    init(nfts: [NFT], nftService: MyNftService, profileService: ProfileService, nftIds: [String]) {
-        self.nfts = nfts
+    init(nftService: MyNftService, profileService: ProfileService, nftIds: [String]) {
         self.nftService = nftService
         self.nftIds = nftIds
         self.profileService = profileService
     }
 
     func viewDidLoad() {
+        if let savedSortType = UserDefaults.standard.loadSortType() {
+            currentSort = NftRequest.NftSort(rawValue: savedSortType.rawValue) ?? .rating
+        } else {
+            currentSort = .rating
+        }
+
         getProfileDataForLikes()
     }
 }
@@ -59,21 +69,29 @@ extension MyNftPresenter: MyNftPresenterProtocol {
         guard !isLoading, !allDataLoaded else { return }
 
         isLoading = true
-        nftService.loadNftsByIds(ids: nftIds, page: page, size: size) { [weak self] (result: Result<[NFT], Error>) in
-            guard let self else { return }
+
+        nftService.loadNftsByIds(ids: nftIds, page: page, size: size) { [weak self] result in
+            guard let self = self else { return }
             self.isLoading = false
 
             switch result {
-            case .success(let nfts):
-                if nfts.isEmpty {
+            case .success(let newNfts):
+                self.errorLoadAttempts = 0
+
+                if newNfts.isEmpty {
                     self.allDataLoaded = true
                 } else {
-                    let sortedNfts = self.sortNfts(nfts, by: sort)
-                    self.nfts.append(contentsOf: sortedNfts)
+                    self.nfts.append(contentsOf: newNfts)
+                    self.sortAllNfts(by: self.currentSort)
                     self.view?.reloadData()
                 }
             case .failure(let error):
+                self.errorLoadAttempts += 1
                 Logger.shared.error("Ошибка загрузки NFT: \(error.localizedDescription)")
+
+                if self.errorLoadAttempts >= self.maxErrorAttempts {
+                    self.allDataLoaded = true
+                }
             }
         }
     }
@@ -102,15 +120,16 @@ extension MyNftPresenter: MyNftPresenterProtocol {
         loadNfts(page: 1, size: pageSize, sort: currentSort)
     }
 
-    private func sortNfts(_ nfts: [NFT], by sort: NftRequest.NftSort) -> [NFT] {
+    private func sortAllNfts(by sort: NftRequest.NftSort) {
         switch sort {
         case .price:
-            return nfts.sorted { $0.price < $1.price }
+            nfts.sort { $0.price < $1.price }
         case .rating:
-            return nfts.sorted { $0.rating > $1.rating }
+            nfts.sort { $0.rating > $1.rating }
         case .name:
-            return nfts.sorted { $0.name.lowercased() < $1.name.lowercased() }
+            nfts.sort { $0.name.lowercased() < $1.name.lowercased() }
         }
+        view?.reloadData()
     }
 }
 
@@ -130,6 +149,12 @@ extension MyNftPresenter {
             updateProfileWithLikes(updatedLikes: likedNftIds)
         }
 
+        NotificationCenter.default.post(
+            name: .nftLikeStatusChanged,
+            object: nil,
+            userInfo: ["nftId": nft.id, "isLiked": likedNftIds.contains(nft.id)]
+        )
+
         if let index = nfts.firstIndex(where: { $0.id == nft.id }) {
             view?.reloadRow(at: index)
         }
@@ -142,7 +167,7 @@ extension MyNftPresenter {
 
     func updateProfileWithLikes(updatedLikes: [String]?) {
         profileService.getProfile { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
 
             switch result {
             case .success(let profile):

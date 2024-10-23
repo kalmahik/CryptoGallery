@@ -127,7 +127,14 @@ extension MyNftViewController: UITableViewDelegate {
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.size.height
 
-        if offsetY > contentHeight - height - 100, presenter.nfts.count >= presenter.pageSize - 1 {
+        guard !presenter.allDataLoaded else {
+            if !presenter.isLoading {
+                presenter.isLoading = true
+            }
+            return
+        }
+
+        if offsetY > contentHeight - height - 100, !presenter.isLoading {
             presenter.loadMoreNftsIfNeeded(currentItemIndex: tableView.indexPathsForVisibleRows?.last?.row ?? 0)
         }
     }

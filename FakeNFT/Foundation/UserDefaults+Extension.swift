@@ -24,7 +24,7 @@ extension UserDefaults {
         set(sortType.rawValue, forKey: Keys.nftSortType)
     }
 
-    func loadSortType() -> SortType {
+    func loadSortType() -> SortType? {
         if let sortTypeString = string(forKey: Keys.nftSortType),
            let sortType = SortType(rawValue: sortTypeString) {
             return sortType
