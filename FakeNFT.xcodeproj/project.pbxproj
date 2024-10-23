@@ -25,6 +25,8 @@
 		0CFCB74E2A7817DC0009A829 /* NftStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFCB74D2A7817DC0009A829 /* NftStorage.swift */; };
 		2418A9332CB90D0A00C1D1B5 /* Lyashenko.md in Resources */ = {isa = PBXBuildFile; fileRef = 2418A9322CB90D0A00C1D1B5 /* Lyashenko.md */; };
 		245510522CC7A83900E37E2D /* NftImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245510512CC7A83900E37E2D /* NftImageView.swift */; };
+		245510502CC7A75A00E37E2D /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455104F2CC7A75A00E37E2D /* UserDefaults+Extension.swift */; };
+		245510542CC7A91900E37E2D /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245510532CC7A91900E37E2D /* Placeholder.swift */; };
 		2486E9A92CC0FAB900E66548 /* UserProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9A82CC0FAB900E66548 /* UserProfileImageView.swift */; };
 		2486E9AB2CC0FAEB00E66548 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9AA2CC0FAEB00E66548 /* Profile.swift */; };
 		2486E9AD2CC0FBCA00E66548 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */; };
@@ -99,6 +101,8 @@
 		0CFCB74D2A7817DC0009A829 /* NftStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftStorage.swift; sourceTree = "<group>"; };
 		2418A9322CB90D0A00C1D1B5 /* Lyashenko.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Lyashenko.md; sourceTree = "<group>"; };
 		245510512CC7A83900E37E2D /* NftImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageView.swift; sourceTree = "<group>"; };
+		2455104F2CC7A75A00E37E2D /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		245510532CC7A91900E37E2D /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		2486E9A82CC0FAB900E66548 /* UserProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileImageView.swift; sourceTree = "<group>"; };
 		2486E9AA2CC0FAEB00E66548 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 				2486E9A82CC0FAB900E66548 /* UserProfileImageView.swift */,
 				2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */,
 				245510512CC7A83900E37E2D /* NftImageView.swift */,
+				245510532CC7A91900E37E2D /* Placeholder.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				3FC8C39229D246BA0081F015 /* DateFormatters+Presets.swift */,
 				0CFCB74A2A780EA80009A829 /* UIView+Constraints.swift */,
 				2499527A2CB513C000CB36F8 /* LocalizationKey.swift */,
+				2455104F2CC7A75A00E37E2D /* UserDefaults+Extension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -617,6 +623,7 @@
 				3F6806D729CBC50A00B4F915 /* CellsReusingUtils.swift in Sources */,
 				0C79EE612A76DCD600EE90EA /* NftByIdRequest.swift in Sources */,
 				E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */,
+				245510502CC7A75A00E37E2D /* UserDefaults+Extension.swift in Sources */,
 				0CF2C2E12A784C7000FDC837 /* LinePageControl.swift in Sources */,
 				8406DDCC2CB8EA890014BCE4 /* UIView+Extension.swift in Sources */,
 				3F6806D329CBBE9600B4F915 /* NetworkRequest.swift in Sources */,
@@ -624,6 +631,7 @@
 				3F6806D129CBBE6B00B4F915 /* NetworkClient.swift in Sources */,
 				0CFCB7442A7802440009A829 /* NftDetailInput.swift in Sources */,
 				0C79EE632A76DD1900EE90EA /* RequestConstants.swift in Sources */,
+				245510542CC7A91900E37E2D /* Placeholder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
