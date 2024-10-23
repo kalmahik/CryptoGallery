@@ -15,8 +15,7 @@ class StatisticPresenter: StatisticPresenterProtocol {
     let size = 10
     var sortBy: SortBy = .rating
     
-    init(view: StatisticViewProtocol, model: StatisticModel) {
-        self.view = view
+    init(model: StatisticModel) {
         self.model = model
     }
     

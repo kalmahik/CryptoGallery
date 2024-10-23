@@ -1,8 +1,7 @@
 import UIKit
 
 final class StatisticViewController: UIViewController, StatisticViewProtocol {
-    private let servicesAssembly: ServicesAssembly
-    private var presenter: StatisticPresenterProtocol?
+    private var presenter: StatisticPresenterProtocol
     private var users: [Users] = []
     
     // MARK: - Private Properties
@@ -31,11 +30,9 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
     
     // MARK: - Initializers
     
-    init(servicesAssembly: ServicesAssembly) {
-        self.servicesAssembly = servicesAssembly
+    init(presenter: StatisticPresenterProtocol) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
-        let model = StatisticModel(statisticService: servicesAssembly.statisticService)
-        presenter = StatisticPresenter(view: self, model: model)
     }
     
     required init?(coder: NSCoder) {
@@ -46,7 +43,7 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.viewDidLoad()
+        presenter.viewDidLoad()
     }
     
     // MARK: - Public Methods
@@ -66,7 +63,7 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
     }
     
     @objc func refresh(_ sender: AnyObject) {
-        presenter?.loadStatistic()
+        presenter.loadStatistic()
     }
 }
 
@@ -74,11 +71,11 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
 
 extension StatisticViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.openProfile(indexPath: indexPath)
+        presenter.openProfile(indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        presenter?.loadNextStatistic(indexPath: indexPath)
+        presenter.loadNextStatistic(indexPath: indexPath)
     }
 }
 
@@ -111,15 +108,13 @@ extension StatisticViewController {
         view.setupView(loading)
         tableView.constraintEdges(to: view)
         tableView.addSubview(refreshControl)
+        loading.constraintCenters(to: view)
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
     }
     
     internal func setupConstraints() {
-        NSLayoutConstraint.activate([
-            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        NSLayoutConstraint.activate([])
     }
 }
 
