@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class NFTTableViewCell: UITableViewCell, NFTCellView {
+final class NFTTableViewCell: UITableViewCell, NFTCellViewProtocol {
 
     // MARK: - Private Properties
 
     private let priceTitle = LocalizationKey.price.localized()
 
-    private var presenter: NFTCellPresenter?
+    private var presenter: NFTCellPresenterProtocol?
 
     private lazy var nftImageView: UIImageView = {
         let imageView = UIImageView()
@@ -105,6 +105,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .background
         setupUI()
         setupConstraints()
     }
@@ -116,7 +117,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
 
     // MARK: - Public Methods
 
-    func configure(with nft: NFT) {
+    func configure(with nft: NFTResponse) {
         presenter = NFTCellPresenter(view: self, nft: nft)
         presenter?.loadNFTData()
     }
@@ -131,7 +132,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
         nameRatingStackView.addArrangedSubview(ratingView)
     }
 
-    func displayNFTPrice(_ price: Double) {
+    func displayNFTPrice(_ price: Float) {
         priceLabel.text = "\(price)"
     }
 

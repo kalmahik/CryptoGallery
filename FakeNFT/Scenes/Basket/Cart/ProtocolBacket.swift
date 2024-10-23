@@ -9,8 +9,11 @@ import Foundation
 
 protocol BacketViewProtocol: AnyObject {
     func updateNFTCountLabel(with count: Int)
-    func updateTotalPriceLabel(with totalPrice: Double)
+    func updateTotalPriceLabel(with totalPrice: Float)
     func payButtonTapped()
+    func reloadTableViewData()
+    func showLoadingIndicator()
+    func hideLoadingIndicator()
 }
 
 protocol BacketPresenterProtocol {
@@ -18,7 +21,7 @@ protocol BacketPresenterProtocol {
     func saveSortOption(_ option: SortOption)
     func sortNFTItems(by option: SortOption)
     func getNFTItemsCount() -> Int
-    func getNFTItem(at index: Int) -> NFT
+    func getNFTItem(at index: Int) -> NFTResponse
     func payButtonTapped()
     func deleteNFT(at index: Int)
 }

@@ -15,14 +15,15 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     // MARK: - Public Properties
 
-    var presenter: BacketPresenterProtocol?
-
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(NFTTableViewCell.self, forCellReuseIdentifier: BacketViewController.cellIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .ypWhite
+        tableView.register(
+            NFTTableViewCell.self,
+            forCellReuseIdentifier: BacketViewController.cellIdentifier)
         return tableView
     }()
 
@@ -34,6 +35,15 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     private let sortRatingTitle = LocalizationKey.sortByRating.localized()
     private let sortNameTitle = LocalizationKey.sortByName.localized()
     private let sortCloseTitle = LocalizationKey.close.localized()
+
+    private var presenter: BacketPresenterProtocol?
+
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .ypBlack
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
 
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .system)
@@ -102,7 +112,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ypWhite
+        view.backgroundColor = .background
         setupUI()
         setupConstraints()
         setupNavigationBar()
@@ -112,12 +122,35 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     // MARK: - Public Methods
 
+    func showLoadingIndicator() {
+       activityIndicator.startAnimating()
+       tableView.isHidden = true
+       customView.isHidden = true
+       filterButton.isHidden = true
+   }
+
+    func hideLoadingIndicator() {
+       activityIndicator.stopAnimating()
+       activityIndicator.removeFromSuperview()
+       tableView.isHidden = false
+       customView.isHidden = false
+       filterButton.isHidden = false
+   }
+
     func updateNFTCountLabel(with count: Int) {
         nftCountLabel.text = "\(count) NFT"
     }
 
-    func updateTotalPriceLabel(with totalPrice: Double) {
+    func updateTotalPriceLabel(with totalPrice: Float) {
         priceLabel.text = String(format: "%.2f ETH", totalPrice)
+    }
+
+    func deleteNFT(at index: Int) {
+        presenter?.deleteNFT(at: index)
+    }
+
+    func reloadTableViewData() {
+        tableView.reloadData()
     }
 
     // MARK: - Actions
@@ -127,15 +160,15 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         let priceAction = UIAlertAction(title: sortPriceTitle, style: .default) { _ in
             self.presenter?.saveSortOption(.price)
             self.presenter?.sortNFTItems(by: .price)
-            self.tableView.reloadData() }
+            self.reloadTableViewData() }
         let ratingAction = UIAlertAction(title: sortRatingTitle, style: .default) { _ in
             self.presenter?.saveSortOption(.rating)
             self.presenter?.sortNFTItems(by: .rating)
-            self.tableView.reloadData() }
+            self.reloadTableViewData() }
         let titleAction = UIAlertAction(title: sortNameTitle, style: .default) { _ in
             self.presenter?.saveSortOption(.name)
             self.presenter?.sortNFTItems(by: .name)
-            self.tableView.reloadData() }
+            self.reloadTableViewData() }
         alert.addAction(priceAction)
         alert.addAction(ratingAction)
         alert.addAction(titleAction)
@@ -152,7 +185,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
 extension BacketViewController {
     func setupUI() {
-        [tableView, customView].forEach {
+        [activityIndicator, tableView, customView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -165,6 +198,9 @@ extension BacketViewController {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -180,7 +216,7 @@ extension BacketViewController {
         ])
     }
 
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         let filterBarButtonItem = UIBarButtonItem(customView: filterButton)
         navigationItem.rightBarButtonItem = filterBarButtonItem
     }

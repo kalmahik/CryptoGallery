@@ -13,24 +13,33 @@ final class BacketPresenter: BacketPresenterProtocol {
 
     private weak var view: BacketViewProtocol?
 
-    private var nftItems: [NFT] = []
+    private var nftItems: [NFTResponse] = []
     private var sortManager = SortManager()
+    private var orderService: OrderService
 
     // MARK: - Initialization
 
-    init(view: BacketViewProtocol) {
+    init(view: BacketViewProtocol, orderService: OrderService = OrderService()) {
         self.view = view
-        self.nftItems = MockData.nftItems
+        self.orderService = orderService
     }
 
     // MARK: - Public Methods
 
     func loadNFTData() {
-        view?.updateNFTCountLabel(with: nftItems.count)
-        let totalPrice = nftItems.reduce(0) { $0 + $1.price }
-        view?.updateTotalPriceLabel(with: totalPrice)
-        let selectedSortOption = sortManager.loadSortOption()
-        sortNFTItems(by: selectedSortOption)
+        (view as? BacketViewController)?.showLoadingIndicator()
+        orderService.fetchOrderAndNFTs { [weak self] result in
+            (self?.view as? BacketViewController)?.hideLoadingIndicator()
+            switch result {
+            case .success(let nftResponses):
+                self?.nftItems = nftResponses
+                let selectedSortOption = self?.sortManager.loadSortOption() ?? .name
+                self?.sortNFTItems(by: selectedSortOption)
+                self?.updateViewWithNFTData()
+            case .failure(let error):
+                print("Ошибка загрузки NFT: \(error)")
+            }
+        }
     }
 
     func saveSortOption(_ option: SortOption) {
@@ -46,30 +55,36 @@ final class BacketPresenter: BacketPresenterProtocol {
         case .name:
             nftItems.sort { $0.name < $1.name }
         }
-        view?.updateNFTCountLabel(with: nftItems.count)
-        let totalPrice = nftItems.reduce(0) { $0 + $1.price }
-        view?.updateTotalPriceLabel(with: totalPrice)
+        updateViewWithNFTData()
     }
 
     func getNFTItemsCount() -> Int {
         return nftItems.count
     }
 
-    func getNFTItem(at index: Int) -> NFT {
+    func getNFTItem(at index: Int) -> NFTResponse {
         return nftItems[index]
     }
 
     func payButtonTapped() {
         guard let viewController = view as? UIViewController else { return }
         let paymentVC = PaymentMethodViewController()
+        paymentVC.hidesBottomBarWhenPushed = true
         viewController.navigationController?.pushViewController(paymentVC, animated: true)
     }
 
     func deleteNFT(at index: Int) {
         guard index < nftItems.count else { return }
         nftItems.remove(at: index)
+        updateViewWithNFTData()
+    }
+
+    // MARK: - Private Methods
+
+    private func updateViewWithNFTData() {
         view?.updateNFTCountLabel(with: nftItems.count)
         let totalPrice = nftItems.reduce(0) { $0 + $1.price }
         view?.updateTotalPriceLabel(with: totalPrice)
+        view?.reloadTableViewData()
     }
 }
