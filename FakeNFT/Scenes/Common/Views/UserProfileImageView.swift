@@ -2,7 +2,7 @@
 //  UserProfileImageView.swift
 //  FakeNFT
 //
-//  Created by Konstantin Lyashenko on 18.10.2024.
+//  Created by Konstantin Lyashenko on 17.10.2024.
 //
 
 import Kingfisher
@@ -13,7 +13,7 @@ enum ProfileImageMode {
     case edit
 
     var placeholder: UIImage {
-        return UIImage(named: "stub") ?? UIImage()
+        return UIImage(named: "profile") ?? UIImage()
     }
 }
 
@@ -23,9 +23,8 @@ final class UserProfileImageView: UIView {
 
     private lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = UIConstants.CornerRadius.large35
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .ypGrayUniversal
         return imageView
     }()
@@ -34,7 +33,6 @@ final class UserProfileImageView: UIView {
         let button = UIButton(type: .system)
         button.setTitle(LocalizationKey.profChangeImage.localized(), for: .normal)
         button.titleLabel?.font = .medium10
-        button.layer.cornerRadius = UIConstants.CornerRadius.large35
         button.clipsToBounds = true
         button.backgroundColor = .black.withAlphaComponent(0.2)
         button.tintColor = .white
@@ -61,6 +59,12 @@ final class UserProfileImageView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userImageView.layer.cornerRadius = userImageView.frame.width / 2
+        changePhotoButton.layer.cornerRadius = changePhotoButton.frame.width / 2
     }
 }
 
@@ -94,9 +98,6 @@ extension UserProfileImageView {
 
 extension UserProfileImageView {
     private func updateUserProfileImage(with url: URL, completion: @escaping (UIImage?) -> Void) {
-        let cache = ImageCache.default
-        cache.removeImage(forKey: url.absoluteString)
-
         userImageView.kf.indicatorType = .activity
         userImageView.kf.setImage(
             with: url,
@@ -107,7 +108,7 @@ extension UserProfileImageView {
             case .success(let value):
                 completion(value.image)
             case .failure(let error):
-                Logger.shared.error("Ошибка загрузки изображения: \(error.localizedDescription)")
+                Logger.shared.error("Ошибка загрузки изображения профиля \(error.localizedDescription)")
                 self.updatePlaceholder()
                 completion(nil)
             }
@@ -116,6 +117,7 @@ extension UserProfileImageView {
 
     private func updatePlaceholder() {
         userImageView.image = mode.placeholder
+        userImageView.contentMode = .scaleAspectFill
         userImageView.tintColor = .ypGrayUniversal
     }
 }
@@ -128,16 +130,7 @@ extension UserProfileImageView {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
-
-        changePhotoButton.constraintCenters(to: userImageView)
-        userImageView.constraintCenters(to: self)
-
-        NSLayoutConstraint.activate([
-            userImageView.widthAnchor.constraint(equalToConstant: 70),
-            userImageView.heightAnchor.constraint(equalToConstant: 70),
-
-            changePhotoButton.widthAnchor.constraint(equalToConstant: 70),
-            changePhotoButton.heightAnchor.constraint(equalToConstant: 70)
-        ])
+        userImageView.constraintEdges(to: self)
+        changePhotoButton.constraintEdges(to: userImageView)
     }
 }

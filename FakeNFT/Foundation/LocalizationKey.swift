@@ -36,7 +36,7 @@ enum LocalizationKey: String {
     case actionOK = "Action.OK"
 
     // MARK: - Alert
-    
+
     case alertTitle = "Alert.title"
 
     // MARK: - Tab
@@ -97,12 +97,13 @@ enum LocalizationKey: String {
     case profMyNftPlaceholder = "Profile.myNft.placeholder"
     case profSelectedNftPlaceholder = "Profile.selectedNft.placeholder"
 
-    // Statistic
+    // MARK: - Statistics
+
     case statUserButton = "Stat.user.button"
     case statCollectionNft = "Stat.collectionNft"
     case statEmptyDataAlert = "Stat.emptyData.alert"
 
-    // MARK: - Shimmer
+    // MARK: -  Shimmer
 
     case shimmerLoading = "Shimmer.loading"
 
