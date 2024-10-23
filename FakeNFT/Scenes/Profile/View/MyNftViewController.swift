@@ -245,11 +245,8 @@ extension MyNftViewController {
         let shimmerCell = UITableViewCell()
 
         let shimmerView = ShimmerView()
-        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.medium16
-        shimmerView.clipsToBounds = true
-        shimmerView.translatesAutoresizingMaskIntoConstraints = false
-
-        shimmerCell.contentView.addSubview(shimmerView)
+        shimmerView.applyCornerRadius(.medium16)
+        shimmerCell.contentView.setupView(shimmerView)
 
         NSLayoutConstraint.activate([
             shimmerView.topAnchor.constraint(

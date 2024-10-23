@@ -63,8 +63,8 @@ final class UserProfileImageView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        userImageView.layer.cornerRadius = userImageView.frame.width / 2
-        changePhotoButton.layer.cornerRadius = changePhotoButton.frame.width / 2
+        userImageView.applyCornerRadius(userImageView.frame.width / 2)
+        changePhotoButton.applyCornerRadius(changePhotoButton.frame.width / 2)
     }
 }
 
@@ -128,7 +128,7 @@ extension UserProfileImageView {
     private func setupUI() {
         [userImageView, changePhotoButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            addSubview($0)
+            setupView($0)
         }
         userImageView.constraintEdges(to: self)
         changePhotoButton.constraintEdges(to: userImageView)

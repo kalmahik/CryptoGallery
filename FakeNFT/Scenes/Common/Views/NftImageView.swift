@@ -91,8 +91,7 @@ extension NftImageView {
 extension NftImageView {
     private func setupUI() {
         [userImageView].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            addSubview($0)
+            setupView($0)
         }
         userImageView.constraintEdges(to: self)
     }

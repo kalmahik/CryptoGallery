@@ -58,8 +58,7 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
 
     private lazy var nftImageView: NftImageView = {
         let imageView = NftImageView()
-        imageView.layer.cornerRadius = UIConstants.CornerRadius.small12
-        imageView.clipsToBounds = true
+        imageView.applyCornerRadius(.small12)
         return imageView
     }()
 
@@ -158,12 +157,8 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
 
 extension MyNftCell {
     private func setupUI() {
-        [contentStackView, favoriteButton].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-        contentView.addSubview(contentStackView)
+        contentView.setupView(contentStackView)
         nftImageView.addSubview(favoriteButton)
-
         contentStackView.constraintEdges(to: contentView)
 
         NSLayoutConstraint.activate([

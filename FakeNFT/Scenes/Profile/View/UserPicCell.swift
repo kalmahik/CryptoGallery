@@ -28,8 +28,7 @@ final class UserPicCell: UITableViewCell, ReuseIdentifying {
         let button = UIButton(type: .system)
         button.setTitle(LocalizationKey.profChangeImage.localized(), for: .normal)
         button.titleLabel?.font = .medium10
-        button.layer.cornerRadius = UIConstants.CornerRadius.large35
-        button.clipsToBounds = true
+        button.applyCornerRadius(.large35)
         button.backgroundColor = .black.withAlphaComponent(0.6)
         button.tintColor = .white
         button.titleLabel?.numberOfLines = 0
@@ -74,8 +73,7 @@ extension UserPicCell {
 
     private func setupUI() {
         [userImageView, changePhotoButton].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview($0)
+            contentView.setupView($0)
         }
 
         NSLayoutConstraint.activate([

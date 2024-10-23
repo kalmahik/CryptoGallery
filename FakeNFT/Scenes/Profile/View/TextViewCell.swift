@@ -25,8 +25,7 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
         textView.font = .regular17
         textView.tintColor = .systemBlue
         textView.isScrollEnabled = false
-        textView.layer.cornerRadius = UIConstants.CornerRadius.small12
-        textView.clipsToBounds = true
+        textView.applyCornerRadius(.small12)
         textView.backgroundColor = .ypLightGrey
         textView.textAlignment = .left
         textView.textContainerInset = UIEdgeInsets(
@@ -85,8 +84,7 @@ extension TextViewCell {
 
     private func setupUI() {
         [textView, clearButton].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview($0)
+            contentView.setupView($0)
         }
 
         NSLayoutConstraint.activate([

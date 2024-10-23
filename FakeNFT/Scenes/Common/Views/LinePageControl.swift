@@ -34,7 +34,6 @@ final class LinePageControl: UIView {
 
     init() {
         super.init(frame: .zero)
-
         addSubview(stackView)
         stackView.constraintEdges(to: self)
     }

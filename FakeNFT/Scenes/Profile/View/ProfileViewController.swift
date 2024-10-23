@@ -57,29 +57,25 @@ final class ProfileViewController: UIViewController {
 
     private lazy var shimmerUserProfileImage: ShimmerView = {
         let shimmerView = ShimmerView()
-        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.large35
-        shimmerView.clipsToBounds = true
+        shimmerView.applyCornerRadius(.large35)
         return shimmerView
     }()
 
     private lazy var shimmerNameLabel: ShimmerView = {
         let shimmerView = ShimmerView()
-        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.medium16
-        shimmerView.clipsToBounds = true
+        shimmerView.applyCornerRadius(.medium16)
         return shimmerView
     }()
 
     private lazy var shimmerDescriptionLabel: ShimmerView = {
         let shimmerView = ShimmerView()
-        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.medium16
-        shimmerView.clipsToBounds = true
+        shimmerView.applyCornerRadius(.medium16)
         return shimmerView
     }()
 
     private lazy var shimmerWebsiteLabel = {
         let shimmerView = ShimmerView()
-        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.small10
-        shimmerView.clipsToBounds = true
+        shimmerView.applyCornerRadius(.small10)
         return shimmerView
     }()
 

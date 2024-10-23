@@ -59,10 +59,8 @@ extension ProfileCell {
     // MARK: - Private Methods
 
     private func setupCell() {
-        contentView.addSubview(titleLabel)
         [titleLabel, customDisclosureIndicator].forEach {
-            contentView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
+            contentView.setupView($0)
         }
         titleLabel.constraintEdges(to: contentView)
 

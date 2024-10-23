@@ -10,18 +10,16 @@ import UIKit
 final class TableViewHeaderAndFooterHelper {
 
     // MARK: - Public Methods
-    
+
     static func configureTextHeaderView(
         title: String
     ) -> UIView {
         let headerView = UIView()
-
         let headerLabel = UILabel()
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+
         headerLabel.font = .bold22
         headerLabel.text = title
-
-        headerView.addSubview(headerLabel)
+        headerView.setupView(headerLabel)
 
         NSLayoutConstraint.activate([
             headerLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
@@ -40,8 +38,7 @@ final class TableViewHeaderAndFooterHelper {
         footerLabel.text = LocalizationKey.profDownloadImage.localized()
         footerLabel.font = .regular17
         footerLabel.textAlignment = .center
-        footerLabel.translatesAutoresizingMaskIntoConstraints = false
-        footerView.addSubview(footerLabel)
+        footerView.setupView(footerLabel)
 
         NSLayoutConstraint.activate([
             footerLabel.centerXAnchor.constraint(equalTo: footerView.centerXAnchor),

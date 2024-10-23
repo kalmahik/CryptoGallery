@@ -96,8 +96,7 @@ extension EditProfileViewController {
 
     private func setupUI() {
         [tableView, closeButton].forEach {
-            view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.setupView($0)
         }
 
         tableView.constraintEdges(to: view)
