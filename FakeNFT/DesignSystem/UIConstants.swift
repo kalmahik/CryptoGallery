@@ -29,6 +29,7 @@ struct UIConstants {
     struct Insets {
         static let zero: CGFloat = 0.0
         static let small8: CGFloat = 8.0
+        static let medium11: CGFloat = 11.0
         static let medium16: CGFloat = 16.0
         static let large23: CGFloat = 23.0
         static let large33: CGFloat = 33.0

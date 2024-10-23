@@ -49,15 +49,16 @@ final class MyNftServiceImpl: MyNftService {
     }
 
     func loadNftsByIds(ids: [String], page: Int, size: Int, completion: @escaping (Result<[NFT], Error>) -> Void) {
+        let uniqueIds = Array(Set(ids))
         let start = (page - 1) * size
-        let end = min(page * size, ids.count)
+        let end = min(page * size, uniqueIds.count)
 
         guard start < end else {
             completion(.failure(NetworkClientError.parsingError))
             return
         }
 
-        let idsForPage = Array(ids[start..<end])
+        let idsForPage = Array(uniqueIds[start..<end])
         var nfts: [NFT] = []
         let group = DispatchGroup()
 

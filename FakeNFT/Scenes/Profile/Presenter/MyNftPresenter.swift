@@ -71,7 +71,7 @@ extension MyNftPresenter: MyNftPresenterProtocol {
         isLoading = true
 
         nftService.loadNftsByIds(ids: nftIds, page: page, size: size) { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
             self.isLoading = false
 
             switch result {
@@ -81,7 +81,10 @@ extension MyNftPresenter: MyNftPresenterProtocol {
                 if newNfts.isEmpty {
                     self.allDataLoaded = true
                 } else {
-                    self.nfts.append(contentsOf: newNfts)
+                    let existingIds = Set(self.nfts.map { $0.id })
+                    let uniqueNewNfts = newNfts.filter { !existingIds.contains($0.id) }
+
+                    self.nfts.append(contentsOf: uniqueNewNfts)
                     self.sortAllNfts(by: self.currentSort)
                     self.view?.reloadData()
                 }
@@ -106,10 +109,8 @@ extension MyNftPresenter: MyNftPresenterProtocol {
     }
 
     func setSortType(_ sort: NftRequest.NftSort) {
+        guard currentSort != sort else { return }
         currentSort = sort
-        currentPage = 1
-        nfts = []
-        view?.reloadData()
 
         if let safeSortType = SortType(rawValue: sort.rawValue) {
             UserDefaults.standard.saveSortType(safeSortType)
@@ -117,7 +118,9 @@ extension MyNftPresenter: MyNftPresenterProtocol {
             Logger.shared.error("Ошибка: Невозможно сохранить неизвестный тип сортировки.")
         }
 
-        loadNfts(page: 1, size: pageSize, sort: currentSort)
+        sortAllNfts(by: currentSort)
+        view?.reloadData()
+        loadNfts(page: currentPage, size: pageSize, sort: currentSort)
     }
 
     private func sortAllNfts(by sort: NftRequest.NftSort) {

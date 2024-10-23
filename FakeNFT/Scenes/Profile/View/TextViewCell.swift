@@ -30,10 +30,10 @@ final class TextViewCell: UITableViewCell, ReuseIdentifying {
         textView.backgroundColor = .ypLightGrey
         textView.textAlignment = .left
         textView.textContainerInset = UIEdgeInsets(
-            top: 11,
-            left: 16,
-            bottom: 11,
-            right: 16
+            top: UIConstants.Insets.medium11,
+            left: UIConstants.Insets.medium16,
+            bottom: UIConstants.Insets.medium11,
+            right: UIConstants.Insets.medium16
         )
         return textView
     }()

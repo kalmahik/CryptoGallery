@@ -109,10 +109,8 @@ final class MyNftViewController: UIViewController {
 extension MyNftViewController {
     private func setupUI() {
         [tableView, placeholderView, activityIndicator].forEach {
-            view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.setupView($0)
         }
-
         tableView.constraintEdges(to: view)
         placeholderView.constraintCenters(to: view)
         activityIndicator.constraintCenters(to: view)
