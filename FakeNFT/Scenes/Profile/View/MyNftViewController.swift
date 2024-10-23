@@ -16,9 +16,18 @@ final class MyNftViewController: UIViewController {
 
     // MARK: - Public Properties
 
+    var shimmerViews: [ShimmerView] = []
+    var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+
+    // MARK: - Private Properties
+
     private let presenter: MyNftPresenterProtocol
 
-    // MARK: - Provate Properties
+    private var isLoading = true
 
     private lazy var placeholderView: Placeholder = {
         let placeholder = Placeholder(text: LocalizationKey.profMyNftPlaceholder.localized())
@@ -58,6 +67,8 @@ final class MyNftViewController: UIViewController {
         checkForData()
         setupNavigationBar()
         presenter.viewDidLoad()
+        showShimmer()
+        showLoadingIndicator()
     }
 
     // MARK: - Private Methods
@@ -97,13 +108,14 @@ final class MyNftViewController: UIViewController {
 
 extension MyNftViewController {
     private func setupUI() {
-        [tableView, placeholderView].forEach {
+        [tableView, placeholderView, activityIndicator].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
         tableView.constraintEdges(to: view)
         placeholderView.constraintCenters(to: view)
+        activityIndicator.constraintCenters(to: view)
     }
 }
 
@@ -125,20 +137,23 @@ extension MyNftViewController: UITableViewDelegate {
 
 extension MyNftViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.nfts.count
+        return isLoading ? shimmerViews.count : presenter.nfts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MyNftCell = tableView.dequeueReusableCell()
-        let nft = presenter.nfts[indexPath.row]
+        if isLoading {
+            return createShimmerViewCell()
+        } else {
+            let cell: MyNftCell = tableView.dequeueReusableCell()
+            let nft = presenter.nfts[indexPath.row]
 
-        cell.configure(with: nft, isLiked: presenter.isLiked(nft: nft)) { [weak self] likedNft in
-            self?.presenter.toggleLike(for: likedNft)
-            self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+            cell.configure(with: nft, isLiked: presenter.isLiked(nft: nft)) { [weak self] likedNft in
+                self?.presenter.toggleLike(for: likedNft)
+                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+            cell.selectionStyle = .none
+            return cell
         }
-
-        cell.selectionStyle = .none
-        return cell
     }
 }
 
@@ -151,6 +166,8 @@ extension MyNftViewController: MyNftProtocol {
     }
 
     func reloadData() {
+        hideLoadingIndicator()
+        hideShimmer()
         tableView.reloadData()
     }
 }
@@ -212,5 +229,61 @@ extension MyNftViewController {
         }
 
         present(alertController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Shimmer Methods
+
+extension MyNftViewController {
+
+    private func createShimmerViewCell() -> UITableViewCell {
+        let shimmerCell = UITableViewCell()
+
+        let shimmerView = ShimmerView()
+        shimmerView.translatesAutoresizingMaskIntoConstraints = false
+
+        shimmerCell.contentView.addSubview(shimmerView)
+        shimmerCell.constraintEdges(to: shimmerCell.contentView)
+
+        NSLayoutConstraint.activate([
+            shimmerCell.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height108)
+        ])
+
+        shimmerView.startShimmer()
+        return shimmerCell
+    }
+
+    private func showShimmer() {
+        isLoading = true
+        shimmerViews = createShimmerViews(count: 5)
+        tableView.reloadData()
+    }
+
+    private func hideShimmer() {
+        isLoading = false
+        shimmerViews.removeAll()
+        tableView.reloadData()
+    }
+
+    private func createShimmerViews(count: Int) -> [ShimmerView] {
+        var views = [ShimmerView]()
+        for _ in 0..<count {
+            let shimmerView = ShimmerView()
+            views.append(shimmerView)
+        }
+        return views
+    }
+}
+
+// MARK: - LoadingView
+
+extension MyNftViewController: LoadingView {
+
+    func showLoadingIndicator() {
+        showLoading()
+    }
+
+    func hideLoadingIndicator() {
+        hideLoading()
     }
 }

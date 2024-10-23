@@ -14,7 +14,7 @@ struct UpdateProfileDto: Dto {
     let website: String?
     let likes: [String]?
 
-    func asDictionary() -> [String: String] {
+    func asDictionary() -> [String: Any] {
         var dict: [String: String] = [:]
         if let name {
             dict["name"] = name

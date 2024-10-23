@@ -14,7 +14,7 @@ protocol NetworkRequest {
 }
 
 protocol Dto: Encodable {
-    func asDictionary() -> [String: String]
+    func asDictionary() -> [String: Any]
 }
 
 // default values

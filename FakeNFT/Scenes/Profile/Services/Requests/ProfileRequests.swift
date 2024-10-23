@@ -12,7 +12,7 @@ struct ProfileRequest: NetworkRequest {
         URL(string: "\(NetworkConstants.baseURL)\(NetworkConstants.profilePath)")
     }
     var httpMethod: HttpMethod = .get
-    var dto: Dto? = nil
+    let dto: Dto? = nil
 }
 
 struct UpdateProfileRequest: NetworkRequest {

@@ -120,14 +120,26 @@ extension MyNftPresenter {
 
     func toggleLike(for nft: NFT) {
         if let index = likedNftIds.firstIndex(of: nft.id) {
+            Logger.shared.debug("Удаление лайка для NFT id: \(nft.id)")
             likedNftIds.remove(at: index)
-            updateProfileWithLikes(removedNftId: nft.id)
+
+            let updatedLikes: [String]? = likedNftIds.isEmpty ? nil : likedNftIds
+            if updatedLikes == nil {
+                Logger.shared.debug("likedNftIds пуст, отправляем nil на сервер.")
+            } else {
+                Logger.shared.debug("Обновленный список likedNftIds после удаления: \(String(describing: updatedLikes))")
+            }
+
+            updateProfileWithLikes(updatedLikes: updatedLikes)
         } else {
+            Logger.shared.debug("Добавление лайка для NFT id: \(nft.id)")
             likedNftIds.append(nft.id)
-            updateProfileWithLikes(removedNftId: nil)
+            Logger.shared.debug("Обновленный список likedNftIds после добавления: \(likedNftIds)")
+            updateProfileWithLikes(updatedLikes: likedNftIds)
         }
 
         if let index = nfts.firstIndex(where: { $0.id == nft.id }) {
+            Logger.shared.debug("Перезагрузка строки для NFT id: \(nft.id) на индексе: \(index)")
             view?.reloadRow(at: index)
         }
     }
@@ -137,32 +149,37 @@ extension MyNftPresenter {
         return isLiked
     }
 
-    private func updateProfileWithLikes(removedNftId: String?) {
+    func updateProfileWithLikes(updatedLikes: [String]?) {
+        Logger.shared.debug("[MyNftPresenter] - Перед обновлением профиля, список лайков: \(String(describing: updatedLikes))")
+
         profileService.getProfile { [weak self] result in
-            guard let self else { return }
+            guard let self = self else { return }
 
             switch result {
             case .success(let profile):
-                let updatedLikes = removedNftId == nil ? self.likedNftIds : self.likedNftIds.filter { $0 != removedNftId }
+                Logger.shared.debug("[MyNftPresenter] - Профиль получен, отправляем обновленные лайки: \(String(describing: updatedLikes))")
+
+                let likesToSend: [String]? = updatedLikes?.isEmpty ?? true ? nil : updatedLikes
 
                 self.profileService.updateProfile(
                     name: profile.name,
                     avatar: profile.avatar,
                     description: profile.description,
                     website: profile.website,
-                    likes: removedNftId != nil ? nil : updatedLikes
+                    likes: likesToSend
                 ) { updateResult in
                     switch updateResult {
                     case .success:
-                        Logger.shared.info("Profile successfully updated with liked NFTs.")
+                        Logger.shared.info("[MyNftPresenter] - Профиль успешно обновлен.")
+                        self.view?.reloadData()
                     case .failure(let error):
-                        Logger.shared.error("Error updating profile with liked NFTs: \(error.localizedDescription)")
+                        Logger.shared.error("[MyNftPresenter] - Ошибка при обновлении профиля: \(error.localizedDescription)")
                         self.getProfileDataForLikes()
                         self.view?.reloadData()
                     }
                 }
             case .failure(let error):
-                Logger.shared.error("Error fetching profile for updating likes: \(error.localizedDescription)")
+                Logger.shared.error("[MyNftPresenter] - Ошибка получения профиля для обновления лайков: \(error.localizedDescription)")
             }
         }
     }
