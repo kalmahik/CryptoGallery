@@ -12,6 +12,8 @@ protocol BacketViewProtocol: AnyObject {
     func updateTotalPriceLabel(with totalPrice: Float)
     func payButtonTapped()
     func reloadTableViewData()
+    func showLoadingIndicator()
+    func hideLoadingIndicator()
 }
 
 protocol BacketPresenterProtocol {

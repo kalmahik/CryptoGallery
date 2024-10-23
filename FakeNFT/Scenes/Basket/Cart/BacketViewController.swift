@@ -38,6 +38,13 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     private var presenter: BacketPresenterProtocol?
 
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .ypBlack
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .system)
         let image = UIImage(named: "light")
@@ -115,6 +122,21 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     // MARK: - Public Methods
 
+    func showLoadingIndicator() {
+       activityIndicator.startAnimating()
+       tableView.isHidden = true
+       customView.isHidden = true
+       filterButton.isHidden = true
+   }
+
+    func hideLoadingIndicator() {
+       activityIndicator.stopAnimating()
+       activityIndicator.removeFromSuperview()
+       tableView.isHidden = false
+       customView.isHidden = false
+       filterButton.isHidden = false
+   }
+
     func updateNFTCountLabel(with count: Int) {
         nftCountLabel.text = "\(count) NFT"
     }
@@ -163,7 +185,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
 extension BacketViewController {
     func setupUI() {
-        [tableView, customView].forEach {
+        [activityIndicator, tableView, customView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -176,6 +198,9 @@ extension BacketViewController {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

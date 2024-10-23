@@ -27,7 +27,9 @@ final class BacketPresenter: BacketPresenterProtocol {
     // MARK: - Public Methods
 
     func loadNFTData() {
+        (view as? BacketViewController)?.showLoadingIndicator()
         orderService.fetchOrderAndNFTs { [weak self] result in
+            (self?.view as? BacketViewController)?.hideLoadingIndicator()
             switch result {
             case .success(let nftResponses):
                 self?.nftItems = nftResponses
