@@ -26,7 +26,7 @@ final class CurrencyCell: UICollectionViewCell, CollectionViewProtokol {
         let label = UILabel()
         label.font = .regular13
         label.textColor = .ypBlack
-        label.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        label.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height18).isActive = true
         return label
     }()
 
@@ -34,7 +34,7 @@ final class CurrencyCell: UICollectionViewCell, CollectionViewProtokol {
         let label = UILabel()
         label.font = .regular13
         label.textColor = .ypGreenUniversal
-        label.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        label.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height18).isActive = true
         return label
     }()
 
@@ -49,7 +49,7 @@ final class CurrencyCell: UICollectionViewCell, CollectionViewProtokol {
         let stackView = UIStackView(arrangedSubviews: [logoImageView, labelsStackView])
         stackView.axis = .horizontal
         stackView.alignment = .center
-        stackView.spacing = 4
+        stackView.spacing = UIConstants.Spacing.small4
         stackView.isUserInteractionEnabled = false
         return stackView
     }()
@@ -132,12 +132,9 @@ extension CurrencyCell {
     }
 
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            cellButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-            cellButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            cellButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            cellButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        cellButton.constraintEdges(to: contentView)
 
+        NSLayoutConstraint.activate([
             horizontalStackView.leadingAnchor.constraint(equalTo: cellButton.leadingAnchor, constant: 12),
             horizontalStackView.trailingAnchor.constraint(equalTo: cellButton.trailingAnchor),
             horizontalStackView.topAnchor.constraint(equalTo: cellButton.topAnchor),

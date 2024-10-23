@@ -69,7 +69,7 @@ final class DeleteConfirmationViewController: UIViewController {
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nftImageView, confirmationLabel])
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = UIConstants.Spacing.small12
         stackView.alignment = .center
         return stackView
     }()
@@ -77,7 +77,7 @@ final class DeleteConfirmationViewController: UIViewController {
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [deleteButton, cancelButton])
         stackView.axis = .horizontal
-        stackView.spacing = 8
+        stackView.spacing = UIConstants.Spacing.small8
         stackView.distribution = .fillEqually
         return stackView
     }()
@@ -85,7 +85,7 @@ final class DeleteConfirmationViewController: UIViewController {
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [contentStackView, buttonStackView])
         stackView.axis = .vertical
-        stackView.spacing = 20
+        stackView.spacing = UIConstants.Spacing.large20
         stackView.alignment = .fill
         return stackView
     }()
@@ -122,12 +122,9 @@ extension DeleteConfirmationViewController {
     }
 
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            backgroundBlurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundBlurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundBlurView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundBlurView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        backgroundBlurView.constraintEdges(to: view)
 
+        NSLayoutConstraint.activate([
             mainStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 244),
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 56),

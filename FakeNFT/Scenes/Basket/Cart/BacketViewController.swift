@@ -58,7 +58,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         let view = UIView()
         view.backgroundColor = .ypLightGrey
         view.layer.cornerRadius = UIConstants.CornerRadius.medium16
-        view.heightAnchor.constraint(equalToConstant: 76).isActive = true
+        view.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height76).isActive = true
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return view
     }()
@@ -67,7 +67,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         let label = UILabel()
         label.font = .regular15
         label.textColor = .ypBlack
-        label.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        label.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height20).isActive = true
         return label
     }()
 
@@ -75,7 +75,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         let label = UILabel()
         label.font = .bold17
         label.textColor = .ypGreenUniversal
-        label.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        label.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height22).isActive = true
         return label
     }()
 
@@ -86,7 +86,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         button.setTitleColor(.ypWhite, for: .normal)
         button.titleLabel?.font = .bold17
         button.layer.cornerRadius = UIConstants.CornerRadius.medium16
-        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        button.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height44).isActive = true
         button.addTarget(self, action: #selector(payButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -94,7 +94,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nftCountLabel, priceLabel])
         stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.spacing = UIConstants.Spacing.small2
         stackView.alignment = .fill
         return stackView
     }()
@@ -102,7 +102,7 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [labelsStackView, payButton])
         stackView.axis = .horizontal
-        stackView.spacing = 24
+        stackView.spacing = UIConstants.Spacing.large24
         stackView.alignment = .center
         stackView.distribution = .fill
         return stackView
@@ -123,19 +123,19 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
     // MARK: - Public Methods
 
     func showLoadingIndicator() {
-       activityIndicator.startAnimating()
-       tableView.isHidden = true
-       customView.isHidden = true
-       filterButton.isHidden = true
-   }
+        activityIndicator.startAnimating()
+        [tableView, customView, filterButton].forEach {
+            $0.isHidden = true
+        }
+    }
 
     func hideLoadingIndicator() {
-       activityIndicator.stopAnimating()
-       activityIndicator.removeFromSuperview()
-       tableView.isHidden = false
-       customView.isHidden = false
-       filterButton.isHidden = false
-   }
+        activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
+        [tableView, customView, filterButton].forEach {
+            $0.isHidden = false
+        }
+    }
 
     func updateNFTCountLabel(with count: Int) {
         nftCountLabel.text = "\(count) NFT"
@@ -169,9 +169,9 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
             self.presenter?.saveSortOption(.name)
             self.presenter?.sortNFTItems(by: .name)
             self.reloadTableViewData() }
-        alert.addAction(priceAction)
-        alert.addAction(ratingAction)
-        alert.addAction(titleAction)
+        [priceAction, ratingAction, titleAction].forEach {
+            alert.addAction($0)
+        }
         alert.addAction(UIAlertAction(title: sortCloseTitle, style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
@@ -197,10 +197,9 @@ extension BacketViewController {
     }
 
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        activityIndicator.constraintCenters(to: view)
 
+        NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -255,6 +254,6 @@ extension BacketViewController: UITableViewDelegate {
         _ tableView: UITableView,
         heightForRowAt indexPath: IndexPath
     ) -> CGFloat {
-        return 140
+        return UIConstants.Heights.height140
     }
 }

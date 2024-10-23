@@ -49,7 +49,7 @@ final class PaymentMethodViewController: UIViewController, PaymentMethodViewProt
         let view = UIView()
         view.backgroundColor = .ypLightGrey
         view.layer.cornerRadius = UIConstants.CornerRadius.medium16
-        view.heightAnchor.constraint(equalToConstant: 186).isActive = true
+        view.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height186).isActive = true
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return view
     }()
@@ -59,7 +59,7 @@ final class PaymentMethodViewController: UIViewController, PaymentMethodViewProt
         label.text = descriptionTitleLabel
         label.font = .regular13
         label.textColor = .ypBlack
-        label.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        label.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height18).isActive = true
         return label
     }()
 
@@ -68,7 +68,7 @@ final class PaymentMethodViewController: UIViewController, PaymentMethodViewProt
         button.setTitle(userTitleLabel, for: .normal)
         button.titleLabel?.font = .regular13
         button.setTitleColor(.ypBlueUniversal, for: .normal)
-        button.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        button.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height26).isActive = true
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(agreeUserButtonTapped), for: .touchUpInside)
         return button
@@ -89,7 +89,7 @@ final class PaymentMethodViewController: UIViewController, PaymentMethodViewProt
         button.setTitleColor(.ypWhite, for: .normal)
         button.titleLabel?.font = .bold17
         button.layer.cornerRadius = UIConstants.CornerRadius.medium16
-        button.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        button.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height60).isActive = true
         button.addTarget(self, action: #selector(payButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -238,7 +238,7 @@ extension PaymentMethodViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let padding: CGFloat = 16
+        let padding = UIConstants.Padding.medium16
         let interItemSpacing: CGFloat = 7
         let availableWidth = collectionView.frame.width - padding * 2 - interItemSpacing
         let cellWidth = availableWidth / 2
