@@ -83,5 +83,6 @@ final class BacketPresenter: BacketPresenterProtocol {
         view?.updateNFTCountLabel(with: nftItems.count)
         let totalPrice = nftItems.reduce(0) { $0 + $1.price }
         view?.updateTotalPriceLabel(with: totalPrice)
+        view?.reloadTableViewData()
     }
 }

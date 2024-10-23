@@ -125,6 +125,9 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
 
     func deleteNFT(at index: Int) {
         presenter?.deleteNFT(at: index)
+    }
+
+    func reloadTableViewData() {
         tableView.reloadData()
     }
 
@@ -135,15 +138,15 @@ final class BacketViewController: UIViewController, BacketViewProtocol {
         let priceAction = UIAlertAction(title: sortPriceTitle, style: .default) { _ in
             self.presenter?.saveSortOption(.price)
             self.presenter?.sortNFTItems(by: .price)
-            self.tableView.reloadData() }
+            self.reloadTableViewData() }
         let ratingAction = UIAlertAction(title: sortRatingTitle, style: .default) { _ in
             self.presenter?.saveSortOption(.rating)
             self.presenter?.sortNFTItems(by: .rating)
-            self.tableView.reloadData() }
+            self.reloadTableViewData() }
         let titleAction = UIAlertAction(title: sortNameTitle, style: .default) { _ in
             self.presenter?.saveSortOption(.name)
             self.presenter?.sortNFTItems(by: .name)
-            self.tableView.reloadData() }
+            self.reloadTableViewData() }
         alert.addAction(priceAction)
         alert.addAction(ratingAction)
         alert.addAction(titleAction)

@@ -10,7 +10,7 @@ import Foundation
 final class OrderService {
 
     // MARK: - Private Properties
-    
+
     private let client: NetworkClient
 
     // MARK: - Initialization
