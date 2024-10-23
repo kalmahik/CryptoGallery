@@ -43,7 +43,7 @@ final class Placeholder: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = UIConstants.CornerRadius.small10
+        stackView.spacing = UIConstants.Spacing.small10
         stackView.addArrangedSubview(label)
 
         setupView(stackView)

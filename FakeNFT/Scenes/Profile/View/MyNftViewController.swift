@@ -64,10 +64,10 @@ final class MyNftViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .ypWhite
         setupUI()
+        showShimmer()
         checkForData()
         setupNavigationBar()
         presenter.viewDidLoad()
-        showShimmer()
         showLoadingIndicator()
     }
 
@@ -240,13 +240,32 @@ extension MyNftViewController {
         let shimmerCell = UITableViewCell()
 
         let shimmerView = ShimmerView()
+        shimmerView.layer.cornerRadius = UIConstants.CornerRadius.medium16
+        shimmerView.clipsToBounds = true
         shimmerView.translatesAutoresizingMaskIntoConstraints = false
 
         shimmerCell.contentView.addSubview(shimmerView)
-        shimmerCell.constraintEdges(to: shimmerCell.contentView)
 
         NSLayoutConstraint.activate([
-            shimmerCell.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height108)
+            shimmerView.topAnchor.constraint(
+                equalTo: shimmerCell.contentView.topAnchor,
+                constant: UIConstants.Insets.small8
+            ),
+            shimmerView.bottomAnchor.constraint(
+                equalTo: shimmerCell.contentView.bottomAnchor,
+                constant: -UIConstants.Insets.small8
+            ),
+            shimmerView.leadingAnchor.constraint(
+                equalTo: shimmerCell.contentView.leadingAnchor,
+                constant: UIConstants.Insets.medium16
+            ),
+            shimmerView.trailingAnchor.constraint(
+                equalTo: shimmerCell.contentView.trailingAnchor,
+                constant: -UIConstants.Insets.medium16
+            ),
+            shimmerView.heightAnchor.constraint(
+                equalToConstant: UIConstants.Heights.height108
+            )
         ])
 
         shimmerView.startShimmer()

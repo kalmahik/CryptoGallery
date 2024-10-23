@@ -45,7 +45,7 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
     private lazy var priceValueLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.bold17
-        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
     }()
 
@@ -97,6 +97,7 @@ final class MyNftCell: UITableViewCell, ReuseIdentifying {
         let stackView = UIStackView(arrangedSubviews: [priceValueLabel, coinLabel])
         stackView.axis = .horizontal
         stackView.spacing = UIConstants.Spacing.small4
+        stackView.alignment = .leading
         return stackView
     }()
 
@@ -166,6 +167,8 @@ extension MyNftCell {
         contentStackView.constraintEdges(to: contentView)
 
         NSLayoutConstraint.activate([
+            priceValueLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50),
+
             nftImageView.widthAnchor.constraint(equalToConstant: UIConstants.Heights.height108),
             nftImageView.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height108),
 

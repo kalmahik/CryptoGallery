@@ -40,6 +40,7 @@ struct UIConstants {
         static let small2: CGFloat = 2.0
         static let small4: CGFloat = 4.0
         static let small8: CGFloat = 8.0
+        static let small10: CGFloat = 10.0
         static let medium16: CGFloat = 16.0
         static let large20: CGFloat = 20.0
     }
