@@ -140,6 +140,8 @@ struct DefaultNetworkClient: NetworkClient {
                 for like in likes {
                     queryItems.append(URLQueryItem(name: "likes", value: like))
                 }
+            } else {
+                queryItems.append(URLQueryItem(name: "likes", value: "null"))
             }
 
             var urlComponents = URLComponents()

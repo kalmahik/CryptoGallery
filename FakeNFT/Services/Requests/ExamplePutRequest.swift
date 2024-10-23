@@ -17,7 +17,7 @@ struct ExampleDtoObject: Dto {
         case param2 // имя поля в запросе будет param_2
     }
 
-    func asDictionary() -> [String: Any] {
+    func asDictionary() -> [String: String] {
         [
             CodingKeys.param1.rawValue: param1,
             CodingKeys.param2.rawValue: param2

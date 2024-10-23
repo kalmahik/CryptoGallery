@@ -69,9 +69,6 @@ final class ProfileServiceImpl: ProfileService {
                 website: website,
                 likes: likes
             )
-
-            Logger.shared.debug("[ProfileService] - Тело запроса: \(dto.asDictionary())")
-
             let request = UpdateProfileRequest(dto: dto)
 
             self.networkClient.send(request: request) { result in
