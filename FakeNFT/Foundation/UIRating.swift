@@ -81,15 +81,3 @@ final class UIRating: UIView {
         return imageView
     }
 }
-
-// MARK: - Public Methods
-
-extension UIRating {
-    func updateRating(_ newRating: Int) {
-        rating = newRating
-        for (index, starImageView) in starImageViews.enumerated() {
-            let isActive = index < newRating
-            starImageView.tintColor = isActive ? .ypYellowUniversal : .ypLightGrey
-        }
-    }
-}
