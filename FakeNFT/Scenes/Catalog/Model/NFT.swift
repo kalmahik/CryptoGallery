@@ -11,9 +11,9 @@ struct NFT: Decodable {
     let createdAt: String
     let name: String
     let images: [String]
-    let rating: String
+    let rating: Int
     let description: String
-    let price: String
+    let price: Float
     let author: String
     let id: String
 }

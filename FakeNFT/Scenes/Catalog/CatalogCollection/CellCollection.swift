@@ -31,7 +31,7 @@ final class CellTableCollectionNFT: UITableViewCell, ReuseIdentifying {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .none
+        backgroundColor = .background
         setupLayout()
     }
 
@@ -55,7 +55,6 @@ extension CellTableCollectionNFT {
 
     private func setupLayout() {
         selectionStyle = .none
-        backgroundColor = .none
 
         contentView.heightAnchor.constraint(equalToConstant: 187).isActive = true
         contentView.addSubview(coverImage)

@@ -30,6 +30,7 @@ final class CatalogViewController: UIViewController, ErrorView {
         button.translatesAutoresizingMaskIntoConstraints = false
         let image = UIImage(named: "light")
         button.setImage(image, for: .normal)
+        button.tintColor = .ypBlack
         button.addTarget(self, action: #selector(openSortTypeMenu), for: .touchUpInside)
         return button
     }()
@@ -38,7 +39,7 @@ final class CatalogViewController: UIViewController, ErrorView {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .none
+        tableView.backgroundColor = .background
         tableView.register(CellTableCollectionNFT.self)
         tableView.dataSource = self
         tableView.delegate = self
@@ -124,6 +125,13 @@ extension CatalogViewController: UITableViewDataSource {
 // MARK: - Extension: UITableViewDelegate
 
 extension CatalogViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let сollectionNFTViewController = CollectionNFTViewController()
+        сollectionNFTViewController.modalPresentationStyle = .fullScreen
+        self.present(сollectionNFTViewController, animated: true)
+    }
 }
 
 // MARK: - CatalogViewControllerProtocol

@@ -17,7 +17,7 @@ protocol CatalogCollectionModelProtocol: AnyObject {
     func getCollectionQuantityNft(_ rowNumber: Int) -> Int
 }
 
-final class CatalogCollectionModel {
+final class CatalogCollectionModel: CatalogCollectionModelProtocol {
     weak var presenter: CatalogCollectionPresenterModelProtocol?
 
     private var collections: [Collection] = []
@@ -28,11 +28,7 @@ final class CatalogCollectionModel {
         self.presenter = presenter
         self.catalogService = catalogService
     }
-}
 
-// MARK: - CatalogCollectionModelProtocol
-
-extension CatalogCollectionModel: CatalogCollectionModelProtocol {
     func fetchCatalog() {
         presenter?.didStartLoadingData()
         catalogService.getCollections() { [weak self] result in
