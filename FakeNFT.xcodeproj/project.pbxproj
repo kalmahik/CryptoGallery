@@ -36,6 +36,7 @@
 		24683DB92CC904A70020A765 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24683DB82CC904A70020A765 /* Profile.swift */; };
 		24683DC52CC92A1E0020A765 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24683DC42CC92A1E0020A765 /* Notification+Extension.swift */; };
 		2471561E2CCA6FBB00D0F62A /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2471561D2CCA6FBB00D0F62A /* ProfileRepository.swift */; };
+		247156202CCA763700D0F62A /* EditProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2471561F2CCA763700D0F62A /* EditProfileRepository.swift */; };
 		2486E9AD2CC0FBCA00E66548 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */; };
 		2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499527A2CB513C000CB36F8 /* LocalizationKey.swift */; };
 		24CD87CD2CBD875500886559 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87CC2CBD875500886559 /* UIConstants.swift */; };
@@ -137,6 +138,7 @@
 		24683DB82CC904A70020A765 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		24683DC42CC92A1E0020A765 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		2471561D2CCA6FBB00D0F62A /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
+		2471561F2CCA763700D0F62A /* EditProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRepository.swift; sourceTree = "<group>"; };
 		2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		249952792CB512DE00CB36F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2499527A2CB513C000CB36F8 /* LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKey.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				2471561D2CCA6FBB00D0F62A /* ProfileRepository.swift */,
+				2471561F2CCA763700D0F62A /* EditProfileRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				2455104C2CC6F2E900E37E2D /* NftImageView.swift in Sources */,
 				245510422CC6547100E37E2D /* MyNftCell.swift in Sources */,
 				E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */,
+				247156202CCA763700D0F62A /* EditProfileRepository.swift in Sources */,
 				3F478ED129DB476500F6D39E /* Fonts.swift in Sources */,
 				0C79EE6A2A76DE1000EE90EA /* NftDetailAssembly.swift in Sources */,
 				3FC8C39329D246BA0081F015 /* DateFormatters+Presets.swift in Sources */,

@@ -44,17 +44,17 @@ final class EditProfilePresenter {
     // MARK: - Private Properties
 
     private var isImageChanged = false
-    private let profileService: ProfileService
     private var profileBuilder: ProfileBuilder
+    private let repository: EditProfileRepository
 
     // MARK: - Init
 
     init(
         profile: Profile?,
-        profileService: ProfileService
+        repository: EditProfileRepository
     ) {
         self.profile = profile
-        self.profileService = profileService
+        self.repository = repository
         if let profile = profile {
             self.profileBuilder = ProfileBuilder(profile: profile)
         } else {
@@ -92,19 +92,16 @@ extension EditProfilePresenter: EditProfilePresenterProtocol {
     }
 
     func getTextForSection(_ section: Int) -> String? {
-        if let profile {
-            switch sections[section] {
-            case .userPic:
-                return nil
-            case .name:
-                return profileBuilder.currentName
-            case .description:
-                return profileBuilder.currentDescription
-            case .webSite:
-                return profileBuilder.currentWebsite
-            }
+        switch sections[section] {
+        case .userPic:
+            return nil
+        case .name:
+            return profileBuilder.currentName
+        case .description:
+            return profileBuilder.currentDescription
+        case .webSite:
+            return profileBuilder.currentWebsite
         }
-        return nil
     }
 
     func updateProfileData(text: String, for section: Int) {
@@ -131,13 +128,7 @@ extension EditProfilePresenter {
     func saveProfileChanges() {
         let updatedProfile = profileBuilder.build()
 
-        profileService.updateProfile(
-            name: updatedProfile.name,
-            avatar: updatedProfile.avatar,
-            description: updatedProfile.description,
-            website: updatedProfile.website,
-            likes: updatedProfile.likes
-        ) { [weak self] result in
+        repository.saveProfileChanges(updatedProfile: updatedProfile) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let profile):

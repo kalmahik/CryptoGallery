@@ -66,9 +66,10 @@ extension ProfileRouter: ProfileRouterProtocol {
         guard let viewController else { return }
 
         let profileService = self.profileService
+        let repository = EditProfileRepositoryImpl(profileService: profileService)
         let presenter = EditProfilePresenter(
             profile: profile,
-            profileService: profileService
+            repository: repository
         )
         presenter.delegate = delegate
 
