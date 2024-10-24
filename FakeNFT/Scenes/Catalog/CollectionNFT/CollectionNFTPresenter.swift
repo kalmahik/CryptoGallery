@@ -8,10 +8,15 @@
 import Foundation
 
 protocol CollectionNFTPresenterProtocol: AnyObject {
+    func viewDidLoad()
     func getCollection() -> Collection
+    func getCountNFTs() -> Int
+    func getNFT(_ rowNumber: Int) -> NFT
 }
 
-protocol CollectionNFTPresenterModelProtocol: AnyObject {}
+protocol CollectionNFTPresenterModelProtocol: AnyObject {
+    func updateData()
+}
 
 final class CollectionNFTPresenter {
 
@@ -31,11 +36,27 @@ final class CollectionNFTPresenter {
 // MARK: - CollectionNFTPresenterProtocol
 
 extension CollectionNFTPresenter: CollectionNFTPresenterProtocol {
+    func viewDidLoad() {
+        model.fetchAllNFTs()
+    }
+
     func getCollection() -> Collection {
         model.getCollection()
+    }
+
+    func getCountNFTs() -> Int {
+        model.getCountNFTs()
+    }
+
+    func getNFT(_ rowNumber: Int) -> NFT {
+        model.getNFT(rowNumber)
     }
 }
 
 // MARK: - CollectionNFTPresenterModelProtocol
 
-extension CollectionNFTPresenter: CollectionNFTPresenterModelProtocol {}
+extension CollectionNFTPresenter: CollectionNFTPresenterModelProtocol {
+    func updateData() {
+        view?.reloadCollection()
+    }
+}

@@ -11,12 +11,8 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
 
     // MARK: - Private Properties
 
-    private var imageNFT = UIImage(named: "mokNFT")
-    private var isLiked: Bool = true
-    private var rating: Int = 3
-    private var nameNFT: String = "FJkm"
-    private var priceNFT: Float = 7
-    private var basketNFT: Bool = true
+    private var isLiked: Bool = false
+    private var basketNFT: Bool = false
 
     // MARK: - UI Components
 
@@ -28,7 +24,6 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
         imageView.layer.cornerRadius = 12
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
-        imageView.image = imageNFT
         return imageView
     }()
 
@@ -44,7 +39,6 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .bold17
-        label.text = nameNFT
         return label
     }()
 
@@ -52,7 +46,6 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .medium10
-        label.text = "\(priceNFT) ETH"
         return label
     }()
 
@@ -66,7 +59,7 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
         return button
     }()
 
-    private lazy var retingNFTStackView: UIRating = UIRating(rating: rating)
+    private lazy var retingNFTStackView: UIRating = UIRating(rating: 0)
 
     private lazy var nftNameAndPriceStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nftNameLabel, priceLabel])
@@ -115,13 +108,12 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
 
     // MARK: - Public Functions
 
-    func configureCell(_ image: UIImage, _ isLike: Bool, _ rating: Int, _ nameNFT: String, _ price: Float, _ basketNFT: Bool) {
-        self.imageNFT = image
-        self.isLiked = isLike
-        self.rating = rating
-        self.nameNFT = nameNFT
-        self.priceNFT = price
-        self.basketNFT = basketNFT
+    func configureCell(_ nft: NFT) {
+        retingNFTStackView.updateRating(nft.rating)
+        nftNameLabel.text = nft.name
+        priceLabel.text = "\(nft.price) ETH"
+        let URLImage = URL(string: traitCollection.userInterfaceStyle == .dark ? nft.images[1] : nft.images[0])
+        imageView.kf.setImage(with: URLImage)
     }
 }
 

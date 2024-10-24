@@ -90,7 +90,6 @@ final class NFTHeader: UICollectionReusableView, ReuseIdentifying {
         nameCollectionLabel.text = collection.name
         authorCollectionButton.setTitle(collection.author, for: .normal)
         introCollectionLabel.text = collection.description
-        
         let URLImage = URL(string: collection.cover)
         coverCollectionImageView.kf.setImage(with: URLImage)
     }

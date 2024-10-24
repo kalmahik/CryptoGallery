@@ -8,6 +8,7 @@
 import UIKit
 
 protocol CollectionNFTViewControllerProtocol: AnyObject {
+    func reloadCollection()
 }
 
 final class CollectionNFTViewController: UIViewController {
@@ -49,6 +50,7 @@ final class CollectionNFTViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.viewDidLoad()
         view.backgroundColor = .background
         setNavigationItem()
         setupUI()
@@ -69,12 +71,13 @@ extension CollectionNFTViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        7
+        presenter.getCountNFTs()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: NFTCell = collectionView.dequeueReusableCell(indexPath: indexPath)
-
+        let nft = presenter.getNFT(indexPath.row)
+        cell.configureCell(nft)
         return cell
     }
 
@@ -117,7 +120,11 @@ extension CollectionNFTViewController: UICollectionViewDelegate {
 
 // MARK: - CollectionNFTViewControllerProtocol
 
-extension CollectionNFTViewController: CollectionNFTViewControllerProtocol {}
+extension CollectionNFTViewController: CollectionNFTViewControllerProtocol {
+    func reloadCollection() {
+        collectionNFTs.reloadData()
+    }
+}
 
 // MARK: - Extension: View Layout
 
@@ -125,7 +132,12 @@ extension CollectionNFTViewController {
     private func setupUI() {
         view.addSubview(collectionNFTs)
 
-        collectionNFTs.constraintEdges(to: view)
+        NSLayoutConstraint.activate([
+            collectionNFTs.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionNFTs.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionNFTs.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionNFTs.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 }
 
