@@ -80,7 +80,8 @@ extension CollectionNFTViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header: NFTHeader = collectionView.dequeueReusableHeader(indexPath: indexPath)
-
+        let collection = presenter.getCollection()
+        header.configureHeader(collection)
         return header
     }
 }
@@ -101,6 +102,8 @@ extension CollectionNFTViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.width
         let headerView = NFTHeader()
+        let collection = presenter.getCollection()
+        headerView.configureHeader(collection)
         let height = headerView.calculateHeight(for: width)
 
         return CGSize(width: width, height: height)

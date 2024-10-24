@@ -7,7 +7,9 @@
 
 import Foundation
 
-protocol CollectionNFTPresenterProtocol: AnyObject {}
+protocol CollectionNFTPresenterProtocol: AnyObject {
+    func getCollection() -> Collection
+}
 
 protocol CollectionNFTPresenterModelProtocol: AnyObject {}
 
@@ -28,7 +30,11 @@ final class CollectionNFTPresenter {
 
 // MARK: - CollectionNFTPresenterProtocol
 
-extension CollectionNFTPresenter: CollectionNFTPresenterProtocol {}
+extension CollectionNFTPresenter: CollectionNFTPresenterProtocol {
+    func getCollection() -> Collection {
+        model.getCollection()
+    }
+}
 
 // MARK: - CollectionNFTPresenterModelProtocol
 

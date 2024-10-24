@@ -7,7 +7,9 @@
 
 import Foundation
 
-protocol CollectionNFTModelProtocol: AnyObject {}
+protocol CollectionNFTModelProtocol: AnyObject {
+    func getCollection() -> Collection
+}
 
 final class CollectionNFTModel: CollectionNFTModelProtocol {
 
@@ -25,5 +27,9 @@ final class CollectionNFTModel: CollectionNFTModelProtocol {
     init(nftService: NFTService, collection: Collection) {
         self.nftService = nftService
         self.collection = collection
+    }
+
+    func getCollection() -> Collection {
+        collection
     }
 }

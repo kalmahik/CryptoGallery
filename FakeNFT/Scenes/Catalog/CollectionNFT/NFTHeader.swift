@@ -9,26 +9,25 @@ import UIKit
 
 final class NFTHeader: UICollectionReusableView, ReuseIdentifying {
 
-    private var coverCollection = "mokCover"
-    private var nameCollection = "Peach"
-    private var authorCollection = "Gin Milin"
-    private var introCollection = "Персиковый — как облака над закатным солнцем в океане. В этой коллекции совмещены трогательная нежность и живая игривость сказочных зефирных зверей."
+    // MARK: - Private Properties
+
+    private let heightCover: CGFloat = 310
 
     // MARK: - UI Components
 
     private lazy var coverCollectionImageView: UIImageView = {
         let imageView = UIImageView()
-        let image = UIImage(named: coverCollection)
-        imageView.image = image
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 12
+        imageView.layer.masksToBounds = true
+        imageView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         return imageView
     }()
 
     private lazy var nameCollectionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .natural
-        label.text = nameCollection
         label.font = .bold22
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -46,7 +45,6 @@ final class NFTHeader: UICollectionReusableView, ReuseIdentifying {
 
     private lazy var authorCollectionButton: UIButton = {
         let button = UIButton()
-        button.setTitle(authorCollection, for: .normal)
         button.setTitleColor(.ypBlueUniversal, for: .normal)
         button.titleLabel?.font = .regular15
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +54,6 @@ final class NFTHeader: UICollectionReusableView, ReuseIdentifying {
     private lazy var introCollectionLabel: UILabel = {
         let label = UILabel()
         label.font = .regular13
-        label.text = introCollection
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -89,14 +86,19 @@ final class NFTHeader: UICollectionReusableView, ReuseIdentifying {
 
     // MARK: - Public Methods
 
-    func configureHeader(_ cover: String, _ title: String, _ author: String, _ intro: String) {
-
+    func configureHeader(_ collection: Collection) {
+        nameCollectionLabel.text = collection.name
+        authorCollectionButton.setTitle(collection.author, for: .normal)
+        introCollectionLabel.text = collection.description
+        
+        let URLImage = URL(string: collection.cover)
+        coverCollectionImageView.kf.setImage(with: URLImage)
     }
 
     func calculateHeight(for width: CGFloat) -> CGFloat {
         let size = CGSize(width: width - 32, height: CGFloat.greatestFiniteMagnitude)
         let estimatedSize =
-        coverCollectionImageView.sizeThatFits(size).height +
+        heightCover +
         nameCollectionLabel.sizeThatFits(size).height +
         authorCollectionButton.sizeThatFits(size).height +
         introCollectionLabel.sizeThatFits(size).height + 8 + 16 + 24
@@ -117,6 +119,7 @@ extension NFTHeader {
             coverCollectionImageView.topAnchor.constraint(equalTo: topAnchor),
             coverCollectionImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             coverCollectionImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            coverCollectionImageView.heightAnchor.constraint(equalToConstant: heightCover),
 
             nameCollectionLabel.topAnchor.constraint(equalTo: coverCollectionImageView.bottomAnchor, constant: 16),
             nameCollectionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
