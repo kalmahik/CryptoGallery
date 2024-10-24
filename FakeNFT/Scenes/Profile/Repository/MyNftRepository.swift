@@ -8,10 +8,8 @@
 import Foundation
 
 protocol MyNftRepository {
-    func fetchNfts(
+    func fetchAllNfts(
         nftIds: [String],
-        page: Int,
-        size: Int,
         sort: NftRequest.NftSort,
         completion: @escaping (Result<[NFT], Error>) -> Void
     )
@@ -35,14 +33,12 @@ final class MyNftRepositoryImpl: MyNftRepository {
         self.profileService = profileService
     }
 
-    func fetchNfts(
+    func fetchAllNfts(
         nftIds: [String],
-        page: Int,
-        size: Int,
         sort: NftRequest.NftSort,
         completion: @escaping (Result<[NFT], Error>) -> Void
     ) {
-        nftService.loadNftsByIds(ids: nftIds, page: page, size: size) { result in
+        nftService.loadAllNfts(ids: nftIds) { result in
             completion(result)
         }
     }

@@ -11,7 +11,7 @@ typealias MyNftCompletion = (Result<NFT, Error>) -> Void
 
 protocol MyNftService {
     func loadNft(id: String, completion: @escaping MyNftCompletion)
-    func loadNftsByIds(ids: [String], page: Int, size: Int, completion: @escaping (Result<[NFT], Error>) -> Void)
+    func loadAllNfts(ids: [String], completion: @escaping (Result<[NFT], Error>) -> Void)
 }
 
 final class MyNftServiceImpl: MyNftService {
@@ -48,29 +48,12 @@ final class MyNftServiceImpl: MyNftService {
         }
     }
 
-    func loadNftsByIds(ids: [String], page: Int, size: Int, completion: @escaping (Result<[NFT], Error>) -> Void) {
-        let uniqueIds = ids
-        let totalIds = uniqueIds.count
-        let totalPages = Int(ceil(Double(totalIds) / Double(size)))
-
-        if page > totalPages || totalIds == 0 {
-            completion(.success([]))
-            return
-        }
-
-        let startIndex = (page - 1) * size
-        let endIndex = min(startIndex + size, totalIds)
-
-        guard startIndex < endIndex else {
-            completion(.success([]))
-            return
-        }
-
-        let idsForPage = Array(uniqueIds[startIndex..<endIndex])
+    func loadAllNfts(ids: [String], completion: @escaping (Result<[NFT], Error>) -> Void) {
+        let uniqueIds = Array(Set(ids))
         var nfts: [NFT] = []
         let group = DispatchGroup()
 
-        for id in idsForPage {
+        for id in uniqueIds {
             group.enter()
             loadNft(id: id) { result in
                 switch result {
@@ -82,7 +65,6 @@ final class MyNftServiceImpl: MyNftService {
                 group.leave()
             }
         }
-
         group.notify(queue: .main) {
             completion(.success(nfts))
         }

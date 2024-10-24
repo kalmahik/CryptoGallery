@@ -189,7 +189,6 @@ extension MyNftCell {
         authorLabel.text = nft.author
         nftImageView.setNftImage(from: nft.images.first)
         coinLabel.text = "ETH"
-
         updateFavoriteButton(isLiked: isLiked)
     }
 

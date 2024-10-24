@@ -10,6 +10,8 @@ import UIKit
 protocol MyNftProtocol: AnyObject {
     func reloadData()
     func reloadRow(at index: Int)
+    func cellForRow(at index: Int) -> MyNftCell?
+    func showError(message: String)
 }
 
 final class MyNftViewController: UIViewController {
@@ -26,8 +28,6 @@ final class MyNftViewController: UIViewController {
     // MARK: - Private Properties
 
     private let presenter: MyNftPresenterProtocol
-
-    private var isLoading = true
 
     private lazy var placeholderView: Placeholder = {
         let placeholder = Placeholder(text: LocalizationKey.profMyNftPlaceholder.localized())
@@ -70,11 +70,9 @@ final class MyNftViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .ypWhite
         setupUI()
-        showShimmer()
         checkForData()
         setupNavigationBar()
         presenter.viewDidLoad()
-        showLoadingIndicator()
     }
 
     // MARK: - Private Methods
@@ -127,23 +125,17 @@ extension MyNftViewController {
 
 // MARK: - UITableViewDelegate
 
-extension MyNftViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == presenter.nfts.count - 1 {
-            presenter.loadMoreNftsIfNeeded(currentItemIndex: indexPath.row)
-        }
-    }
-}
+extension MyNftViewController: UITableViewDelegate {}
 
 // MARK: - UITableViewDataSource
 
 extension MyNftViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isLoading ? shimmerViews.count : presenter.nfts.count
+        return presenter.isLoading ? shimmerViews.count : presenter.nfts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if isLoading {
+        if presenter.isLoading {
             return createShimmerViewCell()
         } else {
             guard indexPath.row < presenter.nfts.count else {
@@ -153,36 +145,14 @@ extension MyNftViewController: UITableViewDataSource {
             let cell: MyNftCell = tableView.dequeueReusableCell()
             let nft = presenter.nfts[indexPath.row]
 
-            cell.configure(with: nft, isLiked: presenter.isLiked(nft: nft)) { [weak self] likedNft in
+            let isLiked = presenter.isLiked(nft: nft)
+            cell.configure(with: nft, isLiked: isLiked) { [weak self] likedNft in
                 self?.presenter.toggleLike(for: likedNft)
                 self?.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
             cell.selectionStyle = .none
             return cell
         }
-    }
-}
-
-// MARK: - MyNftProtocol
-
-extension MyNftViewController: MyNftProtocol {
-    func reloadRow(at index: Int) {
-        let indexPath = IndexPath(row: index, section: 0)
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-    }
-
-    func reloadData() {
-        hideLoadingIndicator()
-        hideShimmer()
-        tableView.reloadData()
-
-        if refreshControl.isRefreshing {
-            refreshControl.endRefreshing()
-        }
-    }
-
-    func endRefreshing() {
-        refreshControl.endRefreshing()
     }
 }
 
@@ -289,13 +259,13 @@ extension MyNftViewController {
     }
 
     private func showShimmer() {
-        isLoading = true
+        presenter.isLoading = true
         shimmerViews = createShimmerViews(count: 5)
         tableView.reloadData()
     }
 
     private func hideShimmer() {
-        isLoading = false
+        presenter.isLoading = false
         shimmerViews.removeAll()
         tableView.reloadData()
     }
@@ -320,5 +290,52 @@ extension MyNftViewController: LoadingView {
 
     func hideLoadingIndicator() {
         hideLoading()
+    }
+}
+
+// MARK: - MyNftProtocol
+
+extension MyNftViewController: MyNftProtocol {
+
+    func cellForRow(at index: Int) -> MyNftCell? {
+        let indexPath = IndexPath(row: index, section: 0)
+        return tableView.cellForRow(at: indexPath) as? MyNftCell
+    }
+
+    func reloadRow(at index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+
+    func reloadData() {
+        if presenter.isLoading {
+            showLoadingIndicator()
+            showShimmer()
+        } else {
+            hideLoadingIndicator()
+            hideShimmer()
+        }
+        
+        tableView.reloadData()
+        
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
+    }
+    
+    func showError(message: String) {
+        let alertController = UIAlertController(title: LocalizationKey.errorTitle.localized(),
+                                                message: message,
+                                                preferredStyle: .alert)
+        let retryAction = UIAlertAction(title: LocalizationKey.errorRepeat.localized(),
+                                        style: .default) { [weak self] _ in
+            self?.presenter.refreshData()
+        }
+        let cancelAction = UIAlertAction(title: LocalizationKey.actionClose.localized(),
+                                         style: .cancel,
+                                         handler: nil)
+        alertController.addAction(retryAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
