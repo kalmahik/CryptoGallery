@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class NFTTableViewCell: UITableViewCell, NFTCellView {
+final class NFTTableViewCell: UITableViewCell, NFTCellViewProtocol {
 
     // MARK: - Private Properties
 
     private let priceTitle = LocalizationKey.price.localized()
 
-    private var presenter: NFTCellPresenter?
+    private var presenter: NFTCellPresenterProtocol?
 
     private lazy var nftImageView: UIImageView = {
         let imageView = UIImageView()
@@ -26,13 +26,13 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = .bold17
-        label.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        label.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height22).isActive = true
         return label
     }()
 
     private lazy var ratingView: UIRating = {
         let ratingView = UIRating(rating: 1)
-        ratingView.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        ratingView.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height12).isActive = true
         return ratingView
     }()
 
@@ -41,14 +41,14 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
         label.text = priceTitle
         label.font = .regular13
         label.textColor = .ypBlack
-        label.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        label.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height18).isActive = true
         return label
     }()
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.font = .bold17
-        label.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        label.heightAnchor.constraint(equalToConstant: UIConstants.Heights.height22).isActive = true
         return label
     }()
 
@@ -64,7 +64,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     private lazy var nameRatingStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nameLabel, ratingView])
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = UIConstants.Spacing.small4
         stackView.alignment = .fill
         return stackView
     }()
@@ -72,7 +72,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     private lazy var priceStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [priceTitleLabel, priceLabel])
         stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.spacing = UIConstants.Spacing.small2
         stackView.alignment = .fill
         return stackView
     }()
@@ -80,7 +80,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nameRatingStackView, priceStackView])
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = UIConstants.Spacing.small12
         stackView.alignment = .fill
         return stackView
     }()
@@ -88,7 +88,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     private lazy var imageAndContentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [nftImageView, contentStackView])
         stackView.axis = .horizontal
-        stackView.spacing = 20
+        stackView.spacing = UIConstants.Spacing.large20
         stackView.alignment = .center
         return stackView
     }()
@@ -96,7 +96,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
     private lazy var mainContentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [imageAndContentStackView, deleteButton])
         stackView.axis = .horizontal
-        stackView.spacing = 100
+        stackView.spacing = UIConstants.Spacing.large100
         stackView.alignment = .center
         return stackView
     }()
@@ -105,6 +105,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = .background
         setupUI()
         setupConstraints()
     }
@@ -116,7 +117,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
 
     // MARK: - Public Methods
 
-    func configure(with nft: NFT) {
+    func configure(with nft: NFTResponse) {
         presenter = NFTCellPresenter(view: self, nft: nft)
         presenter?.loadNFTData()
     }
@@ -131,7 +132,7 @@ final class NFTTableViewCell: UITableViewCell, NFTCellView {
         nameRatingStackView.addArrangedSubview(ratingView)
     }
 
-    func displayNFTPrice(_ price: Double) {
+    func displayNFTPrice(_ price: Float) {
         priceLabel.text = "\(price)"
     }
 
