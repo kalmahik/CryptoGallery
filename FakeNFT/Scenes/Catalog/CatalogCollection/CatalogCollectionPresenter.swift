@@ -26,14 +26,10 @@ protocol CatalogCollectionPresenterModelProtocol: AnyObject {
 final class CatalogCollectionPresenter {
     weak var view: CatalogViewControllerProtocol?
 
-    private var model: CatalogCollectionModelProtocol?
-    private var catalogService: CatalogService
+    private var model: CatalogCollectionModelProtocol
 
-    init(view: CatalogViewControllerProtocol, catalogService: CatalogService) {
-        self.view = view
-        self.catalogService = catalogService
-
-        model = CatalogCollectionModel(presenter: self, catalogService: catalogService)
+    init(model: CatalogCollectionModelProtocol) {
+        self.model = model
     }
 }
 
@@ -41,31 +37,31 @@ final class CatalogCollectionPresenter {
 
 extension CatalogCollectionPresenter: CatalogCollectionPresenterProtocol {
     func viewDidLoad() {
-        model?.fetchCatalog()
+        model.fetchCatalog()
     }
 
     func getCollectionCount() -> Int {
-        model?.getCollectionCount() ?? 0
+        model.getCollectionCount()
     }
 
     func getCollectionCover(_ rowNumber: Int) -> String {
-        model?.getCollectionCover(rowNumber) ?? ""
+        model.getCollectionCover(rowNumber)
     }
 
     func getCollectionName(_ rowNumber: Int) -> String {
-        model?.getCollectionName(rowNumber) ?? ""
+        model.getCollectionName(rowNumber)
     }
 
     func getCollectionQuantityNft(_ rowNumber: Int) -> Int {
-        model?.getCollectionQuantityNft(rowNumber) ?? 0
+        model.getCollectionQuantityNft(rowNumber)
     }
 
     func didSelectSortType(_ typeSorted: CatalogSortType) {
         switch typeSorted {
         case .name:
-            model?.sortedName()
+            model.sortedName()
         case .quantityNft:
-            model?.sortedQuantityNft()
+            model.sortedQuantityNft()
         }
     }
 }
@@ -96,7 +92,7 @@ extension CatalogCollectionPresenter {
             message: errorMessage,
             actionText: LocalizationKey.errorRepeat.localized(),
             action: { [weak self] in
-                self?.model?.fetchCatalog()
+                self?.model.fetchCatalog()
             }
         )
 

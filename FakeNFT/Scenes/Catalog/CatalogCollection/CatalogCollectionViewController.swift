@@ -15,25 +15,11 @@ protocol CatalogViewControllerProtocol: AnyObject {
 
 final class CatalogViewController: UIViewController, ErrorView {
 
-    // MARK: - Public Properties
-
-    let servicesAssembly: ServicesAssembly
-
     // MARK: - Private Properties
 
-    private var presenter: CatalogCollectionPresenterProtocol?
+    private var presenter: CatalogCollectionPresenterProtocol
 
     // MARK: - UI Components
-
-    private lazy var sortedButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        let image = UIImage(named: "light")
-        button.setImage(image, for: .normal)
-        button.tintColor = .ypBlack
-        button.addTarget(self, action: #selector(openSortTypeMenu), for: .touchUpInside)
-        return button
-    }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -54,11 +40,9 @@ final class CatalogViewController: UIViewController, ErrorView {
 
     // MARK: - Initializers
 
-    init(servicesAssembly: ServicesAssembly) {
-        self.servicesAssembly = servicesAssembly
+    init(presenter: CatalogCollectionPresenterProtocol) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
-
-        presenter = CatalogCollectionPresenter(view: self, catalogService: servicesAssembly.catalogService)
     }
 
     @available(*, unavailable)
@@ -73,7 +57,8 @@ final class CatalogViewController: UIViewController, ErrorView {
         view.backgroundColor = .background
 
         setupLayout()
-        presenter?.viewDidLoad()
+        setNavigationItem()
+        presenter.viewDidLoad()
     }
 
     // MARK: - didTapSortTypeMenu
@@ -84,12 +69,12 @@ final class CatalogViewController: UIViewController, ErrorView {
 
         let textLocalizationName = LocalizationKey.sortByName.localized()
         let nameButton = UIAlertAction(title: textLocalizationName, style: .default) { _ in
-            self.presenter?.didSelectSortType(.name)
+            self.presenter.didSelectSortType(.name)
         }
 
         let textLocalizationQuantity = LocalizationKey.sortByQuantity.localized()
         let countButton = UIAlertAction(title: textLocalizationQuantity, style: .default) { _ in
-            self.presenter?.didSelectSortType(.quantityNft)
+            self.presenter.didSelectSortType(.quantityNft)
         }
 
         let textLocalizationClouse = LocalizationKey.close.localized()
@@ -108,12 +93,11 @@ final class CatalogViewController: UIViewController, ErrorView {
 extension CatalogViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.getCollectionCount() ?? 0
+        presenter.getCollectionCount()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CellTableCollectionNFT = tableView.dequeueReusableCell()
-        guard let presenter else { return cell }
         let cover = presenter.getCollectionCover(indexPath.row)
         let name = presenter.getCollectionName(indexPath.row)
         let quantity = presenter.getCollectionQuantityNft(indexPath.row)
@@ -165,17 +149,11 @@ extension CatalogViewController: LoadingView {
 extension CatalogViewController {
 
     private func setupLayout() {
-        view.addSubview(sortedButton)
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
 
         NSLayoutConstraint.activate([
-            sortedButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            sortedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -9),
-            sortedButton.heightAnchor.constraint(equalToConstant: 42),
-            sortedButton.widthAnchor.constraint(equalToConstant: 42),
-
-            tableView.topAnchor.constraint(equalTo: sortedButton.bottomAnchor, constant: 12),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -185,4 +163,14 @@ extension CatalogViewController {
         ])
     }
 
+}
+
+// MARK: - Extension: Navigation Item
+
+extension CatalogViewController {
+    func setNavigationItem() {
+        let sortButton = UIBarButtonItem(image: UIImage(named: "light"), style: .plain, target: self, action: #selector(openSortTypeMenu))
+        sortButton.tintColor = .ypBlack
+        self.navigationItem.rightBarButtonItem = sortButton
+    }
 }

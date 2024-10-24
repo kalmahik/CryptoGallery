@@ -20,14 +20,19 @@ protocol CatalogCollectionModelProtocol: AnyObject {
 final class CatalogCollectionModel: CatalogCollectionModelProtocol {
     weak var presenter: CatalogCollectionPresenterModelProtocol?
 
+    // MARK: - Private Properties
+
     private var collections: [Collection] = []
     private var collectionsSort: [Collection] = []
     private var catalogService: CatalogService
 
-    init(presenter: CatalogCollectionPresenterModelProtocol, catalogService: CatalogService) {
-        self.presenter = presenter
+    // MARK: - Initializers
+
+    init(catalogService: CatalogService) {
         self.catalogService = catalogService
     }
+
+    // MARK: - Public Functions
 
     func fetchCatalog() {
         presenter?.didStartLoadingData()
