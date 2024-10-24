@@ -39,17 +39,19 @@ final class MyNftPresenter {
     // MARK: - Private Properties
 
     private var nftIds: [String] = []
-    private let nftService: MyNftService
-    private let profileService: ProfileService
+    private let repository: MyNftRepository
     private var currentSort: NftRequest.NftSort = .rating
     private var errorLoadAttempts = 0
     private let maxErrorAttempts = 3
 
-    init(nftService: MyNftService, profileService: ProfileService, nftIds: [String]) {
-        self.nftService = nftService
-        self.nftIds = nftIds
-        self.profileService = profileService
+    // MARK: - Init
+
+    init(repository: MyNftRepository, nftIds: [String]) {
+        self.repository = repository
+        self.nftIds = Array(Set(nftIds))
     }
+
+    // MARK: - Lifecycly
 
     func viewDidLoad() {
         if let savedSortType = UserDefaults.standard.loadSortType() {
@@ -58,7 +60,7 @@ final class MyNftPresenter {
             currentSort = .rating
         }
 
-        getProfileDataForLikes()
+        fetchUserLikes()
     }
 }
 
@@ -68,38 +70,17 @@ extension MyNftPresenter: MyNftPresenterProtocol {
 
     func loadNfts(page: Int, size: Int, sort: NftRequest.NftSort) {
         guard !isLoading, !allDataLoaded else { return }
-
         isLoading = true
 
-        nftService.loadNftsByIds(ids: nftIds, page: page, size: size) { [weak self] result in
+        repository.fetchNfts(nftIds: nftIds, page: page, size: size, sort: sort) { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 self.isLoading = false
-
                 switch result {
                 case .success(let newNfts):
-                    self.errorLoadAttempts = 0
-                    if newNfts.isEmpty {
-                        self.allDataLoaded = true
-                    } else {
-                        if page == 1 {
-                            self.nfts = newNfts
-                        } else {
-                            let existingIds = Set(self.nfts.map { $0.id })
-                            let uniqueNewNfts = newNfts.filter { !existingIds.contains($0.id) }
-                            self.nfts.append(contentsOf: uniqueNewNfts)
-                        }
-                        self.sortAllNfts(by: self.currentSort)
-                        self.view?.reloadData()
-                    }
+                    self.handleNewNfts(newNfts, page: page)
                 case .failure(let error):
-                    self.errorLoadAttempts += 1
-                    Logger.shared.error("Ошибка загрузки NFT: \(error.localizedDescription)")
-
-                    if self.errorLoadAttempts >= self.maxErrorAttempts {
-                        self.allDataLoaded = true
-                    }
-                    self.view?.reloadData()
+                    self.handleError(error)
                 }
             }
         }
@@ -136,7 +117,83 @@ extension MyNftPresenter: MyNftPresenterProtocol {
 
         sortAllNfts(by: currentSort)
         view?.reloadData()
-        loadNfts(page: currentPage, size: pageSize, sort: currentSort)
+    }
+}
+
+// MARK: - Like Handler
+
+extension MyNftPresenter {
+
+    func isLiked(nft: NFT) -> Bool {
+        return likedNftIds.contains(nft.id)
+    }
+
+    func toggleLike(for nft: NFT) {
+        if let index = likedNftIds.firstIndex(of: nft.id) {
+            likedNftIds.remove(at: index)
+        } else {
+            likedNftIds.append(nft.id)
+        }
+
+        repository.updateUserLikes(likedNftIds: likedNftIds) { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    NotificationCenter.default.post(
+                        name: .nftLikeStatusChanged,
+                        object: nil,
+                        userInfo: ["nftId": nft.id, "isLiked": self.likedNftIds.contains(nft.id)]
+                    )
+                    if let index = self.nfts.firstIndex(where: { $0.id == nft.id }) {
+                        self.view?.reloadRow(at: index)
+                    }
+                case .failure(let error):
+                    Logger.shared.error("[MyNftPresenter] - Ошибка при обновлении лайков: \(error.localizedDescription)")
+                    self.fetchUserLikes()
+                }
+            }
+        }
+    }
+
+    private func fetchUserLikes() {
+        repository.fetchUserLikes { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let likes):
+                    self.likedNftIds = likes
+                    self.loadNfts(page: self.currentPage, size: self.pageSize, sort: self.currentSort)
+                case .failure(let error):
+                    Logger.shared.error("[MyNftPresenter] - Ошибка получения лайков пользователя: \(error.localizedDescription)")
+                    self.view?.reloadData()
+                }
+            }
+        }
+    }
+
+    private func handleNewNfts(_ newNfts: [NFT], page: Int) {
+        errorLoadAttempts = 0
+        if newNfts.count < pageSize {
+            allDataLoaded = true
+        }
+
+        let existingIds = Set(nfts.map { $0.id })
+        let uniqueNewNfts = newNfts.filter { !existingIds.contains($0.id) }
+        nfts.append(contentsOf: uniqueNewNfts)
+
+        sortAllNfts(by: currentSort)
+        view?.reloadData()
+    }
+
+    private func handleError(_ error: Error) {
+        errorLoadAttempts += 1
+        Logger.shared.error("Ошибка загрузки NFT: \(error.localizedDescription)")
+
+        if errorLoadAttempts >= maxErrorAttempts {
+            allDataLoaded = true
+        }
+        view?.reloadData()
     }
 
     private func sortAllNfts(by sort: NftRequest.NftSort) {
@@ -147,83 +204,6 @@ extension MyNftPresenter: MyNftPresenterProtocol {
             nfts.sort { $0.rating > $1.rating }
         case .name:
             nfts.sort { $0.name.lowercased() < $1.name.lowercased() }
-        }
-        view?.reloadData()
-    }
-}
-
-// MARK: - Like Handler
-
-extension MyNftPresenter {
-
-    func toggleLike(for nft: NFT) {
-        if let index = likedNftIds.firstIndex(of: nft.id) {
-            likedNftIds.remove(at: index)
-
-            let updatedLikes: [String]? = likedNftIds.isEmpty ? nil : likedNftIds
-
-            updateProfileWithLikes(updatedLikes: updatedLikes)
-        } else {
-            likedNftIds.append(nft.id)
-            updateProfileWithLikes(updatedLikes: likedNftIds)
-        }
-
-        NotificationCenter.default.post(
-            name: .nftLikeStatusChanged,
-            object: nil,
-            userInfo: ["nftId": nft.id, "isLiked": likedNftIds.contains(nft.id)]
-        )
-
-        if let index = nfts.firstIndex(where: { $0.id == nft.id }) {
-            view?.reloadRow(at: index)
-        }
-    }
-
-    func isLiked(nft: NFT) -> Bool {
-        let isLiked = likedNftIds.contains(nft.id)
-        return isLiked
-    }
-
-    func updateProfileWithLikes(updatedLikes: [String]?) {
-        profileService.getProfile { [weak self] result in
-            guard let self else { return }
-
-            switch result {
-            case .success(let profile):
-                let likesToSend: Any = (updatedLikes?.isEmpty ?? true) ? "null" : updatedLikes!
-
-                self.profileService.updateProfile(
-                    name: profile.name,
-                    avatar: profile.avatar,
-                    description: profile.description,
-                    website: profile.website,
-                    likes: likesToSend as? [String]
-                ) { updateResult in
-                    switch updateResult {
-                    case .success:
-                        self.view?.reloadData()
-                    case .failure(let error):
-                        Logger.shared.error("[MyNftPresenter] - Ошибка при обновлении профиля: \(error.localizedDescription)")
-                        self.getProfileDataForLikes()
-                        self.view?.reloadData()
-                    }
-                }
-            case .failure(let error):
-                Logger.shared.error("[MyNftPresenter] - Ошибка получения профиля для обновления лайков: \(error.localizedDescription)")
-            }
-        }
-    }
-
-    private func getProfileDataForLikes() {
-        profileService.getProfile { [weak self] result in
-            switch result {
-            case .success(let profile):
-                self?.likedNftIds = profile.likes
-                self?.loadNfts(page: 1, size: 20, sort: self?.currentSort ?? .rating)
-            case .failure(let error):
-                Logger.shared.error("[MyNftPresenter] - Ошибка получения профиля для лайков: \(error.localizedDescription)")
-                self?.view?.reloadData()
-            }
         }
     }
 }

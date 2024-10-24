@@ -37,6 +37,7 @@
 		24683DC52CC92A1E0020A765 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24683DC42CC92A1E0020A765 /* Notification+Extension.swift */; };
 		2471561E2CCA6FBB00D0F62A /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2471561D2CCA6FBB00D0F62A /* ProfileRepository.swift */; };
 		247156202CCA763700D0F62A /* EditProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2471561F2CCA763700D0F62A /* EditProfileRepository.swift */; };
+		247156222CCA78E600D0F62A /* MyNftRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247156212CCA78E600D0F62A /* MyNftRepository.swift */; };
 		2486E9AD2CC0FBCA00E66548 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */; };
 		2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2499527A2CB513C000CB36F8 /* LocalizationKey.swift */; };
 		24CD87CD2CBD875500886559 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CD87CC2CBD875500886559 /* UIConstants.swift */; };
@@ -139,6 +140,7 @@
 		24683DC42CC92A1E0020A765 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		2471561D2CCA6FBB00D0F62A /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
 		2471561F2CCA763700D0F62A /* EditProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileRepository.swift; sourceTree = "<group>"; };
+		247156212CCA78E600D0F62A /* MyNftRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNftRepository.swift; sourceTree = "<group>"; };
 		2486E9AC2CC0FBCA00E66548 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
 		249952792CB512DE00CB36F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2499527A2CB513C000CB36F8 /* LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKey.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			children = (
 				2471561D2CCA6FBB00D0F62A /* ProfileRepository.swift */,
 				2471561F2CCA763700D0F62A /* EditProfileRepository.swift */,
+				247156212CCA78E600D0F62A /* MyNftRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -793,6 +796,7 @@
 				0C79EE612A76DCD600EE90EA /* NftByIdRequest.swift in Sources */,
 				E19CD5AB2A98B56600CA39A5 /* NftImageCollectionViewCell.swift in Sources */,
 				0CF2C2E12A784C7000FDC837 /* LinePageControl.swift in Sources */,
+				247156222CCA78E600D0F62A /* MyNftRepository.swift in Sources */,
 				8406DDCC2CB8EA890014BCE4 /* UIView+Extension.swift in Sources */,
 				2455104A2CC6869800E37E2D /* MyNftStorage.swift in Sources */,
 				F5E6CB9C2CC2C06E00360743 /* NFT.swift in Sources */,

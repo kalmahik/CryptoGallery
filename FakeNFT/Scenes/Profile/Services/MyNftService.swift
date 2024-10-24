@@ -49,16 +49,24 @@ final class MyNftServiceImpl: MyNftService {
     }
 
     func loadNftsByIds(ids: [String], page: Int, size: Int, completion: @escaping (Result<[NFT], Error>) -> Void) {
-        let uniqueIds = Array(Set(ids))
-        let start = (page - 1) * size
-        let end = min(page * size, uniqueIds.count)
+        let uniqueIds = ids
+        let totalIds = uniqueIds.count
+        let totalPages = Int(ceil(Double(totalIds) / Double(size)))
 
-        guard start < end else {
-            completion(.failure(NetworkClientError.parsingError))
+        if page > totalPages || totalIds == 0 {
+            completion(.success([]))
             return
         }
 
-        let idsForPage = Array(uniqueIds[start..<end])
+        let startIndex = (page - 1) * size
+        let endIndex = min(startIndex + size, totalIds)
+
+        guard startIndex < endIndex else {
+            completion(.success([]))
+            return
+        }
+
+        let idsForPage = Array(uniqueIds[startIndex..<endIndex])
         var nfts: [NFT] = []
         let group = DispatchGroup()
 
@@ -76,11 +84,7 @@ final class MyNftServiceImpl: MyNftService {
         }
 
         group.notify(queue: .main) {
-            if nfts.isEmpty {
-                completion(.failure(NetworkClientError.parsingError))
-            } else {
-                completion(.success(nfts))
-            }
+            completion(.success(nfts))
         }
     }
 }
