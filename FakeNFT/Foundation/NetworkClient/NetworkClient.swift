@@ -73,10 +73,10 @@ struct DefaultNetworkClient: NetworkClient {
                 return
             }
 
-            if let data {
+            if let data = data {
                 onResponse(.success(data))
                 return
-            } else if let error {
+            } else if let error = error {
                 onResponse(.failure(NetworkClientError.urlRequestError(error)))
                 return
             } else {
@@ -118,39 +118,23 @@ struct DefaultNetworkClient: NetworkClient {
         var urlRequest = URLRequest(url: endpoint)
         urlRequest.httpMethod = request.httpMethod.rawValue
 
-        urlRequest.setValue(RequestConstants.token, forHTTPHeaderField: "X-Practicum-Mobile-Token")
+        urlRequest.addValue(RequestConstants.token, forHTTPHeaderField: "X-Practicum-Mobile-Token")
+
+        if let dtoDictionary = request.dto?.asDictionary() {
+            var urlComponents = URLComponents()
+            let queryItems = dtoDictionary.map { field in
+                URLQueryItem(
+                    name: field.key,
+                    value: field.value
+                    )
+            }
+            urlComponents.queryItems = queryItems
+            urlRequest.httpBody = urlComponents.query?.data(using: .utf8)
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        }
+
         urlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
-        if let dto = request.dto as? UpdateProfileDto {
-            var queryItems: [URLQueryItem] = []
-
-            if let name = dto.name {
-                queryItems.append(URLQueryItem(name: "name", value: name))
-            }
-            if let avatar = dto.avatar {
-                queryItems.append(URLQueryItem(name: "avatar", value: avatar))
-            }
-            if let description = dto.description {
-                queryItems.append(URLQueryItem(name: "description", value: description))
-            }
-            if let website = dto.website {
-                queryItems.append(URLQueryItem(name: "website", value: website))
-            }
-            if let likes = dto.likes {
-                for like in likes {
-                    queryItems.append(URLQueryItem(name: "likes", value: like))
-                }
-            } else {
-                queryItems.append(URLQueryItem(name: "likes", value: "null"))
-            }
-
-            var urlComponents = URLComponents()
-            urlComponents.queryItems = queryItems
-
-            if let percentEncodedQuery = urlComponents.percentEncodedQuery {
-                urlRequest.httpBody = percentEncodedQuery.data(using: .utf8)
-            }
-        }
         return urlRequest
     }
 

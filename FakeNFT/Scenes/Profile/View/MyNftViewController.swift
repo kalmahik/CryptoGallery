@@ -45,6 +45,12 @@ final class MyNftViewController: UIViewController {
         return tableView
     }()
 
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        return refreshControl
+    }()
+
     // MARK: - Init
 
     init(presenter: MyNftPresenterProtocol) {
@@ -111,9 +117,11 @@ extension MyNftViewController {
         [tableView, placeholderView, activityIndicator].forEach {
             view.setupView($0)
         }
+        [placeholderView, activityIndicator].forEach {
+            $0.constraintCenters(to: view)
+        }
+        tableView.refreshControl = refreshControl
         tableView.constraintEdges(to: view)
-        placeholderView.constraintCenters(to: view)
-        activityIndicator.constraintCenters(to: view)
     }
 }
 
@@ -125,12 +133,7 @@ extension MyNftViewController: UITableViewDelegate {
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.size.height
 
-        guard !presenter.allDataLoaded else {
-            if !presenter.isLoading {
-                presenter.isLoading = true
-            }
-            return
-        }
+        guard !presenter.allDataLoaded else { return }
 
         if offsetY > contentHeight - height - 100, !presenter.isLoading {
             presenter.loadMoreNftsIfNeeded(currentItemIndex: tableView.indexPathsForVisibleRows?.last?.row ?? 0)
@@ -149,6 +152,10 @@ extension MyNftViewController: UITableViewDataSource {
         if isLoading {
             return createShimmerViewCell()
         } else {
+            guard indexPath.row < presenter.nfts.count else {
+                return UITableViewCell()
+            }
+
             let cell: MyNftCell = tableView.dequeueReusableCell()
             let nft = presenter.nfts[indexPath.row]
 
@@ -174,6 +181,14 @@ extension MyNftViewController: MyNftProtocol {
         hideLoadingIndicator()
         hideShimmer()
         tableView.reloadData()
+
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
+    }
+
+    func endRefreshing() {
+        refreshControl.endRefreshing()
     }
 }
 
@@ -188,6 +203,11 @@ extension MyNftViewController {
     @objc
     private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc
+    private func handleRefresh() {
+        presenter.refreshData()
     }
 }
 

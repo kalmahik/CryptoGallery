@@ -35,7 +35,6 @@ enum SectionHeader: CaseIterable {
 
 final class EditProfileViewController: UIViewController {
 
-
     private let presenter: EditProfilePresenterProtocol
 
     // MARK: - Private Properties

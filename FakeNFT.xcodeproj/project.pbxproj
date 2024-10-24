@@ -476,9 +476,9 @@
 			children = (
 				F5E6CB802CC2C06E00360743 /* GlobalFunc.swift */,
 				24683DC42CC92A1E0020A765 /* Notification+Extension.swift */,
-				F5E6CB812CC2C06E00360743 /* Presenter */,
 				F5E6CB842CC2C06E00360743 /* Model */,
 				F5E6CB892CC2C06E00360743 /* View */,
+				F5E6CB812CC2C06E00360743 /* Presenter */,
 				F5E6CB8F2CC2C06E00360743 /* Helpers */,
 				F5E6CB922CC2C06E00360743 /* Services */,
 				F5E6CB962CC2C06E00360743 /* NetworkConstants.swift */,

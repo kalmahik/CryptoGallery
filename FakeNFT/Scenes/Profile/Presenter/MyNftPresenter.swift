@@ -21,6 +21,7 @@ protocol MyNftPresenterProtocol: AnyObject {
     func setSortType(_ sort: NftRequest.NftSort)
     func isLiked(nft: NFT) -> Bool
     func toggleLike(for nft: NFT)
+    func refreshData()
 }
 
 final class MyNftPresenter {
@@ -72,31 +73,46 @@ extension MyNftPresenter: MyNftPresenterProtocol {
 
         nftService.loadNftsByIds(ids: nftIds, page: page, size: size) { [weak self] result in
             guard let self else { return }
-            self.isLoading = false
+            DispatchQueue.main.async {
+                self.isLoading = false
 
-            switch result {
-            case .success(let newNfts):
-                self.errorLoadAttempts = 0
+                switch result {
+                case .success(let newNfts):
+                    self.errorLoadAttempts = 0
+                    if newNfts.isEmpty {
+                        self.allDataLoaded = true
+                    } else {
+                        if page == 1 {
+                            self.nfts = newNfts
+                        } else {
+                            let existingIds = Set(self.nfts.map { $0.id })
+                            let uniqueNewNfts = newNfts.filter { !existingIds.contains($0.id) }
+                            self.nfts.append(contentsOf: uniqueNewNfts)
+                        }
+                        self.sortAllNfts(by: self.currentSort)
+                        self.view?.reloadData()
+                    }
+                case .failure(let error):
+                    self.errorLoadAttempts += 1
+                    Logger.shared.error("Ошибка загрузки NFT: \(error.localizedDescription)")
 
-                if newNfts.isEmpty {
-                    self.allDataLoaded = true
-                } else {
-                    let existingIds = Set(self.nfts.map { $0.id })
-                    let uniqueNewNfts = newNfts.filter { !existingIds.contains($0.id) }
-
-                    self.nfts.append(contentsOf: uniqueNewNfts)
-                    self.sortAllNfts(by: self.currentSort)
+                    if self.errorLoadAttempts >= self.maxErrorAttempts {
+                        self.allDataLoaded = true
+                    }
                     self.view?.reloadData()
-                }
-            case .failure(let error):
-                self.errorLoadAttempts += 1
-                Logger.shared.error("Ошибка загрузки NFT: \(error.localizedDescription)")
-
-                if self.errorLoadAttempts >= self.maxErrorAttempts {
-                    self.allDataLoaded = true
                 }
             }
         }
+    }
+
+    func refreshData() {
+        guard !isLoading else { return }
+
+        allDataLoaded = false
+        currentPage = 1
+        errorLoadAttempts = 0
+
+        loadNfts(page: currentPage, size: pageSize, sort: currentSort)
     }
 
     func loadMoreNftsIfNeeded(currentItemIndex: Int) {
@@ -206,6 +222,7 @@ extension MyNftPresenter {
                 self?.loadNfts(page: 1, size: 20, sort: self?.currentSort ?? .rating)
             case .failure(let error):
                 Logger.shared.error("[MyNftPresenter] - Ошибка получения профиля для лайков: \(error.localizedDescription)")
+                self?.view?.reloadData()
             }
         }
     }
