@@ -29,11 +29,7 @@ final class ProfilePresenter {
     // MARK: - Public Properties
 
     weak var view: ProfileViewControllerProtocol?
-    var cellsItems: [CategoryCell] = [
-        .myNft,
-        .selectedNft,
-        .aboutDev
-    ]
+    var cellsItems: [CategoryCell] = [.myNft, .selectedNft, .aboutDev]
     var myNftValueCount = 0
     var selectedNftValueCount = 0
 
@@ -41,16 +37,16 @@ final class ProfilePresenter {
 
     private let router: ProfileRouterProtocol
     private var profile: Profile?
-    private let profileService: ProfileService
+    private let repository: ProfileRepository
 
     // MARK: - Init
 
     init(
         router: ProfileRouterProtocol,
-        profileService: ProfileService
+        repository: ProfileRepository
     ) {
         self.router = router
-        self.profileService = profileService
+        self.repository = repository
     }
 
     deinit {
@@ -138,7 +134,7 @@ extension ProfilePresenter {
 
 extension ProfilePresenter {
     private func fetchUserProfile() {
-        profileService.getProfile { [weak self] result in
+        repository.fetchUserProfile { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let profile):
