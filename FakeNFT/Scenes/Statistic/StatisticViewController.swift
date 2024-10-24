@@ -25,6 +25,15 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
         return activityIndicator
     }()
     
+    private lazy var filterButton: UIButton = {
+        let button = UIButton(type: .system)
+        let image = UIImage(named: "light")
+        button.setImage(image, for: .normal)
+        button.tintColor = .ypBlack
+        button.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
+        return button
+    }()
+    
     private let refreshControl = UIRefreshControl()
     
     // MARK: - Initializers
@@ -63,6 +72,22 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
     
     @objc func refresh(_ sender: AnyObject) {
         presenter.loadStatistic()
+    }
+    
+    @objc func didTapFilterButton(sender: AnyObject) {
+        let alert = UIAlertController(title: LocalizationKey.sortTitle.localized(), message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: LocalizationKey.sortByNameAlt.localized(), style: .default , handler:{ _ in
+            print("User click Approve button")
+        }))
+        
+        alert.addAction(UIAlertAction(title: LocalizationKey.sortByRating.localized(), style: .default , handler:{ _ in
+            print("User click Edit button")
+        }))
+
+        self.present(alert, animated: true, completion: {
+            print("completion block")
+        })
     }
 }
 
@@ -120,7 +145,7 @@ extension StatisticViewController {
 extension StatisticViewController {
     func setNavigationItem() {
         let imageView = UIImageView(image: UIImage(named: "light"))
-        let item = UIBarButtonItem(customView: imageView)
+        let item = filterButton.toBarButtonItem()
         self.navigationItem.rightBarButtonItem = item
     }
 }

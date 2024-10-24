@@ -9,5 +9,5 @@ import Foundation
 
 enum SortBy {
     case rating
-    case date
+    case name
 }

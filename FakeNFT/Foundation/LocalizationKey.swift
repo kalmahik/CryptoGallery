@@ -50,6 +50,7 @@ enum LocalizationKey: String {
 
     case sortTitle = "Sort.title"
     case sortByName = "Sort.byName"
+    case sortByNameAlt = "Sort.byNameAlt"
     case sortByPrice = "Sort.byPrice"
     case sortByRating = "Sort.byRating"
     case sortByQuantity = "Sort.byQuantity"

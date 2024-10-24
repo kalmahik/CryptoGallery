@@ -45,7 +45,7 @@ final class TabBarController: UITabBarController {
     }
     
     private func createStatisticViewController() -> UINavigationController {
-        let statisticModel = StatisticModel(statisticService: servicesAssembly.statisticService)
+        let statisticModel = StatisticModel(servicesAssembly: servicesAssembly)
         let statisticPresenter = StatisticPresenter(model: statisticModel)
         let statisticView = StatisticViewController(presenter: statisticPresenter)
         statisticPresenter.view = statisticView

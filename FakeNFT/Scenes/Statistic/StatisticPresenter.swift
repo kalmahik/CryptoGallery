@@ -13,7 +13,7 @@ final class StatisticPresenter: StatisticPresenterProtocol {
     private var lastRequestedPage = 0
     private var lastLoadedPage = 0
     private let size = 10
-    private var sortBy: SortBy = .rating
+//    private var sortBy: SortBy = .rating
     private var users: [Statistic] = []
     
     init(model: StatisticModel) {
@@ -29,7 +29,7 @@ final class StatisticPresenter: StatisticPresenterProtocol {
     
     func loadStatistic() {
         view?.startLoading()
-        model.fetchStatistic(page: 0, size: size, sortBy: sortBy) { [weak self] _, current in
+        model.fetchStatistic(page: 0, size: size) { [weak self] _, current in
             self?.users = current
             self?.view?.updateStatistic()
             self?.view?.stopLoading()
@@ -37,8 +37,7 @@ final class StatisticPresenter: StatisticPresenterProtocol {
     }
     
     func loadNextStatistic(indexPath: IndexPath) {
-        if indexPath.row + 1 == model.users.count {
-            
+        if indexPath.row + 1 == model.getStatistics().count {
             let nextPage = lastLoadedPage + 1
             if lastRequestedPage == nextPage {
                 Logger.shared.info("The same page, page=\(nextPage)")
@@ -46,7 +45,7 @@ final class StatisticPresenter: StatisticPresenterProtocol {
             }
             lastRequestedPage = nextPage
             self.view?.startLoading()
-            model.fetchStatistic(page: nextPage, size: size, sortBy: sortBy) { [weak self] all, current in
+            model.fetchStatistic(page: nextPage, size: size) { [weak self] all, current in
                 self?.users = all
                 self?.view?.updateStatistic()
                 if !current.isEmpty {
@@ -62,6 +61,10 @@ final class StatisticPresenter: StatisticPresenterProtocol {
     }
     
     func openProfile(indexPath: IndexPath) {
+        
+    }
+    
+    func applySort(by sortBy: SortBy) {
         
     }
 }

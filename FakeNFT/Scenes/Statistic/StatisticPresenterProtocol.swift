@@ -13,4 +13,5 @@ protocol StatisticPresenterProtocol {
     func loadNextStatistic(indexPath: IndexPath)
     func getUserList() -> [Statistic]
     func openProfile(indexPath: IndexPath)
+    func applySort(by sortBy: SortBy)
 }

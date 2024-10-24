@@ -36,6 +36,7 @@
 
 "Sort.title" = "Сортировка";
 "Sort.byName" = "По названию";
+"Sort.byNameAlt" = "По имени";
 "Sort.byPrice" = "По цене";
 "Sort.byRating" = "По рейтингу";
 "Sort.byQuantity" = "По количеству NFT";

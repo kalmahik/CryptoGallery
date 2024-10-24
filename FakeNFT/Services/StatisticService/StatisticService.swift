@@ -4,13 +4,17 @@ typealias StatisticCompletion = (Result<StatisticResponse, Error>) -> Void
 
 protocol StatisticService {
     func sendStatisticGetRequest(page: Int, size: Int, sortBy: SortBy, completion: @escaping StatisticCompletion)
+    func saveSortBy(sortBy: SortBy)
+    func getSortBy() -> SortBy
 }
 
 final class StatisticNetworkServiceImpl: StatisticService {
     private let networkClient: NetworkClient
-
-    init(networkClient: NetworkClient) {
+    private let storage: StatisticStorage
+    
+    init(networkClient: NetworkClient, storage: StatisticStorage) {
         self.networkClient = networkClient
+        self.storage = storage
     }
 
     func sendStatisticGetRequest(
@@ -29,5 +33,13 @@ final class StatisticNetworkServiceImpl: StatisticService {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func saveSortBy(sortBy: SortBy) {
+        self.storage.saveSortBy(sortBy)
+    }
+    
+    func getSortBy() -> SortBy {
+        self.storage.getSortBy()
     }
 }
