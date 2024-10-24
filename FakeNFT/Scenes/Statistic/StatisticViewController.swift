@@ -30,7 +30,7 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
         let image = UIImage(named: "light")
         button.setImage(image, for: .normal)
         button.tintColor = .ypBlack
-        button.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapSortButton), for: .touchUpInside)
         return button
     }()
     
@@ -74,7 +74,7 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
         presenter.loadStatistic()
     }
     
-    @objc func didTapFilterButton(sender: AnyObject) {
+    @objc func didTapSortButton(sender: AnyObject) {
         let alert = UIAlertController(title: LocalizationKey.sortTitle.localized(), message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: LocalizationKey.sortByNameAlt.localized(), style: .default , handler:{ _ in
@@ -144,8 +144,9 @@ extension StatisticViewController {
 
 extension StatisticViewController {
     func setNavigationItem() {
-        let imageView = UIImageView(image: UIImage(named: "light"))
-        let item = filterButton.toBarButtonItem()
-        self.navigationItem.rightBarButtonItem = item
+        let sortIcon = UIImage(named: "light")
+        let sortButton = UIBarButtonItem(image: sortIcon, style: .plain, target: self, action: #selector(didTapSortButton))
+        navigationItem.rightBarButtonItem = sortButton
+        navigationItem.rightBarButtonItem?.tintColor = .ypBlack
     }
 }
