@@ -85,7 +85,8 @@ extension CollectionNFTViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: NFTCell = collectionView.dequeueReusableCell(indexPath: indexPath)
         let nft = presenter.getNFT(indexPath.row)
-        cell.configureCell(nft)
+        let like = presenter.gerStatusLike(indexPath.row)
+        cell.configureCell(nft, like)
         return cell
     }
 
@@ -165,7 +166,7 @@ extension CollectionNFTViewController {
             collectionNFTs.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            activityIndicator.centerYAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height / 3 * 2)
         ])
     }
 }
@@ -174,7 +175,8 @@ extension CollectionNFTViewController {
 
 extension CollectionNFTViewController {
     func setNavigationItem() {
-        let sortButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(closeUserButtonTapped))
+        let image = UIImage(systemName: "chevron.backward")
+        let sortButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeUserButtonTapped))
         sortButton.tintColor = .ypBlack
         self.navigationItem.leftBarButtonItem = sortButton
     }

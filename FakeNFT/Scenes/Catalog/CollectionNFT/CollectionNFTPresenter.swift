@@ -12,6 +12,7 @@ protocol CollectionNFTPresenterProtocol: AnyObject {
     func getCollection() -> Collection
     func getCountNFTs() -> Int
     func getNFT(_ rowNumber: Int) -> NFT
+    func gerStatusLike(_ rowNumber: Int) -> Bool
 }
 
 protocol CollectionNFTPresenterModelProtocol: AnyObject {
@@ -40,6 +41,7 @@ final class CollectionNFTPresenter {
 extension CollectionNFTPresenter: CollectionNFTPresenterProtocol {
     func viewDidLoad() {
         model.fetchAllNFTs()
+        model.fetchLikes()
     }
 
     func getCollection() -> Collection {
@@ -52,6 +54,10 @@ extension CollectionNFTPresenter: CollectionNFTPresenterProtocol {
 
     func getNFT(_ rowNumber: Int) -> NFT {
         model.getNFT(rowNumber)
+    }
+
+    func gerStatusLike(_ rowNumber: Int) -> Bool {
+        model.getStatusLike(rowNumber)
     }
 }
 

@@ -25,4 +25,8 @@ final class ServicesAssembly {
     var collectionService: NFTService {
         NFTServiceImpl(networkClient: networkClient)
     }
+
+    var likesService: LikesService {
+        LikesServiceImpl(networkClient: networkClient)
+    }
 }

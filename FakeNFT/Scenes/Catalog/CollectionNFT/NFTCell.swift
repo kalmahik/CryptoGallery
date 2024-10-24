@@ -108,10 +108,11 @@ final class NFTCell: UICollectionViewCell, ReuseIdentifying {
 
     // MARK: - Public Functions
 
-    func configureCell(_ nft: NFT) {
+    func configureCell(_ nft: NFT, _ isLiked: Bool) {
         retingNFTStackView.updateRating(nft.rating)
         nftNameLabel.text = nft.name
         priceLabel.text = "\(nft.price) ETH"
+        likeButton.tintColor = isLiked ? .ypRedUniversal : .ypWhiteUniversal
         let URLImage = URL(string: traitCollection.userInterfaceStyle == .dark ? nft.images[1] : nft.images[0])
         imageView.kf.setImage(with: URLImage)
     }

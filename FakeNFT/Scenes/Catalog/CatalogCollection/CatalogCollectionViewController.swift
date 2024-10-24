@@ -116,7 +116,10 @@ extension CatalogViewController: UITableViewDelegate {
 
         let collection: Collection = presenter.getSellectedCollection(indexPath.row)
 
-        let collectionNFTModel = CollectionNFTModel(nftService: servicesAssembly.collectionService, collection: collection)
+        let collectionNFTModel = CollectionNFTModel(
+            nftService: servicesAssembly.collectionService,
+            likesService: servicesAssembly.likesService,
+            collection: collection)
         let collectionNFTPresenter = CollectionNFTPresenter(model: collectionNFTModel)
         let collectionView = CollectionNFTViewController(presenter: collectionNFTPresenter)
         collectionNFTModel.presenter = collectionNFTPresenter
