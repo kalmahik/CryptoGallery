@@ -16,6 +16,8 @@ protocol CollectionNFTPresenterProtocol: AnyObject {
 
 protocol CollectionNFTPresenterModelProtocol: AnyObject {
     func updateData()
+    func didStartLoadingData()
+    func didFinishLoadingData()
 }
 
 final class CollectionNFTPresenter {
@@ -58,5 +60,13 @@ extension CollectionNFTPresenter: CollectionNFTPresenterProtocol {
 extension CollectionNFTPresenter: CollectionNFTPresenterModelProtocol {
     func updateData() {
         view?.reloadCollection()
+    }
+
+    func didStartLoadingData() {
+        view?.showindicator()
+    }
+
+    func didFinishLoadingData() {
+        view?.hideIndicator()
     }
 }

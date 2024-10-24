@@ -35,6 +35,7 @@ final class CollectionNFTModel: CollectionNFTModelProtocol {
     }
 
     func fetchAllNFTs() {
+        presenter?.didStartLoadingData()
         let dispatchGroup = DispatchGroup()
         for id in nftsId {
             dispatchGroup.enter()
@@ -51,6 +52,7 @@ final class CollectionNFTModel: CollectionNFTModelProtocol {
         }
         dispatchGroup.notify(queue: .main) { [weak self] in
             self?.presenter?.updateData()
+            self?.presenter?.didFinishLoadingData()
         }
     }
 
