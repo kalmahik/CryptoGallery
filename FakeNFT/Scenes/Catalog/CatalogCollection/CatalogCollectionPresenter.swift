@@ -14,6 +14,7 @@ protocol CatalogCollectionPresenterProtocol: AnyObject {
     func getCollectionName(_ rowNumber: Int) -> String
     func getCollectionQuantityNft(_ rowNumber: Int) -> Int
     func didSelectSortType(_ typeSorted: CatalogSortType)
+    func getSellectedCollection(_ rowNumber: Int) -> Collection
 }
 
 protocol CatalogCollectionPresenterModelProtocol: AnyObject {
@@ -63,6 +64,9 @@ extension CatalogCollectionPresenter: CatalogCollectionPresenterProtocol {
         case .quantityNft:
             model.sortedQuantityNft()
         }
+    }
+    func getSellectedCollection(_ rowNumber: Int) -> Collection {
+        model.getCollection(rowNumber)
     }
 }
 

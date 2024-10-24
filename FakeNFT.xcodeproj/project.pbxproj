@@ -24,8 +24,8 @@
 		0CFCB74B2A780EA80009A829 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFCB74A2A780EA80009A829 /* UIView+Constraints.swift */; };
 		0CFCB74E2A7817DC0009A829 /* NftStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFCB74D2A7817DC0009A829 /* NftStorage.swift */; };
 		2418A9332CB90D0A00C1D1B5 /* Lyashenko.md in Resources */ = {isa = PBXBuildFile; fileRef = 2418A9322CB90D0A00C1D1B5 /* Lyashenko.md */; };
-		245510522CC7A83900E37E2D /* NftImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245510512CC7A83900E37E2D /* NftImageView.swift */; };
 		245510502CC7A75A00E37E2D /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455104F2CC7A75A00E37E2D /* UserDefaults+Extension.swift */; };
+		245510522CC7A83900E37E2D /* NftImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245510512CC7A83900E37E2D /* NftImageView.swift */; };
 		245510542CC7A91900E37E2D /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245510532CC7A91900E37E2D /* Placeholder.swift */; };
 		2486E9A92CC0FAB900E66548 /* UserProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9A82CC0FAB900E66548 /* UserProfileImageView.swift */; };
 		2486E9AB2CC0FAEB00E66548 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2486E9AA2CC0FAEB00E66548 /* Profile.swift */; };
@@ -68,6 +68,7 @@
 		F71D05DC2CC81B89005458A5 /* CollectionNFTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71D05DB2CC81B89005458A5 /* CollectionNFTModel.swift */; };
 		F71D05DE2CC81B9F005458A5 /* NFTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71D05DD2CC81B9F005458A5 /* NFTCell.swift */; };
 		F71D05E02CC81BB3005458A5 /* NFTHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71D05DF2CC81BB3005458A5 /* NFTHeader.swift */; };
+		F71D05E42CCA2389005458A5 /* NFTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71D05E32CCA2389005458A5 /* NFTService.swift */; };
 		F78BC7D02CBFFB9A00CC7915 /* CatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78BC7CF2CBFFB9A00CC7915 /* CatalogService.swift */; };
 		F78BC7D42CC0015100CC7915 /* CatalodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78BC7D32CC0015100CC7915 /* CatalodRequest.swift */; };
 		F78BC7D62CC0041D00CC7915 /* NFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78BC7D52CC0041D00CC7915 /* NFT.swift */; };
@@ -115,8 +116,8 @@
 		0CFCB74A2A780EA80009A829 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		0CFCB74D2A7817DC0009A829 /* NftStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftStorage.swift; sourceTree = "<group>"; };
 		2418A9322CB90D0A00C1D1B5 /* Lyashenko.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Lyashenko.md; sourceTree = "<group>"; };
-		245510512CC7A83900E37E2D /* NftImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageView.swift; sourceTree = "<group>"; };
 		2455104F2CC7A75A00E37E2D /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		245510512CC7A83900E37E2D /* NftImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NftImageView.swift; sourceTree = "<group>"; };
 		245510532CC7A91900E37E2D /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		2486E9A82CC0FAB900E66548 /* UserProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileImageView.swift; sourceTree = "<group>"; };
 		2486E9AA2CC0FAEB00E66548 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -164,6 +165,7 @@
 		F71D05DB2CC81B89005458A5 /* CollectionNFTModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionNFTModel.swift; sourceTree = "<group>"; };
 		F71D05DD2CC81B9F005458A5 /* NFTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTCell.swift; sourceTree = "<group>"; };
 		F71D05DF2CC81BB3005458A5 /* NFTHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTHeader.swift; sourceTree = "<group>"; };
+		F71D05E32CCA2389005458A5 /* NFTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFTService.swift; sourceTree = "<group>"; };
 		F78BC7CF2CBFFB9A00CC7915 /* CatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogService.swift; sourceTree = "<group>"; };
 		F78BC7D32CC0015100CC7915 /* CatalodRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalodRequest.swift; sourceTree = "<group>"; };
 		F78BC7D52CC0041D00CC7915 /* NFT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFT.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 			children = (
 				F78BC7D22CC000DB00CC7915 /* Requests */,
 				F78BC7CF2CBFFB9A00CC7915 /* CatalogService.swift */,
+				F71D05E32CCA2389005458A5 /* NFTService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -683,6 +686,7 @@
 				3F478ECF29DB474E00F6D39E /* Colors.swift in Sources */,
 				F71D05E02CC81BB3005458A5 /* NFTHeader.swift in Sources */,
 				2499527B2CB513C000CB36F8 /* LocalizationKey.swift in Sources */,
+				F71D05E42CCA2389005458A5 /* NFTService.swift in Sources */,
 				0C79EE662A76DDFF00EE90EA /* NftDetailViewController.swift in Sources */,
 				E1A1B9DA2AA01CE400C3AFBC /* TabBarController.swift in Sources */,
 				F78BC7D62CC0041D00CC7915 /* NFT.swift in Sources */,

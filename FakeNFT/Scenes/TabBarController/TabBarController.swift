@@ -47,7 +47,7 @@ final class TabBarController: UITabBarController {
     private func createCatalogViewController() -> UINavigationController {
         let catalogCollectionModel = CatalogCollectionModel(catalogService: servicesAssembly.catalogService)
         let catalogCollectionPresenter = CatalogCollectionPresenter(model: catalogCollectionModel)
-        let catalogView = CatalogViewController(presenter: catalogCollectionPresenter)
+        let catalogView = CatalogViewController(presenter: catalogCollectionPresenter, servicesAssembly: servicesAssembly)
         catalogCollectionModel.presenter = catalogCollectionPresenter
         catalogCollectionPresenter.view = catalogView
         return catalogView.wrapWithNavigationController()

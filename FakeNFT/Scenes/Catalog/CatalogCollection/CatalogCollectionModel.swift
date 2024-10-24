@@ -15,6 +15,7 @@ protocol CatalogCollectionModelProtocol: AnyObject {
     func getCollectionCover(_ rowNumber: Int) -> String
     func getCollectionName(_ rowNumber: Int) -> String
     func getCollectionQuantityNft(_ rowNumber: Int) -> Int
+    func getCollection(_ rowNumber: Int) -> Collection
 }
 
 final class CatalogCollectionModel: CatalogCollectionModelProtocol {
@@ -75,5 +76,9 @@ final class CatalogCollectionModel: CatalogCollectionModelProtocol {
 
     func getCollectionQuantityNft(_ rowNumber: Int) -> Int {
         collectionsSort[rowNumber].nfts.count
+    }
+
+    func getCollection(_ rowNumber: Int) -> Collection {
+        collectionsSort[rowNumber]
     }
 }

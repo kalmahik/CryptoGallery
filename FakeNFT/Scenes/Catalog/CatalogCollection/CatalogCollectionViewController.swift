@@ -18,6 +18,7 @@ final class CatalogViewController: UIViewController, ErrorView {
     // MARK: - Private Properties
 
     private var presenter: CatalogCollectionPresenterProtocol
+    private var servicesAssembly: ServicesAssembly
 
     // MARK: - UI Components
 
@@ -40,8 +41,9 @@ final class CatalogViewController: UIViewController, ErrorView {
 
     // MARK: - Initializers
 
-    init(presenter: CatalogCollectionPresenterProtocol) {
+    init(presenter: CatalogCollectionPresenterProtocol, servicesAssembly: ServicesAssembly) {
         self.presenter = presenter
+        self.servicesAssembly = servicesAssembly
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -112,9 +114,15 @@ extension CatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let сollectionNFTViewController = CollectionNFTViewController()
-        сollectionNFTViewController.modalPresentationStyle = .fullScreen
-        self.present(сollectionNFTViewController, animated: true)
+        let collection: Collection = presenter.getSellectedCollection(indexPath.row)
+
+        let collectionNFTModel = CollectionNFTModel(nftService: servicesAssembly.collectionService, collection: collection)
+        let collectionNFTPresenter = CollectionNFTPresenter(model: collectionNFTModel)
+        let collectionView = CollectionNFTViewController(presenter: collectionNFTPresenter)
+        collectionNFTModel.presenter = collectionNFTPresenter
+        collectionNFTPresenter.view = collectionView
+
+        navigationController?.pushViewController(collectionView, animated: true)
     }
 }
 

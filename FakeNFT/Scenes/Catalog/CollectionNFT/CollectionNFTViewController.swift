@@ -7,19 +7,16 @@
 
 import UIKit
 
-protocol CollectionNFTViewControllerProtocol {
+protocol CollectionNFTViewControllerProtocol: AnyObject {
 }
 
 final class CollectionNFTViewController: UIViewController {
 
-    lazy var closeButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        button.tintColor = .ypBlack
-        button.addTarget(self, action: #selector(closeUserButtonTapped), for: .touchUpInside)
-        return button
-    }()
+    // MARK: - Private Properties
+
+    private var presenter: CollectionNFTPresenterProtocol
+
+    // MARK: - UI Components
 
     lazy var collectionNFTs: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -36,18 +33,35 @@ final class CollectionNFTViewController: UIViewController {
         return collectionView
     }()
 
+    // MARK: - Initializers
+
+    init(presenter: CollectionNFTPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - View Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
+        setNavigationItem()
         setupUI()
     }
 
     // MARK: - Actions
 
     @objc private func closeUserButtonTapped() {
-        self.dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension CollectionNFTViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -71,6 +85,8 @@ extension CollectionNFTViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension CollectionNFTViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.bounds.width - 16 * 2 - 10 * 2) / 3
@@ -84,7 +100,6 @@ extension CollectionNFTViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = collectionView.bounds.width
-
         let headerView = NFTHeader()
         let height = headerView.calculateHeight(for: width)
 
@@ -92,24 +107,31 @@ extension CollectionNFTViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension CollectionNFTViewController: UICollectionViewDelegate {
+// MARK: - UICollectionViewDelegate
 
+extension CollectionNFTViewController: UICollectionViewDelegate {
 }
+
+// MARK: - CollectionNFTViewControllerProtocol
+
+extension CollectionNFTViewController: CollectionNFTViewControllerProtocol {}
 
 // MARK: - Extension: View Layout
 
 extension CollectionNFTViewController {
     private func setupUI() {
         view.addSubview(collectionNFTs)
-        view.addSubview(closeButton)
 
         collectionNFTs.constraintEdges(to: view)
+    }
+}
 
-        NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 9),
-        closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9),
-        closeButton.heightAnchor.constraint(equalToConstant: 24),
-        closeButton.widthAnchor.constraint(equalToConstant: 24)
-        ])
+// MARK: - Extension: Navigation Item
+
+extension CollectionNFTViewController {
+    func setNavigationItem() {
+        let sortButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(closeUserButtonTapped))
+        sortButton.tintColor = .ypBlack
+        self.navigationItem.leftBarButtonItem = sortButton
     }
 }

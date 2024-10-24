@@ -21,4 +21,8 @@ final class ServicesAssembly {
     var catalogService: CatalogService {
         CatalogServiceImpl(networkClient: networkClient)
     }
+
+    var collectionService: NFTService {
+        NFTServiceImpl(networkClient: networkClient)
+    }
 }
