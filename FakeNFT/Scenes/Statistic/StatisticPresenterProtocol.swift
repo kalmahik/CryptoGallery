@@ -11,5 +11,6 @@ protocol StatisticPresenterProtocol {
     func viewDidLoad()
     func loadStatistic()
     func loadNextStatistic(indexPath: IndexPath)
+    func getUserList() -> [Statistic]
     func openProfile(indexPath: IndexPath)
 }

@@ -8,8 +8,9 @@
 import Foundation
 
 final class StatisticModel {
+    var users: [Statistic] = []
+    var current: [Statistic] = []
     private let statisticService: StatisticService
-    var users: [Users] = []
     
     init(statisticService: StatisticService) {
         self.statisticService = statisticService
@@ -19,7 +20,7 @@ final class StatisticModel {
         page: Int,
         size: Int,
         sortBy: SortBy,
-        completion: @escaping (_ all: [Users], _ current: [Users]) -> Void) {
+        completion: @escaping (_ all: [Statistic], _ current: [Statistic]) -> Void) {
             DispatchQueue.global().async {
                 self.statisticService.sendStatisticGetRequest(
                     page: page,
@@ -31,6 +32,7 @@ final class StatisticModel {
                         DispatchQueue.main.async { [weak self] in
                             guard let self else { return }
                             self.users.append(contentsOf: success)
+                            self.current = success
                             completion(users, success)
                         }
                     case .failure(let error):

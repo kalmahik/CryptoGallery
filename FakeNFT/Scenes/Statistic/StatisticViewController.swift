@@ -2,7 +2,6 @@ import UIKit
 
 final class StatisticViewController: UIViewController, StatisticViewProtocol {
     private var presenter: StatisticPresenterProtocol
-    private var users: [Users] = []
     
     // MARK: - Private Properties
     
@@ -35,6 +34,7 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -48,8 +48,7 @@ final class StatisticViewController: UIViewController, StatisticViewProtocol {
     
     // MARK: - Public Methods
     
-    func updateStatistic(_ users: [Users]) {
-        self.users = users
+    func updateStatistic() {
         tableView.reloadData()
         refreshControl.endRefreshing()
     }
@@ -83,11 +82,11 @@ extension StatisticViewController: UITableViewDelegate {
 
 extension StatisticViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        presenter.getUserList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let statistic = users[indexPath.row]
+        let statistic = presenter.getUserList()[indexPath.row]
         let cell: StatisticCell = tableView.dequeueReusableCell()
         cell.selectionStyle = .none
         cell.setupCell(statistic: statistic, place: indexPath.row + 1)

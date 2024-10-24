@@ -79,7 +79,7 @@ struct DefaultNetworkClient: NetworkClient {
                 onResponse(.success(data))
                 return
             } else if let error {
-                print(error, request, response)
+                Logger.shared.error("[error=\(error)][request=\(request)][response=\(response)]")
                 onResponse(.failure(NetworkClientError.urlRequestError(error)))
                 return
             } else {

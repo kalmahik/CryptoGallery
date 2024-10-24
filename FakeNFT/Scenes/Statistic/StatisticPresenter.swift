@@ -7,13 +7,14 @@
 
 import Foundation
 
-class StatisticPresenter: StatisticPresenterProtocol {
+final class StatisticPresenter: StatisticPresenterProtocol {
     weak var view: StatisticViewProtocol?
-    var model: StatisticModel
-    var lastRequestedPage = 0
-    var lastLoadedPage = 0
-    let size = 10
-    var sortBy: SortBy = .rating
+    private var model: StatisticModel
+    private var lastRequestedPage = 0
+    private var lastLoadedPage = 0
+    private let size = 10
+    private var sortBy: SortBy = .rating
+    private var users: [Statistic] = []
     
     init(model: StatisticModel) {
         self.model = model
@@ -29,7 +30,8 @@ class StatisticPresenter: StatisticPresenterProtocol {
     func loadStatistic() {
         view?.startLoading()
         model.fetchStatistic(page: 0, size: size, sortBy: sortBy) { [weak self] _, current in
-            self?.view?.updateStatistic(current)
+            self?.users = current
+            self?.view?.updateStatistic()
             self?.view?.stopLoading()
         }
     }
@@ -45,13 +47,18 @@ class StatisticPresenter: StatisticPresenterProtocol {
             lastRequestedPage = nextPage
             self.view?.startLoading()
             model.fetchStatistic(page: nextPage, size: size, sortBy: sortBy) { [weak self] all, current in
-                self?.view?.updateStatistic(all)
+                self?.users = all
+                self?.view?.updateStatistic()
                 if !current.isEmpty {
                     self?.lastLoadedPage = nextPage
                 }
                 self?.view?.stopLoading()
             }
         }
+    }
+    
+    func getUserList() -> [Statistic] {
+        self.users
     }
     
     func openProfile(indexPath: IndexPath) {

@@ -11,7 +11,7 @@ protocol StatisticViewProtocol: AnyObject {
     func setupView()
     func setupConstraints()
     func setNavigationItem()
-    func updateStatistic(_ users: [Users])
+    func updateStatistic()
     func startLoading()
     func stopLoading()
 }

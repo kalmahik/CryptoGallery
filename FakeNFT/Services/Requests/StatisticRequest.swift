@@ -32,14 +32,5 @@ struct StatisticDtoObject: Dto {
     }
 }
 
-struct Users: Decodable {
-    let name: String
-    let avatar: String
-    let description: String?
-    let website: String
-    let nfts: [String]
-    let rating: String
-    let id: String
-}
-
-typealias StatisticResponse = [Users]
+typealias StatisticResponse = [Statistic]
+typealias Users = [Statistic]

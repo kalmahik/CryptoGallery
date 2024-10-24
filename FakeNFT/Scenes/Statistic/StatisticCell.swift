@@ -74,17 +74,16 @@ final class StatisticCell: UITableViewCell, ReuseIdentifying {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
         setupConstraints()
-    }
-    
-    // MARK: - Private Methods
+    }    
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
     // MARK: - Public Methods
 
-    func setupCell(statistic: Users, place: Int) {
+    func setupCell(statistic: Statistic, place: Int) {
         placeLabel.text = "\(place)"
         nameLabel.text = statistic.name
         scoreLabel.text = statistic.rating
